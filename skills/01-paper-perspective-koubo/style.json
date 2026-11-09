@@ -1,0 +1,124 @@
+{
+ "id": "01-paper-perspective-koubo",
+ "title": "纸面观点 · 横屏版",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#eeeee6",
+  "bgAlt": "#0d1411",
+  "ink": "#14120e",
+  "inkAlt": "#f2f0e6",
+  "accent": "#0f5c46",
+  "accentOnDark": "#18b89e",
+  "muted": "#6f6d63",
+  "mutedAlt": "#a8a69a",
+  "line": "rgba(20,18,14,.16)",
+  "lineOnDark": "rgba(242,240,230,.18)",
+  "panel": "rgba(255,255,255,.55)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#fbfaf2",
+  "tagBg": "rgba(15,92,70,.10)",
+  "onAccent": "#f7f5ea"
+ },
+ "type": {
+  "titlePx": 0.068,
+  "heroPx": 0.098,
+  "statementPx": 0.082,
+  "bodyPx": 0.035,
+  "quotePx": 0.046,
+  "captionPx": 0.026,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "header",
+  "grid": "paper",
+  "progress": true,
+  "timeStyle": "frames",
+  "label": "纸面观点",
+  "tag": "PAPER"
+ },
+ "person": {
+  "mode": "card",
+  "style": "duotone",
+  "label": "讲述者",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.7823,
+    "cy": 0.5,
+    "w": 0.4593,
+    "h": 0.7852,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.8635,
+    "cy": 0.4148,
+    "w": 0.2481,
+    "h": 0.2481,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.3,
+  "contentY": 0.36,
+  "safe": 0.76
+ },
+ "look": {
+  "titleStyle": "underline",
+  "panelStyle": "paper",
+  "bullet": "number",
+  "radius": 0.012,
+  "underline": true,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "settle",
+  "ease": "out3",
+  "stagger": 0.16
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "chapter",
+  "list",
+  "steps",
+  "grid",
+  "quote",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 5.06,
+  "ink": "#14120e",
+  "paper": "#f2f0e6",
+  "accent": "#0f5c46",
+  "accentDark": "#18b89e",
+  "y": -0.62,
+  "x": 0.334
+ },
+ "measured": {
+  "source": "measure/01.json",
+  "dominant": "card",
+  "caption_cy": 0.81,
+  "alt": []
+ }
+}

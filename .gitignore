@@ -1,0 +1,9 @@
+node_modules/
+__pycache__/
+.DS_Store
+**/stage/fonts/NotoSansSC.ttf
+**/examples/inst-*/
+**/examples/layer-*.mp4
+**/presenter-fit.json
+*.mov
+*.mp4

@@ -1,0 +1,115 @@
+{
+ "id": "03-modern-editorial-koubo",
+ "title": "现代编辑 · 竖屏版",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f6f5f2",
+  "bgAlt": "#12100e",
+  "ink": "#16130f",
+  "inkAlt": "#f6f4ee",
+  "accent": "#1049d8",
+  "accentOnDark": "#4878f0",
+  "muted": "#726b62",
+  "mutedAlt": "#a9a29a",
+  "line": "rgba(22,19,15,.14)",
+  "lineOnDark": "rgba(246,244,238,.16)",
+  "panel": "rgba(0,0,0,.04)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#fffdf8",
+  "tagBg": "rgba(194,69,45,.10)",
+  "onAccent": "#fff8f2"
+ },
+ "type": {
+  "titlePx": 0.075,
+  "heroPx": 0.104,
+  "statementPx": 0.086,
+  "bodyPx": 0.036,
+  "quotePx": 0.05,
+  "captionPx": 0.026,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "none",
+  "progress": false,
+  "timeStyle": "clock"
+ },
+ "person": {
+  "mode": "small",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.833,
+    "cy": 0.156,
+    "w": 0.174,
+    "h": 0.239,
+    "r": 0.004
+   },
+   "small": {
+    "cx": 0.82,
+    "cy": 0.147,
+    "w": 0.206,
+    "h": 0.206,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.255,
+  "heroY": 0.27,
+  "contentY": 0.36,
+  "safe": 0.7
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "outline",
+  "bullet": "dash",
+  "radius": 0.004,
+  "underline": false,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "out3",
+  "stagger": 0.18
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "banner",
+  "reveal",
+  "list",
+  "quote",
+  "compare",
+  "chapter",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#16130f",
+  "paper": "#f6f4ee",
+  "accent": "#1049d8",
+  "accentDark": "#4878f0",
+  "y": -0.48
+ }
+}
