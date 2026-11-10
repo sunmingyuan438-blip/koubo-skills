@@ -1,0 +1,123 @@
+{
+ "id": "24-industry-cars-koubo",
+ "title": "汽车 · 四项持有成本",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#f4f5f6",
+  "bgAlt": "#07090c",
+  "ink": "#101418",
+  "inkAlt": "#e8edf2",
+  "accent": "#30c98c",
+  "accentOnDark": "#3ddc9c",
+  "muted": "#6b7783",
+  "mutedAlt": "#7d8b99",
+  "line": "rgba(16,20,24,.14)",
+  "lineOnDark": "rgba(232,237,242,.14)",
+  "panel": "rgba(10,14,18,.05)",
+  "panelDark": "rgba(255,255,255,.045)",
+  "paper": "#0d1218",
+  "tagBg": "rgba(90,160,221,.14)",
+  "onAccent": "#04121c",
+  "accentOnLight": "#24986a"
+ },
+ "type": {
+  "titlePx": 0.062,
+  "heroPx": 0.088,
+  "statementPx": 0.07,
+  "bodyPx": 0.032,
+  "quotePx": 0.04,
+  "captionPx": 0.024,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "footer",
+  "grid": "none",
+  "progress": true,
+  "timeStyle": "clock",
+  "label": "汽车",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "车主",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.5,
+    "cy": 0.7295,
+    "w": 0.2625,
+    "h": 0.42,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.5,
+    "cy": 0.6778,
+    "w": 0.2363,
+    "h": 0.2363,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.843
+ },
+ "look": {
+  "titleStyle": "boxed",
+  "panelStyle": "solid",
+  "bullet": "number",
+  "radius": 0.006,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "linear",
+  "stagger": 0.14
+ },
+ "controls": [
+  "opener",
+  "counter",
+  "list",
+  "compare",
+  "grid",
+  "statement",
+  "bars",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#101418",
+  "paper": "#e8edf2",
+  "accent": "#24986a",
+  "accentDark": "#3ddc9c",
+  "y": -0.785
+ },
+ "measured": {
+  "source": "measure/24.json",
+  "dominant": "card",
+  "caption_cy": 0.74,
+  "alt": []
+ }
+}

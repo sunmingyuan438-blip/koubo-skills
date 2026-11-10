@@ -1,0 +1,117 @@
+{
+ "id": "22-industry-work-koubo",
+ "title": "工作 · 三行周报",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#f4f5f6",
+  "bgAlt": "#07090c",
+  "ink": "#101418",
+  "inkAlt": "#e8edf2",
+  "accent": "#2f66e8",
+  "accentOnDark": "#5f8ff5",
+  "muted": "#6b7783",
+  "mutedAlt": "#7d8b99",
+  "line": "rgba(16,20,24,.14)",
+  "lineOnDark": "rgba(232,237,242,.14)",
+  "panel": "rgba(10,14,18,.05)",
+  "panelDark": "rgba(255,255,255,.045)",
+  "paper": "#0d1218",
+  "tagBg": "rgba(90,160,221,.14)",
+  "onAccent": "#04121c"
+ },
+ "type": {
+  "titlePx": 0.062,
+  "heroPx": 0.088,
+  "statementPx": 0.07,
+  "bodyPx": 0.032,
+  "quotePx": 0.04,
+  "captionPx": 0.024,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "header",
+  "grid": "hairline",
+  "progress": true,
+  "timeStyle": "frames",
+  "label": "工作",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "主讲",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.5,
+    "cy": 0.23,
+    "w": 0.46,
+    "h": 0.356,
+    "r": 0.025
+   },
+   "small": {
+    "cx": 0.5,
+    "cy": 0.17,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.4,
+  "heroY": 0.42,
+  "contentY": 0.46,
+  "safe": 0.7
+ },
+ "look": {
+  "titleStyle": "tagged",
+  "panelStyle": "paper",
+  "bullet": "number",
+  "radius": 0.012,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "wipe",
+  "ease": "out3",
+  "stagger": 0.12
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "banner",
+  "reveal",
+  "list",
+  "chapter",
+  "counter",
+  "imageSlot",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#101418",
+  "paper": "#e8edf2",
+  "accent": "#2f66e8",
+  "accentDark": "#5f8ff5",
+  "y": -0.48
+ }
+}

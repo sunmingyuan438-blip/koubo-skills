@@ -1,0 +1,123 @@
+{
+ "id": "23-industry-tech-koubo",
+ "title": "科技 · 换机还是再等等",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#f2f2f2",
+  "bgAlt": "#050607",
+  "ink": "#0a0c0e",
+  "inkAlt": "#f7f9fa",
+  "accent": "#4a90e0",
+  "accentOnDark": "#5ea4f5",
+  "muted": "#6d7378",
+  "mutedAlt": "#8d969c",
+  "line": "rgba(10,12,14,.14)",
+  "lineOnDark": "rgba(247,249,250,.16)",
+  "panel": "rgba(10,12,14,.06)",
+  "panelDark": "rgba(255,255,255,.05)",
+  "paper": "#0a0c0e",
+  "tagBg": "rgba(216,255,62,.16)",
+  "onAccent": "#0a0c0e",
+  "accentOnLight": "#3d88de"
+ },
+ "type": {
+  "titlePx": 0.11,
+  "heroPx": 0.145,
+  "statementPx": 0.125,
+  "bodyPx": 0.042,
+  "quotePx": 0.062,
+  "captionPx": 0.03,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "hairline",
+  "progress": false,
+  "timeStyle": "frames",
+  "label": "科技",
+  "tag": ""
+ },
+ "person": {
+  "mode": "small",
+  "style": "glow",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.1719,
+    "cy": 0.2601,
+    "w": 0.2276,
+    "h": 0.3186,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.1719,
+    "cy": 0.2345,
+    "w": 0.2276,
+    "h": 0.2276,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.69
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "outline",
+  "bullet": "dash",
+  "radius": 0.004,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "pop",
+  "ease": "out3",
+  "stagger": 0.1
+ },
+ "controls": [
+  "opener",
+  "compare",
+  "counter",
+  "grid",
+  "list",
+  "statement",
+  "bars",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#0a0c0e",
+  "paper": "#f7f9fa",
+  "accent": "#3d88de",
+  "accentDark": "#5ea4f5",
+  "y": -0.48
+ },
+ "measured": {
+  "source": "measure/23.json",
+  "dominant": "small",
+  "caption_cy": 0.74,
+  "alt": []
+ }
+}

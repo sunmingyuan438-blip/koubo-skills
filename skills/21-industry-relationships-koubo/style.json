@@ -1,0 +1,130 @@
+{
+ "id": "21-industry-relationships-koubo",
+ "title": "关系 · 一场对话复盘",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#efeae2",
+  "bgAlt": "#0b0a0d",
+  "ink": "#141216",
+  "inkAlt": "#f3eee6",
+  "accent": "#d95d78",
+  "accentOnDark": "#ef7d96",
+  "muted": "#6b6670",
+  "mutedAlt": "#9d97a2",
+  "line": "rgba(20,18,22,.16)",
+  "lineOnDark": "rgba(243,238,230,.14)",
+  "panel": "rgba(20,18,22,.05)",
+  "panelDark": "rgba(255,255,255,.05)",
+  "paper": "#0f0e12",
+  "tagBg": "rgba(217,192,114,.16)",
+  "onAccent": "#14120f"
+ },
+ "type": {
+  "titlePx": 0.078,
+  "heroPx": 0.106,
+  "statementPx": 0.088,
+  "bodyPx": 0.036,
+  "quotePx": 0.052,
+  "captionPx": 0.026,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "gradient",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "关系",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "glow",
+  "label": "复盘",
+  "modes": [
+   "card",
+   "small",
+   "split",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.426,
+    "cy": 0.2904,
+    "w": 0.2698,
+    "h": 0.4179,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.426,
+    "cy": 0.2404,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   },
+   "split": {
+    "cx": 0.5,
+    "cy": 0.27,
+    "w": 0.864,
+    "h": 0.7111,
+    "r": 0.014
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.72
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "glass",
+  "bullet": "dash",
+  "radius": 0.024,
+  "underline": true,
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "inout",
+  "stagger": 0.18
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "quote",
+  "compare",
+  "chapter",
+  "list",
+  "split",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#141216",
+  "paper": "#f3eee6",
+  "accent": "#d95d78",
+  "accentDark": "#ef7d96",
+  "y": -0.54
+ },
+ "measured": {
+  "source": "measure/21.json",
+  "dominant": "card",
+  "caption_cy": 0.77,
+  "alt": []
+ }
+}
