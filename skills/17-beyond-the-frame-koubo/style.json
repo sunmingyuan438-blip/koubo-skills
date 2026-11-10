@@ -1,0 +1,123 @@
+{
+ "id": "17-beyond-the-frame-koubo",
+ "title": "越界 · 3:4",
+ "canvas": [
+  1440,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f6f5f2",
+  "bgAlt": "#12100e",
+  "ink": "#16130f",
+  "inkAlt": "#f6f4ee",
+  "accent": "#1f6ae0",
+  "accentOnDark": "#5c96ef",
+  "muted": "#726b62",
+  "mutedAlt": "#a9a29a",
+  "line": "rgba(22,19,15,.14)",
+  "lineOnDark": "rgba(246,244,238,.16)",
+  "panel": "rgba(0,0,0,.04)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#fffdf8",
+  "tagBg": "rgba(194,69,45,.10)",
+  "onAccent": "#fff8f2"
+ },
+ "type": {
+  "titlePx": 0.075,
+  "heroPx": 0.104,
+  "statementPx": 0.086,
+  "bodyPx": 0.036,
+  "quotePx": 0.05,
+  "captionPx": 0.026,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "none",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "BEYOND",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.7667,
+    "cy": 0.5709,
+    "w": 0.3,
+    "h": 0.4989,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.7667,
+    "cy": 0.3796,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.81
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "outline",
+  "bullet": "dash",
+  "radius": 0.004,
+  "underline": true,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "out3",
+  "stagger": 0.18
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "grid",
+  "quote",
+  "compare",
+  "chapter",
+  "imageSlot",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#16130f",
+  "paper": "#f6f4ee",
+  "accent": "#1f6ae0",
+  "accentDark": "#5c96ef",
+  "y": -0.72
+ },
+ "measured": {
+  "source": "measure/17.json",
+  "dominant": "card",
+  "caption_cy": 0.86,
+  "alt": []
+ }
+}

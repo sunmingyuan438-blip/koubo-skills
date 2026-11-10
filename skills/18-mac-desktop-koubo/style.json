@@ -1,0 +1,123 @@
+{
+ "id": "18-mac-desktop-koubo",
+ "title": "桌面 · 4:3",
+ "canvas": [
+  1440,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#f4f5f6",
+  "bgAlt": "#0f1116",
+  "ink": "#101418",
+  "inkAlt": "#e8edf2",
+  "accent": "#6f8ad6",
+  "accentOnDark": "#95aef0",
+  "muted": "#6b7783",
+  "mutedAlt": "#7d8b99",
+  "line": "rgba(16,20,24,.14)",
+  "lineOnDark": "rgba(232,237,242,.14)",
+  "panel": "rgba(10,14,18,.05)",
+  "panelDark": "rgba(255,255,255,.045)",
+  "paper": "#0d1218",
+  "tagBg": "rgba(90,160,221,.14)",
+  "onAccent": "#04121c"
+ },
+ "type": {
+  "titlePx": 0.062,
+  "heroPx": 0.088,
+  "statementPx": 0.07,
+  "bodyPx": 0.032,
+  "quotePx": 0.04,
+  "captionPx": 0.024,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "footer",
+  "grid": "none",
+  "progress": false,
+  "timeStyle": "frames",
+  "label": "FINDER",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "LIVE",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.7771,
+    "cy": 0.593,
+    "w": 0.4306,
+    "h": 0.7639,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.7771,
+    "cy": 0.3574,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.3,
+  "contentY": 0.36,
+  "safe": 0.83
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "window",
+  "bullet": "dot",
+  "radius": 0.01,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "wipe",
+  "ease": "out3",
+  "stagger": 0.14
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "grid",
+  "list",
+  "counter",
+  "imageSlot",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 6.75,
+  "ink": "#101418",
+  "paper": "#e8edf2",
+  "accent": "#6f8ad6",
+  "accentDark": "#95aef0",
+  "y": -0.76,
+  "x": 0.321
+ },
+ "measured": {
+  "source": "measure/18.json",
+  "dominant": "card",
+  "caption_cy": 0.88,
+  "alt": []
+ }
+}
