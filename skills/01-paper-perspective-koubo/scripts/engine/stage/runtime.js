@@ -924,6 +924,53 @@
     };
   };
 
+  // ---------- 构图（compose）：内容块整体放大并在可用区内纵向居中 ----------
+  // 控件各自按「顶部锚定」排版，内容少时下半屏会空。这里在终态量出内容块外框，
+  // 以外框左上角为原点等比放大（上限 layout.composeMax，默认 1.3），再在 [原顶边, SAFE] 内按 42% 视觉重心下移。
+  // 候选从大到小试：放大后任何元素碰到人物框 / HUD / 版心右界 / 字幕安全线就降一档，全不行则保持原样。
+  // 只依赖终态几何，与 t 无关：renderAt 仍是 t 与 DATA 的纯函数。
+  function compose(content, root, mode) {
+    const stage = $('stage'), sr = stage.getBoundingClientRect();
+    [...content.querySelectorAll('.foot')].forEach(f => root.appendChild(f));   // 页脚固定在安全线下，不参与构图
+    const rects = [];
+    const push = b => { if (b.width > 0.5 && b.height > 0.5) rects.push({ l: b.left - sr.left, t: b.top - sr.top, r: b.right - sr.left, b: b.bottom - sr.top }); };
+    content.querySelectorAll('*').forEach(e => {
+      if (e.closest('.qmark')) return;
+      const cs = getComputedStyle(e);
+      if (cs.display === 'none' || cs.visibility === 'hidden') return;
+      const tag = e.tagName.toLowerCase();
+      if ([...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) {
+        const rg = document.createRange(); rg.selectNodeContents(e); [...rg.getClientRects()].forEach(push);
+      } else if (tag === 'img' || tag === 'svg' || tag === 'canvas' || cs.backgroundImage !== 'none'
+        || !/rgba\(0, 0, 0, 0\)|transparent/.test(cs.backgroundColor) || parseFloat(cs.borderTopWidth) > 0) {
+        if (!e.closest('svg') || tag === 'svg') push(e.getBoundingClientRect());
+      }
+    });
+    if (!rects.length) return;
+    const B = { l: Math.min(...rects.map(q => q.l)), t: Math.min(...rects.map(q => q.t)), r: Math.max(...rects.map(q => q.r)), b: Math.max(...rects.map(q => q.b)) };
+    const bw = B.r - B.l, bh = B.b - B.t, room = SAFE - B.t;
+    if (bw < 1 || bh < 1 || B.b > SAFE) return;
+    const hit = (a, o) => Math.min(a.r, o.r) - Math.max(a.l, o.l) > 1 && Math.min(a.b, o.b) - Math.max(a.t, o.t) > 1;
+    const pad = R(0.028, MIN), g = frameGeo(mode);
+    let obs = [];
+    if (g) obs.push({ l: g.x - pad, t: g.y - pad, r: g.x + g.w + pad, b: g.y + g.h + pad });
+    root.querySelectorAll('.hud').forEach(h => { const b = h.getBoundingClientRect(); if (b.width > 0.5 && b.height > 0.5) obs.push({ l: b.left - sr.left, t: b.top - sr.top, r: b.right - sr.left, b: b.bottom - sr.top }); });
+    obs = obs.filter(o => !rects.some(q => hit(q, o)));   // 原样就相交的（控件自己安排的贴靠）不算障碍
+    const K = LY.composeY ?? 0.42;
+    const smax = Math.max(1, Math.min(LY.compose === 'center' ? 1 : (LY.composeMax ?? 1.3), (RT - B.l) / bw, room * 0.9 / bh));
+    for (let s = smax; s >= 1 - 1e-6; s = s > 1 ? Math.max(1, s - 0.05) : 0) {
+      const slack = room - bh * s;
+      for (const ty of [slack * K, slack * K * 0.5, 0]) {
+        const tr = q => ({ l: B.l + (q.l - B.l) * s, r: B.l + (q.r - B.l) * s, t: B.t + (q.t - B.t) * s + ty, b: B.t + (q.b - B.t) * s + ty });
+        if (rects.some(q => { const z = tr(q); return z.r > RT + 1 || z.b > SAFE + 1 || obs.some(o => hit(z, o)); })) continue;
+        if (s === 1 && ty === 0) return;
+        content.style.transformOrigin = `${B.l}px ${B.t}px`;
+        content.style.transform = `translateY(${Math.round(ty)}px) scale(${s.toFixed(4)})`;
+        return;
+      }
+    }
+  }
+
   // ---------- 装配 ----------
   // 入场时长：镜头的 72%，且不超过 2.4s（长镜头不再把入场拖满整镜）
   const ENTER_MAX = MO.enterMax ?? 2.4;
@@ -957,8 +1004,13 @@
     const u = clamp(local / Math.max(dur, .001));
     const ue = clamp(local / Math.max(.001, Math.min(dur * 0.72, ENTER_MAX)));
     hud(root, ctx, theme)(ue);
-    const draw = ctrl(root, sh.props || {}, ctx);
-    if (draw) draw(ue);
+    // 控件画在 content 包裹层里：先按终态（u=1）量出内容块，再整体放大 / 纵向居中（compose），最后按当前时刻绘制
+    const content = el(root, 'abs content', { left: '0', top: '0', width: '100%', height: '100%' });
+    const draw = ctrl(content, sh.props || {}, ctx);
+    if (draw) {
+      if ((LY.compose ?? 'fill') !== 'off' && sh.control !== 'split') { draw(1); compose(content, root, sh.presenter || 'none'); }
+      draw(ue);
+    }
     // 收尾淡出（最后 0.18s）
     if (dur - local < 0.18) root.style.opacity = clamp((dur - local) / 0.18);
     void u;
