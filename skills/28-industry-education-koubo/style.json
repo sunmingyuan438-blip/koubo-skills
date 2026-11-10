@@ -1,0 +1,121 @@
+{
+ "id": "28-industry-education-koubo",
+ "title": "教培 · 三套方案",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f5f1e6",
+  "bgAlt": "#0d1411",
+  "ink": "#1d1a14",
+  "inkAlt": "#f2f0e6",
+  "accent": "#c07c1c",
+  "accentOnDark": "#f0a83e",
+  "muted": "#6f6d63",
+  "mutedAlt": "#a8a69a",
+  "line": "rgba(20,18,14,.16)",
+  "lineOnDark": "rgba(242,240,230,.18)",
+  "panel": "rgba(255,255,255,.55)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#fbfaf2",
+  "tagBg": "rgba(217,144,42,.12)",
+  "onAccent": "#1d1a14"
+ },
+ "type": {
+  "titlePx": 0.068,
+  "heroPx": 0.098,
+  "statementPx": 0.082,
+  "bodyPx": 0.035,
+  "quotePx": 0.046,
+  "captionPx": 0.026,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "none",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "教培",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.851,
+    "cy": 0.1674,
+    "w": 0.2292,
+    "h": 0.5064,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.851,
+    "cy": 0.083,
+    "w": 0.2063,
+    "h": 0.2063,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.72
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "outline",
+  "bullet": "number",
+  "radius": 0.01,
+  "underline": true,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "out3",
+  "stagger": 0.18
+ },
+ "controls": [
+  "opener",
+  "chapter",
+  "compare",
+  "grid",
+  "steps",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#1d1a14",
+  "paper": "#f2f0e6",
+  "accent": "#c07c1c",
+  "accentDark": "#f0a83e",
+  "y": -0.54
+ },
+ "measured": {
+  "source": "measure/28.json",
+  "dominant": "card",
+  "caption_cy": 0.77,
+  "alt": []
+ }
+}
