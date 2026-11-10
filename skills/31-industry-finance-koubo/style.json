@@ -1,0 +1,121 @@
+{
+ "id": "31-industry-finance-koubo",
+ "title": "金融 · 三本账",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#f3f1ea",
+  "bgAlt": "#0b0a0d",
+  "ink": "#141216",
+  "inkAlt": "#f3eee6",
+  "accent": "#a07a16",
+  "accentOnDark": "#d9b444",
+  "muted": "#6b6670",
+  "mutedAlt": "#9d97a2",
+  "line": "rgba(20,18,22,.16)",
+  "lineOnDark": "rgba(243,238,230,.14)",
+  "panel": "rgba(20,18,22,.05)",
+  "panelDark": "rgba(255,255,255,.05)",
+  "paper": "#0f0e12",
+  "tagBg": "rgba(184,144,30,.12)",
+  "onAccent": "#14120f"
+ },
+ "type": {
+  "titlePx": 0.078,
+  "heroPx": 0.106,
+  "statementPx": 0.088,
+  "bodyPx": 0.036,
+  "quotePx": 0.052,
+  "captionPx": 0.026,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "header",
+  "grid": "hairline",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "金融",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "duotone",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.1625,
+    "cy": 0.6676,
+    "w": 0.2521,
+    "h": 0.2793,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.1625,
+    "cy": 0.6653,
+    "w": 0.2542,
+    "h": 0.2542,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.741
+ },
+ "look": {
+  "titleStyle": "boxed",
+  "panelStyle": "outline",
+  "bullet": "dash",
+  "radius": 0.002,
+  "underline": false,
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "settle",
+  "ease": "out3",
+  "stagger": 0.14
+ },
+ "controls": [
+  "opener",
+  "compare",
+  "counter",
+  "list",
+  "statement",
+  "bars",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#141216",
+  "paper": "#f3eee6",
+  "accent": "#a07a16",
+  "accentDark": "#d9b444",
+  "y": -0.582
+ },
+ "measured": {
+  "source": "measure/31.json",
+  "dominant": "card",
+  "caption_cy": 0.77,
+  "alt": []
+ }
+}

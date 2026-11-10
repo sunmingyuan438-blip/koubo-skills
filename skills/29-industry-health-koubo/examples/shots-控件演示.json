@@ -1,0 +1,73 @@
+{
+ "section": "健康 · 读懂化验单 · 按口播逐句排版（渣男测试）",
+ "duration": 19.3,
+ "presenterDefault": "card",
+ "cues": "cues.json",
+ "shots": [
+  {
+   "control": "opener",
+   "theme": "dark",
+   "presenter": "card",
+   "t0": 0,
+   "props": {
+    "kicker": "TEST · 01",
+    "line1": "渣男检测",
+    "line2": "只有*两个问题*",
+    "sub": "一道只有两问的测试题"
+   }
+  },
+  {
+   "control": "statement",
+   "theme": "light",
+   "presenter": "small",
+   "t0": 6.0,
+   "props": {
+    "kicker": "QUERY",
+    "text": "怎么*测试*？"
+   }
+  },
+  {
+   "control": "list",
+   "theme": "dark",
+   "presenter": "card",
+   "t0": 8.1,
+   "props": {
+    "kicker": "METHOD",
+    "title": "测试方法",
+    "items": [
+     "摸一下他的鼻息",
+     "看他还在不在*呼吸*",
+     "得出结论"
+    ]
+   }
+  },
+  {
+   "control": "counter",
+   "theme": "dark",
+   "presenter": "none",
+   "t0": 11.15,
+   "props": {
+    "kicker": "RESULT",
+    "title": "检测结果",
+    "label": "渣男概率",
+    "value": 100,
+    "unit": "%",
+    "note": "还在呼吸，*绝对就是渣男*"
+   }
+  },
+  {
+   "control": "reveal",
+   "theme": "dark",
+   "presenter": "card",
+   "t0": 13.6,
+   "props": {
+    "q1": "男人什么时候",
+    "q2": "才会*老实*",
+    "label": "ANSWER",
+    "line": "只有一种情况",
+    "sub": "段子，仅供娱乐",
+    "word": "挂墙上"
+   }
+  }
+ ]
+}
