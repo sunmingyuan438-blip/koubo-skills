@@ -1,0 +1,122 @@
+{
+ "id": "05-vibrant-poster-koubo",
+ "title": "鲜活海报 · 竖屏版",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f7f1e6",
+  "bgAlt": "#141018",
+  "ink": "#171219",
+  "inkAlt": "#fdf7ee",
+  "accent": "#e8342c",
+  "accentOnDark": "#ff6a5f",
+  "muted": "#7b7280",
+  "mutedAlt": "#b1a8b8",
+  "line": "rgba(23,18,25,.16)",
+  "lineOnDark": "rgba(253,247,238,.18)",
+  "panel": "rgba(232,52,44,.09)",
+  "panelDark": "rgba(255,255,255,.07)",
+  "paper": "#fffaf0",
+  "tagBg": "rgba(232,52,44,.12)",
+  "onAccent": "#fff8ee"
+ },
+ "type": {
+  "titlePx": 0.092,
+  "heroPx": 0.128,
+  "statementPx": 0.108,
+  "bodyPx": 0.039,
+  "quotePx": 0.056,
+  "captionPx": 0.028,
+  "titleFamily": "KB Condensed",
+  "monoFamily": "KB Condensed",
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "footer",
+  "grid": "none",
+  "progress": false,
+  "timeStyle": "clock"
+ },
+ "person": {
+  "mode": "small",
+  "style": "solid",
+  "label": "主讲",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.7729,
+    "cy": 0.6764,
+    "w": 0.3,
+    "h": 0.3302,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.7865,
+    "cy": 0.6741,
+    "w": 0.2214,
+    "h": 0.2214,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.75
+ },
+ "look": {
+  "titleStyle": "boxed",
+  "panelStyle": "solid",
+  "bullet": "number",
+  "radius": 0.006,
+  "underline": false,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "pop",
+  "ease": "out3",
+  "stagger": 0.12
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "grid",
+  "list",
+  "chapter",
+  "compare",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#171219",
+  "paper": "#fdf7ee",
+  "accent": "#e8342c",
+  "accentDark": "#ff6a5f",
+  "y": -0.6
+ },
+ "measured": {
+  "source": "measure/05.json",
+  "dominant": "small",
+  "caption_cy": 0.8,
+  "alt": []
+ }
+}

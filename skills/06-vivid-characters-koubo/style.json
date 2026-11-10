@@ -1,0 +1,129 @@
+{
+ "id": "06-vivid-characters-koubo",
+ "title": "鲜活角色 · 竖屏版",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#f4efe6",
+  "bgAlt": "#141018",
+  "ink": "#1a1620",
+  "inkAlt": "#f7f1e8",
+  "accent": "#f0a23c",
+  "accentOnDark": "#ffbe63",
+  "muted": "#6f6878",
+  "mutedAlt": "#a79fb0",
+  "line": "rgba(26,22,32,.14)",
+  "lineOnDark": "rgba(247,241,232,.16)",
+  "panel": "rgba(26,22,32,.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#1a1620",
+  "tagBg": "rgba(240,162,60,.16)",
+  "onAccent": "#1a1620",
+  "accentOnLight": "#bd710f"
+ },
+ "type": {
+  "titlePx": 0.08,
+  "heroPx": 0.108,
+  "statementPx": 0.09,
+  "bodyPx": 0.037,
+  "quotePx": 0.052,
+  "captionPx": 0.027,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "dot",
+  "progress": true,
+  "timeStyle": "frames"
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "角色",
+  "modes": [
+   "card",
+   "small",
+   "split",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.8094,
+    "cy": 0.1618,
+    "w": 0.1771,
+    "h": 0.2647,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.8089,
+    "cy": 0.1753,
+    "w": 0.2891,
+    "h": 0.2891,
+    "r": 0.5
+   },
+   "split": {
+    "cx": 0.5,
+    "cy": 0.27,
+    "w": 0.864,
+    "h": 0.7111,
+    "r": 0.014
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.78
+ },
+ "look": {
+  "titleStyle": "boxed",
+  "panelStyle": "glass",
+  "bullet": "check",
+  "radius": 0.02,
+  "underline": false,
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "flip",
+  "ease": "inout",
+  "stagger": 0.18
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "grid",
+  "steps",
+  "quote",
+  "chapter",
+  "split",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#1a1620",
+  "paper": "#f7f1e8",
+  "accent": "#bd710f",
+  "accentDark": "#ffbe63",
+  "y": -0.66
+ },
+ "measured": {
+  "source": "measure/06.json",
+  "dominant": "card",
+  "caption_cy": 0.83,
+  "alt": []
+ }
+}
