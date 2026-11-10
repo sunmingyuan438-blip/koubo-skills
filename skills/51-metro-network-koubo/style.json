@@ -1,0 +1,126 @@
+{
+ "id": "51-metro-network-koubo",
+ "title": "地铁线网 · 知识讲解",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f1efe8",
+  "bgAlt": "#121315",
+  "ink": "#1c1c1c",
+  "inkAlt": "#f1efe8",
+  "accent": "#c8102e",
+  "accentOnDark": "#ff4d63",
+  "muted": "#757572",
+  "mutedAlt": "#9c9b98",
+  "line": "rgba(28,28,28,0.16)",
+  "lineOnDark": "rgba(241,239,232,0.16)",
+  "panel": "rgba(28,28,28,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f9f8f5",
+  "tagBg": "rgba(200,16,46,0.12)",
+  "onAccent": "#1c1c1c",
+  "deco": [
+   "#c8102e",
+   "#1f4fa3",
+   "#3a9a6b"
+  ],
+  "decoOnDark": [
+   "#ff4d63",
+   "#5b8fe8",
+   "#5fc591"
+  ]
+ },
+ "type": {
+  "titlePx": 0.062,
+  "heroPx": 0.088,
+  "statementPx": 0.07,
+  "bodyPx": 0.032,
+  "quotePx": 0.04,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "metro",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "线网",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "运行监测",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.835,
+    "cy": 0.455,
+    "w": 0.34,
+    "h": 0.76,
+    "r": 0.01
+   },
+   "small": {
+    "cx": 0.89,
+    "cy": 0.2,
+    "w": 0.2,
+    "h": 0.2,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "tagged",
+  "panelStyle": "solid",
+  "bullet": "number",
+  "radius": 0.006,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "wipe",
+  "ease": "out3",
+  "stagger": 0.12
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "counter",
+  "compare",
+  "list",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#1c1c1c",
+  "paper": "#f1efe8",
+  "accent": "#c8102e",
+  "accentDark": "#ff4d63",
+  "x": 0.39,
+  "maxLineWidth": 0.659
+ }
+}

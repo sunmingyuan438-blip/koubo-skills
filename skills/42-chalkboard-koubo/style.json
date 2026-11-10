@@ -1,0 +1,126 @@
+{
+ "id": "42-chalkboard-koubo",
+ "title": "黑板 · 知识讲解",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#eef0e4",
+  "bgAlt": "#1f3a30",
+  "ink": "#1d2b24",
+  "inkAlt": "#eef0e4",
+  "accent": "#2f6b52",
+  "accentOnDark": "#f0d264",
+  "muted": "#757e75",
+  "mutedAlt": "#9faba0",
+  "line": "rgba(29,43,36,0.16)",
+  "lineOnDark": "rgba(238,240,228,0.16)",
+  "panel": "rgba(29,43,36,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f7f8f3",
+  "tagBg": "rgba(47,107,82,0.12)",
+  "onAccent": "#1d2b24",
+  "deco": [
+   "#8a6a45",
+   "#c9a52e",
+   "#3f8fb5"
+  ],
+  "decoOnDark": [
+   "#8a6a45",
+   "#e9c75a",
+   "#8fc3dd"
+  ]
+ },
+ "type": {
+  "titlePx": 0.084,
+  "heroPx": 0.112,
+  "statementPx": 0.094,
+  "bodyPx": 0.038,
+  "quotePx": 0.054,
+  "captionPx": 0.048,
+  "titleFamily": "KB Round",
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "chalk",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "板书",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "sketch",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.805,
+    "cy": 0.44,
+    "w": 0.4,
+    "h": 0.7,
+    "r": 0.014
+   },
+   "small": {
+    "cx": 0.885,
+    "cy": 0.205,
+    "w": 0.215,
+    "h": 0.215,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "underline",
+  "panelStyle": "outline",
+  "bullet": "dash",
+  "radius": 0.004,
+  "underline": true,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "wipe",
+  "ease": "out3",
+  "stagger": 0.2
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "compare",
+  "list",
+  "counter",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#1d2b24",
+  "paper": "#eef0e4",
+  "accent": "#2f6b52",
+  "accentDark": "#f0d264"
+ }
+}

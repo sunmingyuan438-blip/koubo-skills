@@ -1,0 +1,121 @@
+{
+ "id": "40-modular-collage-koubo",
+ "title": "模块拼贴 · 创作者工具",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f0efeb",
+  "bgAlt": "#141418",
+  "ink": "#17171a",
+  "inkAlt": "#f2f1ee",
+  "accent": "#5b3df0",
+  "accentOnDark": "#8f7bff",
+  "muted": "#727272",
+  "mutedAlt": "#9e9d9d",
+  "line": "rgba(23,23,26,0.16)",
+  "lineOnDark": "rgba(242,241,238,0.16)",
+  "panel": "rgba(23,23,26,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f8f8f6",
+  "tagBg": "rgba(91,61,240,0.12)",
+  "onAccent": "#f2f1ee",
+  "deco": [
+   "#16171c"
+  ],
+  "decoOnDark": [
+   "#2a2c36"
+  ]
+ },
+ "type": {
+  "titlePx": 0.075,
+  "heroPx": 0.104,
+  "statementPx": 0.086,
+  "bodyPx": 0.036,
+  "quotePx": 0.05,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "cards",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "CREATOR",
+  "tag": ""
+ },
+ "person": {
+  "mode": "small",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.81,
+    "cy": 0.44,
+    "w": 0.38,
+    "h": 0.66,
+    "r": 0.05
+   },
+   "small": {
+    "cx": 0.87,
+    "cy": 0.225,
+    "w": 0.26,
+    "h": 0.26,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "paper",
+  "bullet": "dot",
+  "radius": 0.018,
+  "underline": false,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "pop",
+  "ease": "out3",
+  "stagger": 0.14
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "list",
+  "grid",
+  "counter",
+  "quote",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#17171a",
+  "paper": "#f2f1ee",
+  "accent": "#5b3df0",
+  "accentDark": "#8f7bff"
+ }
+}

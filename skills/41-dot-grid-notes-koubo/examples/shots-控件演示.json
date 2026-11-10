@@ -1,0 +1,75 @@
+{
+ "section": "点阵笔记 · 知识讲解 · 按口播逐句排版（渣男测试）",
+ "duration": 19.3,
+ "presenterDefault": "small",
+ "cues": "cues.json",
+ "shots": [
+  {
+   "control": "opener",
+   "theme": "light",
+   "presenter": "small",
+   "t0": 0,
+   "props": {
+    "kicker": "小测验",
+    "line1": "测测看",
+    "line2": "他是*渣男*吗",
+    "sub": "只有两道题"
+   }
+  },
+  {
+   "control": "statement",
+   "theme": "light",
+   "presenter": "card",
+   "t0": 6.0,
+   "props": {
+    "kicker": "第一问",
+    "text": "怎么*测试*？"
+   }
+  },
+  {
+   "control": "steps",
+   "theme": "light",
+   "presenter": "small",
+   "t0": 8.1,
+   "props": {
+    "kicker": "测试方法",
+    "title": "三步测完",
+    "items": [
+     "摸一下他的鼻息",
+     "看他还在不在*呼吸*",
+     "得出结论"
+    ]
+   }
+  },
+  {
+   "control": "banner",
+   "theme": "light",
+   "presenter": "none",
+   "t0": 11.15,
+   "props": {
+    "kicker": "测试结果",
+    "title": "结论",
+    "tags": [
+     "摸鼻息",
+     "看呼吸"
+    ],
+    "label": "结论",
+    "line": "还在呼吸 → 就是渣男"
+   }
+  },
+  {
+   "control": "reveal",
+   "theme": "light",
+   "presenter": "small",
+   "t0": 13.6,
+   "props": {
+    "q1": "男人什么时候",
+    "q2": "才会*老实*",
+    "label": "答案",
+    "line": "只有一种情况",
+    "sub": "段子，仅供娱乐",
+    "word": "挂墙上"
+   }
+  }
+ ]
+}

@@ -1,0 +1,123 @@
+{
+ "id": "47-museum-timeline-koubo",
+ "title": "博物馆年表 · 知识讲解",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#efe6cf",
+  "bgAlt": "#1f3d33",
+  "ink": "#2a2418",
+  "inkAlt": "#f1e8cf",
+  "accent": "#7a5a1c",
+  "accentOnDark": "#d9bd6f",
+  "muted": "#7d7565",
+  "mutedAlt": "#a1a794",
+  "line": "rgba(42,36,24,0.16)",
+  "lineOnDark": "rgba(241,232,207,0.16)",
+  "panel": "rgba(42,36,24,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f1e8cf",
+  "tagBg": "rgba(122,90,28,0.12)",
+  "onAccent": "#2a2418",
+  "deco": [
+   "#a8873a"
+  ],
+  "decoOnDark": [
+   "#c9a85a"
+  ]
+ },
+ "type": {
+  "titlePx": 0.078,
+  "heroPx": 0.106,
+  "statementPx": 0.088,
+  "bodyPx": 0.036,
+  "quotePx": 0.052,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "wall",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "年表",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "duotone",
+  "label": "讲解",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.835,
+    "cy": 0.455,
+    "w": 0.34,
+    "h": 0.76,
+    "r": 0.01
+   },
+   "small": {
+    "cx": 0.89,
+    "cy": 0.2,
+    "w": 0.2,
+    "h": 0.2,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "underline",
+  "panelStyle": "paper",
+  "bullet": "number",
+  "radius": 0.004,
+  "underline": true,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "settle",
+  "ease": "inout",
+  "stagger": 0.22
+ },
+ "controls": [
+  "opener",
+  "chapter",
+  "steps",
+  "statement",
+  "counter",
+  "quote",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#2a2418",
+  "paper": "#f1e8cf",
+  "accent": "#7a5a1c",
+  "accentDark": "#d9bd6f",
+  "x": 0.39,
+  "maxLineWidth": 0.659
+ }
+}

@@ -1,0 +1,115 @@
+{
+ "id": "43-swiss-grid-koubo",
+ "title": "瑞士网格 · 知识讲解",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#efeeea",
+  "bgAlt": "#121212",
+  "ink": "#111111",
+  "inkAlt": "#f0efeb",
+  "accent": "#d6252b",
+  "accentOnDark": "#ff5a5f",
+  "muted": "#6e6e6c",
+  "mutedAlt": "#9c9b99",
+  "line": "rgba(17,17,17,0.16)",
+  "lineOnDark": "rgba(240,239,235,0.16)",
+  "panel": "rgba(17,17,17,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f8f7f6",
+  "tagBg": "rgba(214,37,43,0.12)",
+  "onAccent": "#111111"
+ },
+ "type": {
+  "titlePx": 0.07,
+  "heroPx": 0.118,
+  "statementPx": 0.086,
+  "bodyPx": 0.034,
+  "quotePx": 0.048,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "swiss",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "GRID",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.8,
+    "cy": 0.4,
+    "w": 0.42,
+    "h": 0.52,
+    "r": 0.006
+   },
+   "small": {
+    "cx": 0.875,
+    "cy": 0.215,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "solid",
+  "bullet": "number",
+  "radius": 0,
+  "underline": false,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "out3",
+  "stagger": 0.12
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "bars",
+  "compare",
+  "counter",
+  "list",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#111111",
+  "paper": "#f0efeb",
+  "accent": "#d6252b",
+  "accentDark": "#ff5a5f"
+ }
+}

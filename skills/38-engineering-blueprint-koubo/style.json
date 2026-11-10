@@ -1,0 +1,116 @@
+{
+ "id": "38-engineering-blueprint-koubo",
+ "title": "工程蓝图 · 产品拆解",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#eeeee6",
+  "bgAlt": "#0b0d0b",
+  "ink": "#14160f",
+  "inkAlt": "#ebe8dc",
+  "accent": "#5f47d8",
+  "accentOnDark": "#a78bfa",
+  "muted": "#707169",
+  "mutedAlt": "#96958d",
+  "line": "rgba(20,22,15,0.16)",
+  "lineOnDark": "rgba(235,232,220,0.16)",
+  "panel": "rgba(20,22,15,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f7f7f4",
+  "tagBg": "rgba(95,71,216,0.12)",
+  "onAccent": "#14160f"
+ },
+ "type": {
+  "titlePx": 0.062,
+  "heroPx": 0.088,
+  "statementPx": 0.07,
+  "bodyPx": 0.032,
+  "quotePx": 0.04,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "blueprint",
+  "progress": false,
+  "timeStyle": "frames",
+  "label": "BLUEPRINT",
+  "tag": "SPEC 0.1"
+ },
+ "person": {
+  "mode": "card",
+  "style": "duotone",
+  "label": "FIG. 01",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.835,
+    "cy": 0.455,
+    "w": 0.34,
+    "h": 0.76,
+    "r": 0.01
+   },
+   "small": {
+    "cx": 0.89,
+    "cy": 0.2,
+    "w": 0.2,
+    "h": 0.2,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "tagged",
+  "panelStyle": "outline",
+  "bullet": "number",
+  "radius": 0,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "wipe",
+  "ease": "out3",
+  "stagger": 0.16
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "grid",
+  "compare",
+  "counter",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#14160f",
+  "paper": "#ebe8dc",
+  "accent": "#5f47d8",
+  "accentDark": "#a78bfa",
+  "x": 0.39,
+  "maxLineWidth": 0.659
+ }
+}

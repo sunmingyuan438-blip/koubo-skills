@@ -1,0 +1,121 @@
+{
+ "id": "37-workflow-demo-koubo",
+ "title": "流程演示 · 产品教程",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f4f3ec",
+  "bgAlt": "#17161b",
+  "ink": "#1a1a1e",
+  "inkAlt": "#f6f5ef",
+  "accent": "#e8432c",
+  "accentOnDark": "#ff6b55",
+  "muted": "#767575",
+  "mutedAlt": "#a1a09e",
+  "line": "rgba(26,26,30,0.16)",
+  "lineOnDark": "rgba(246,245,239,0.16)",
+  "panel": "rgba(26,26,30,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#fafaf6",
+  "tagBg": "rgba(232,67,44,0.12)",
+  "onAccent": "#1a1a1e",
+  "deco": [
+   "#2f55e8"
+  ],
+  "decoOnDark": [
+   "#4a6cf5"
+  ]
+ },
+ "type": {
+  "titlePx": 0.076,
+  "heroPx": 0.108,
+  "statementPx": 0.09,
+  "bodyPx": 0.036,
+  "quotePx": 0.05,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "none",
+  "progress": true,
+  "timeStyle": "clock",
+  "label": "WORKFLOW",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.805,
+    "cy": 0.44,
+    "w": 0.4,
+    "h": 0.7,
+    "r": 0.014
+   },
+   "small": {
+    "cx": 0.885,
+    "cy": 0.205,
+    "w": 0.215,
+    "h": 0.215,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "solid",
+  "bullet": "number",
+  "radius": 0.016,
+  "underline": false,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "out3",
+  "stagger": 0.12
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "imageSlot",
+  "list",
+  "compare",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#1a1a1e",
+  "paper": "#f6f5ef",
+  "accent": "#e8432c",
+  "accentDark": "#ff6b55"
+ }
+}

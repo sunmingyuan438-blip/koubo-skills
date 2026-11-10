@@ -1,0 +1,121 @@
+{
+ "id": "59-signal-glitch-koubo",
+ "title": "信号故障 · 照片转场",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#e8ebf0",
+  "bgAlt": "#0a0c13",
+  "ink": "#10131a",
+  "inkAlt": "#f2f4f8",
+  "accent": "#d21f55",
+  "accentOnDark": "#ff3d6e",
+  "muted": "#6b6e74",
+  "mutedAlt": "#9a9ca1",
+  "line": "rgba(16,19,26,0.16)",
+  "lineOnDark": "rgba(242,244,248,0.16)",
+  "panel": "rgba(16,19,26,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f5f6f8",
+  "tagBg": "rgba(210,31,85,0.12)",
+  "onAccent": "#10131a",
+  "deco": [
+   "#1aa7c4",
+   "#d21f55"
+  ],
+  "decoOnDark": [
+   "#35e0ff",
+   "#ff3d7f"
+  ]
+ },
+ "type": {
+  "titlePx": 0.094,
+  "heroPx": 0.128,
+  "statementPx": 0.108,
+  "bodyPx": 0.038,
+  "quotePx": 0.054,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "header",
+  "grid": "scan",
+  "progress": false,
+  "timeStyle": "frames",
+  "label": "REC ● CH-03",
+  "tag": "PLAY"
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "REC",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.805,
+    "cy": 0.44,
+    "w": 0.4,
+    "h": 0.7,
+    "r": 0.014
+   },
+   "small": {
+    "cx": 0.885,
+    "cy": 0.205,
+    "w": 0.215,
+    "h": 0.215,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "tagged",
+  "panelStyle": "window",
+  "bullet": "arrow",
+  "radius": 0,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "wipe",
+  "ease": "linear",
+  "stagger": 0.08
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "compare",
+  "counter",
+  "list",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#10131a",
+  "paper": "#f2f4f8",
+  "accent": "#d21f55",
+  "accentDark": "#ff3d6e"
+ }
+}

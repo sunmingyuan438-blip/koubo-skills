@@ -1,0 +1,124 @@
+{
+ "id": "54-geometric-collage-koubo",
+ "title": "几何拼贴 · 动态海报",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#efeae0",
+  "bgAlt": "#151515",
+  "ink": "#141414",
+  "inkAlt": "#efeae0",
+  "accent": "#d6362b",
+  "accentOnDark": "#ff5a4d",
+  "muted": "#706e6a",
+  "mutedAlt": "#9c9993",
+  "line": "rgba(20,20,20,0.16)",
+  "lineOnDark": "rgba(239,234,224,0.16)",
+  "panel": "rgba(20,20,20,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f8f6f1",
+  "tagBg": "rgba(214,54,43,0.12)",
+  "onAccent": "#141414",
+  "deco": [
+   "#2740c8",
+   "#ecb80f",
+   "#141414"
+  ],
+  "decoOnDark": [
+   "#4a63f0",
+   "#ecb80f",
+   "#efeae0"
+  ]
+ },
+ "type": {
+  "titlePx": 0.1,
+  "heroPx": 0.14,
+  "statementPx": 0.118,
+  "bodyPx": 0.04,
+  "quotePx": 0.058,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "collage",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "SUMMER SALON",
+  "tag": ""
+ },
+ "person": {
+  "mode": "small",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.8,
+    "cy": 0.4,
+    "w": 0.42,
+    "h": 0.52,
+    "r": 0.006
+   },
+   "small": {
+    "cx": 0.875,
+    "cy": 0.215,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "hard",
+  "bullet": "dash",
+  "radius": 0,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "pop",
+  "ease": "out3",
+  "stagger": 0.1
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "chapter",
+  "list",
+  "compare",
+  "reveal",
+  "counter",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#141414",
+  "paper": "#efeae0",
+  "accent": "#d6362b",
+  "accentDark": "#ff5a4d"
+ }
+}

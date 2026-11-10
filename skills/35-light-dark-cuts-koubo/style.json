@@ -1,0 +1,121 @@
+{
+ "id": "35-light-dark-cuts-koubo",
+ "title": "明暗切 · 产品宣传",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f1f0f7",
+  "bgAlt": "#120f24",
+  "ink": "#15122a",
+  "inkAlt": "#f5f3ff",
+  "accent": "#5a3cf0",
+  "accentOnDark": "#f472b6",
+  "muted": "#716f80",
+  "mutedAlt": "#9f9cac",
+  "line": "rgba(21,18,42,0.16)",
+  "lineOnDark": "rgba(245,243,255,0.16)",
+  "panel": "rgba(21,18,42,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f9f8fb",
+  "tagBg": "rgba(90,60,240,0.12)",
+  "onAccent": "#15122a",
+  "deco": [
+   "#f472b6"
+  ],
+  "decoOnDark": [
+   "#5a3cf0"
+  ]
+ },
+ "type": {
+  "titlePx": 0.082,
+  "heroPx": 0.112,
+  "statementPx": 0.094,
+  "bodyPx": 0.036,
+  "quotePx": 0.05,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "blocks",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "LIGHT / DARK",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.79,
+    "cy": 0.4,
+    "w": 0.46,
+    "h": 0.56,
+    "r": 0.016
+   },
+   "small": {
+    "cx": 0.88,
+    "cy": 0.21,
+    "w": 0.23,
+    "h": 0.23,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "tagged",
+  "panelStyle": "paper",
+  "bullet": "arrow",
+  "radius": 0.014,
+  "underline": false,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "wipe",
+  "ease": "out3",
+  "stagger": 0.1
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "compare",
+  "grid",
+  "counter",
+  "list",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#15122a",
+  "paper": "#f5f3ff",
+  "accent": "#5a3cf0",
+  "accentDark": "#f472b6"
+ }
+}

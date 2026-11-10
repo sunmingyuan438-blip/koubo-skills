@@ -1,0 +1,30 @@
+/* 口播风格引擎（家族核心）· 舞台样式
+   所有颜色、字号、间距由 runtime.js 按 style.json 令牌内联写入；
+   这里只负责重置、字体、绝对定位与 *重点* 的强调色。
+   画面只由 renderAt(t) 决定：本文件没有任何 animation / transition / keyframes。 */
+
+@font-face { font-family: 'KB Sans'; font-weight: 100 900; src: url(fonts/NotoSansSC.ttf) format('truetype'); }
+@font-face { font-family: 'KB Mono'; font-weight: 500; src: url(fonts/GeistMono.woff2) format('woff2'); }
+/* 第二/三字族（P0-2）：只在 style.json#type 指定时才会被请求；未指定的 skill 不带这些文件。
+   weight 声明为 100–900 范围：单字重字体不被浏览器合成假粗体。 */
+@font-face { font-family: 'KB Round'; font-weight: 100 900; src: url(fonts/ZCOOLKuaiLe.woff2) format('woff2'); }
+@font-face { font-family: 'KB Condensed'; font-weight: 100 900; src: url(fonts/Anton.woff2) format('woff2'); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow: hidden; background: #000; }
+body {
+  font-family: var(--kb-body, 'KB Sans'), 'KB Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-feature-settings: 'kern' 1;
+}
+#stage { position: relative; overflow: hidden; }
+/* 多行文字均匀断行：避免方块里「摸一下他的鼻 / 息」这类孤字成行 */
+#stage div { text-wrap: balance; }
+.abs { position: absolute; }
+.layer { overflow: hidden; }
+.mono { font-family: var(--kb-mono, 'KB Mono'), 'KB Mono', 'KB Sans', monospace; }
+.title { font-family: var(--kb-title, 'KB Sans'), 'KB Sans', sans-serif; }
+b { color: var(--accent, currentColor); font-weight: inherit; }
+.kicker, .hud, .mark, .foot { text-transform: none; }
+.mark { display: flex; align-items: center; justify-content: center; }
+.panel { overflow: hidden; }

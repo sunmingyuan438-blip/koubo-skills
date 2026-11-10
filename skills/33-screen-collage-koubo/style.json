@@ -1,0 +1,121 @@
+{
+ "id": "33-screen-collage-koubo",
+ "title": "屏幕拼贴 · 品牌故事",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#eeeef7",
+  "bgAlt": "#080a1c",
+  "ink": "#0d0e22",
+  "inkAlt": "#f1f1fb",
+  "accent": "#5b47e0",
+  "accentOnDark": "#9c8cff",
+  "muted": "#6c6c7b",
+  "mutedAlt": "#9899a6",
+  "line": "rgba(13,14,34,0.16)",
+  "lineOnDark": "rgba(241,241,251,0.16)",
+  "panel": "rgba(13,14,34,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f7f7fb",
+  "tagBg": "rgba(91,71,224,0.12)",
+  "onAccent": "#0d0e22",
+  "deco": [
+   "#6d5cf0"
+  ],
+  "decoOnDark": [
+   "#7b5cff"
+  ]
+ },
+ "type": {
+  "titlePx": 0.064,
+  "heroPx": 0.092,
+  "statementPx": 0.074,
+  "bodyPx": 0.034,
+  "quotePx": 0.042,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "ruler",
+  "progress": false,
+  "timeStyle": "frames",
+  "label": "SCREEN COLLAGE",
+  "tag": "REC"
+ },
+ "person": {
+  "mode": "card",
+  "style": "glow",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.805,
+    "cy": 0.44,
+    "w": 0.4,
+    "h": 0.7,
+    "r": 0.014
+   },
+   "small": {
+    "cx": 0.885,
+    "cy": 0.205,
+    "w": 0.215,
+    "h": 0.215,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "window",
+  "bullet": "dot",
+  "radius": 0.012,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "settle",
+  "ease": "inout",
+  "stagger": 0.14
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "imageSlot",
+  "grid",
+  "compare",
+  "counter",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#0d0e22",
+  "paper": "#f1f1fb",
+  "accent": "#5b47e0",
+  "accentDark": "#9c8cff"
+ }
+}

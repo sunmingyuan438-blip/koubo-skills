@@ -1,0 +1,124 @@
+{
+ "id": "41-dot-grid-notes-koubo",
+ "title": "点阵笔记 · 知识讲解",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f2edde",
+  "bgAlt": "#232c33",
+  "ink": "#26272c",
+  "inkAlt": "#f2edde",
+  "accent": "#2f8a66",
+  "accentOnDark": "#8fdcbc",
+  "muted": "#7c7a77",
+  "mutedAlt": "#a3a49d",
+  "line": "rgba(38,39,44,0.16)",
+  "lineOnDark": "rgba(242,237,222,0.16)",
+  "panel": "#fff3b8",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f9f7f0",
+  "tagBg": "rgba(47,138,102,0.12)",
+  "onAccent": "#26272c",
+  "deco": [
+   "#9ed9c0",
+   "#f0cf5c"
+  ],
+  "decoOnDark": [
+   "#3f9d78",
+   "#c9a52e"
+  ]
+ },
+ "type": {
+  "titlePx": 0.084,
+  "heroPx": 0.112,
+  "statementPx": 0.094,
+  "bodyPx": 0.038,
+  "quotePx": 0.054,
+  "captionPx": 0.048,
+  "titleFamily": "KB Round",
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "notes",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "笔记",
+  "tag": ""
+ },
+ "person": {
+  "mode": "small",
+  "style": "sketch",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.81,
+    "cy": 0.44,
+    "w": 0.38,
+    "h": 0.66,
+    "r": 0.05
+   },
+   "small": {
+    "cx": 0.87,
+    "cy": 0.225,
+    "w": 0.26,
+    "h": 0.26,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "underline",
+  "panelStyle": "sticker",
+  "bullet": "number",
+  "radius": 0.008,
+  "underline": true,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "pop",
+  "ease": "inout",
+  "stagger": 0.2
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "list",
+  "quote",
+  "chapter",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#26272c",
+  "paper": "#f2edde",
+  "accent": "#2f8a66",
+  "accentDark": "#8fdcbc"
+ }
+}

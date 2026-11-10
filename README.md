@@ -1,4 +1,4 @@
-# 口播剪辑 Skill 合集（32 套）
+# 口播剪辑 Skill 合集（60 套）
 
 把真人口播包装成不同视觉风格的短视频：每个 skill 自带渲染引擎、字体与控件，产出**可编辑的剪映草稿**（动效层、人物、口播、字幕分轨），也可直接导出 MP4。适用于 Claude Code / Codex 等支持 `SKILL.md` 的宿主。
 
@@ -22,7 +22,7 @@ cd ../.. && node scripts/setup_light.mjs
 4. `node scripts/engine/render.mjs build …` → `audit`（像素级版面审计：越界/压字/压人物/字号过小即报错）→ `render`
 5. `python3 scripts/build_jianying_draft.py draft.json <新草稿目录>` → 登记进剪映（先退出剪映）
 
-## 32 套风格
+## 60 套风格
 
 | skill | 风格 | 画幅 | 强调色 | 默认人物 | 控件数 | 标题字体 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -58,6 +58,34 @@ cd ../.. && node scripts/setup_light.mjs
 | `30-industry-law-koubo` | 法律 · 讨薪步骤 | 1080×1920 | `#b03a22` | card | 9 | Noto Sans SC |
 | `31-industry-finance-koubo` | 金融 · 三本账 | 1080×1920 | `#a07a16` | card | 9 | Noto Sans SC |
 | `32-industry-realestate-koubo` | 房产 · 一镜带看 | 1080×1920 | `#5f8fdd` | small | 10 | Noto Sans SC |
+| `33-screen-collage-koubo` | 屏幕拼贴 · 品牌故事 | 1920×1080 | `#5b47e0` | card | 9 | Noto Sans SC |
+| `34-paper-scroll-koubo` | 长卷 · 品牌故事 | 1920×1080 | `#a3242b` | small | 9 | Noto Sans SC |
+| `35-light-dark-cuts-koubo` | 明暗切 · 产品宣传 | 1920×1080 | `#5a3cf0` | card | 9 | Noto Sans SC |
+| `36-pixel-platformer-koubo` | 像素闯关 · 产品介绍 | 1920×1080 | `#b3246f` | card | 8 | Noto Sans SC |
+| `37-workflow-demo-koubo` | 流程演示 · 产品教程 | 1920×1080 | `#e8432c` | card | 9 | Noto Sans SC |
+| `38-engineering-blueprint-koubo` | 工程蓝图 · 产品拆解 | 1920×1080 | `#5f47d8` | card | 8 | Noto Sans SC |
+| `39-keynote-stage-koubo` | 发布会舞台 · 产品演示 | 1920×1080 | `#6a55f5` | card | 9 | Noto Sans SC |
+| `40-modular-collage-koubo` | 模块拼贴 · 创作者工具 | 1920×1080 | `#5b3df0` | small | 9 | Noto Sans SC |
+| `41-dot-grid-notes-koubo` | 点阵笔记 · 知识讲解 | 1920×1080 | `#2f8a66` | small | 9 | KB Round |
+| `42-chalkboard-koubo` | 黑板 · 知识讲解 | 1920×1080 | `#2f6b52` | card | 9 | KB Round |
+| `43-swiss-grid-koubo` | 瑞士网格 · 知识讲解 | 1920×1080 | `#d6252b` | card | 9 | Noto Sans SC |
+| `44-color-geometry-koubo` | 色块几何 · 知识讲解 | 1920×1080 | `#c0271f` | card | 9 | Noto Sans SC |
+| `45-glowing-lightboard-koubo` | 发光灯板 · 知识讲解 | 1920×1080 | `#0b7f8c` | card | 8 | Noto Sans SC |
+| `46-growing-mind-map-koubo` | 生长导图 · 知识讲解 | 1920×1080 | `#2f7f95` | small | 9 | Noto Sans SC |
+| `47-museum-timeline-koubo` | 博物馆年表 · 知识讲解 | 1920×1080 | `#7a5a1c` | card | 9 | Noto Sans SC |
+| `48-two-color-risograph-koubo` | 双色孔版 · 知识讲解 | 1920×1080 | `#d92f85` | card | 9 | Noto Sans SC |
+| `49-isometric-systems-koubo` | 等距系统 · 知识讲解 | 1920×1080 | `#1f8f8f` | card | 9 | Noto Sans SC |
+| `50-layered-papercut-koubo` | 叠层剪纸 · 知识讲解 | 1920×1080 | `#1e5a6e` | card | 9 | Noto Sans SC |
+| `51-metro-network-koubo` | 地铁线网 · 知识讲解 | 1920×1080 | `#c8102e` | card | 8 | Noto Sans SC |
+| `52-clay-lab-koubo` | 黏土实验室 · 知识讲解 | 1920×1080 | `#a8601a` | small | 9 | Noto Sans SC |
+| `53-halftone-dots-koubo` | 半调网点 · 人像标题 | 1920×1080 | `#b84a24` | card | 8 | Noto Sans SC |
+| `54-geometric-collage-koubo` | 几何拼贴 · 动态海报 | 1920×1080 | `#d6362b` | small | 8 | Noto Sans SC |
+| `55-spatial-gallery-koubo` | 空间画廊 · 照片回忆 | 1920×1080 | `#7a5a2c` | card | 9 | Noto Sans SC |
+| `56-photo-mosaic-koubo` | 照片马赛克 · 画面揭晓 | 1920×1080 | `#c4541a` | card | 7 | Noto Sans SC |
+| `57-double-exposure-koubo` | 双重曝光 · 人像叠影 | 1920×1080 | `#3f6a52` | card | 9 | Noto Sans SC |
+| `58-brush-repainting-koubo` | 笔触重绘 · 艺术照片 | 1920×1080 | `#c2531a` | card | 9 | Noto Sans SC |
+| `59-signal-glitch-koubo` | 信号故障 · 照片转场 | 1920×1080 | `#d21f55` | card | 7 | Noto Sans SC |
+| `60-mirror-kaleidoscope-koubo` | 镜像万花筒 · 照片律动 | 1920×1080 | `#b53a26` | small | 9 | Noto Sans SC |
 
 ## 许可与来源
 

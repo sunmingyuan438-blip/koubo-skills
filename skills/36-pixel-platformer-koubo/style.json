@@ -1,0 +1,124 @@
+{
+ "id": "36-pixel-platformer-koubo",
+ "title": "像素闯关 · 产品介绍",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#efe9f8",
+  "bgAlt": "#140e2c",
+  "ink": "#1b1238",
+  "inkAlt": "#f3edff",
+  "accent": "#b3246f",
+  "accentOnDark": "#ff6aae",
+  "muted": "#746c89",
+  "mutedAlt": "#9e98af",
+  "line": "rgba(27,18,56,0.16)",
+  "lineOnDark": "rgba(243,237,255,0.16)",
+  "panel": "rgba(27,18,56,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f8f5fc",
+  "tagBg": "rgba(179,36,111,0.12)",
+  "onAccent": "#1b1238",
+  "deco": [
+   "#7a3cc4",
+   "#b3246f",
+   "#e0843a"
+  ],
+  "decoOnDark": [
+   "#7a3cc4",
+   "#ffcf5a",
+   "#ff7a59"
+  ]
+ },
+ "type": {
+  "titlePx": 0.062,
+  "heroPx": 0.088,
+  "statementPx": 0.07,
+  "bodyPx": 0.032,
+  "quotePx": 0.04,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "pixel",
+  "progress": true,
+  "timeStyle": "frames",
+  "label": "STAGE 1-1",
+  "tag": "1UP"
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "PLAYER 1",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.8,
+    "cy": 0.4,
+    "w": 0.42,
+    "h": 0.52,
+    "r": 0.006
+   },
+   "small": {
+    "cx": 0.875,
+    "cy": 0.215,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "boxed",
+  "panelStyle": "hard",
+  "bullet": "arrow",
+  "radius": 0,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "pop",
+  "ease": "linear",
+  "stagger": 0.1
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "steps",
+  "grid",
+  "counter",
+  "bars",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#1b1238",
+  "paper": "#f3edff",
+  "accent": "#b3246f",
+  "accentDark": "#ff6aae"
+ }
+}

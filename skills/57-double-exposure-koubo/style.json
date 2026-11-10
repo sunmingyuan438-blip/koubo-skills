@@ -1,0 +1,125 @@
+{
+ "id": "57-double-exposure-koubo",
+ "title": "双重曝光 · 人像叠影",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f2efe9",
+  "bgAlt": "#161a18",
+  "ink": "#1d1d1b",
+  "inkAlt": "#f0eee8",
+  "accent": "#3f6a52",
+  "accentOnDark": "#9cc7ae",
+  "muted": "#767572",
+  "mutedAlt": "#9d9d99",
+  "line": "rgba(29,29,27,0.16)",
+  "lineOnDark": "rgba(240,238,232,0.16)",
+  "panel": "rgba(29,29,27,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f9f8f5",
+  "tagBg": "rgba(63,106,82,0.12)",
+  "onAccent": "#1d1d1b",
+  "deco": [
+   "#3f6a52",
+   "#8a8f93"
+  ],
+  "decoOnDark": [
+   "#9cc7ae",
+   "#8a8f93"
+  ]
+ },
+ "type": {
+  "titlePx": 0.075,
+  "heroPx": 0.104,
+  "statementPx": 0.086,
+  "bodyPx": 0.036,
+  "quotePx": 0.05,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "frame",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "EXPOSURE",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "duotone",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.835,
+    "cy": 0.455,
+    "w": 0.34,
+    "h": 0.76,
+    "r": 0.01
+   },
+   "small": {
+    "cx": 0.89,
+    "cy": 0.2,
+    "w": 0.2,
+    "h": 0.2,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "underline",
+  "panelStyle": "outline",
+  "bullet": "dash",
+  "radius": 0,
+  "underline": true,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "inout",
+  "stagger": 0.24
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "quote",
+  "chapter",
+  "list",
+  "compare",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#1d1d1b",
+  "paper": "#f0eee8",
+  "accent": "#3f6a52",
+  "accentDark": "#9cc7ae",
+  "x": 0.39,
+  "maxLineWidth": 0.659
+ }
+}

@@ -1,0 +1,115 @@
+{
+ "id": "55-spatial-gallery-koubo",
+ "title": "空间画廊 · 照片回忆",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#efeae0",
+  "bgAlt": "#171512",
+  "ink": "#1c1915",
+  "inkAlt": "#f2ede3",
+  "accent": "#7a5a2c",
+  "accentOnDark": "#e8d9b4",
+  "muted": "#75716a",
+  "mutedAlt": "#9f9b94",
+  "line": "rgba(28,25,21,0.16)",
+  "lineOnDark": "rgba(242,237,227,0.16)",
+  "panel": "rgba(28,25,21,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#fbf8f0",
+  "tagBg": "rgba(122,90,44,0.12)",
+  "onAccent": "#1c1915"
+ },
+ "type": {
+  "titlePx": 0.078,
+  "heroPx": 0.106,
+  "statementPx": 0.088,
+  "bodyPx": 0.036,
+  "quotePx": 0.052,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "gallery",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "ROOM 01 · ARCHIVE",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.79,
+    "cy": 0.4,
+    "w": 0.46,
+    "h": 0.56,
+    "r": 0.016
+   },
+   "small": {
+    "cx": 0.88,
+    "cy": 0.21,
+    "w": 0.23,
+    "h": 0.23,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.2,
+  "contentY": 0.34,
+  "safe": 0.818
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "paper",
+  "bullet": "dash",
+  "radius": 0.002,
+  "underline": false,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "flip",
+  "ease": "inout",
+  "stagger": 0.2
+ },
+ "controls": [
+  "opener",
+  "imageSlot",
+  "statement",
+  "grid",
+  "quote",
+  "chapter",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#1c1915",
+  "paper": "#f2ede3",
+  "accent": "#7a5a2c",
+  "accentDark": "#e8d9b4"
+ }
+}
