@@ -1,0 +1,73 @@
+{
+ "section": "控制台 · 竖屏版 · 按口播逐句排版（渣男测试）",
+ "duration": 19.3,
+ "presenterDefault": "small",
+ "cues": "cues.json",
+ "shots": [
+  {
+   "control": "opener",
+   "theme": "dark",
+   "presenter": "small",
+   "t0": 0,
+   "props": {
+    "kicker": "ZHANAN_TEST",
+    "line1": "渣男检测",
+    "line2": "*怎么测*？",
+    "sub": "输入：一个男人"
+   }
+  },
+  {
+   "control": "statement",
+   "theme": "dark",
+   "presenter": "card",
+   "t0": 6.0,
+   "props": {
+    "kicker": "QUERY",
+    "text": "怎么*测试*？"
+   }
+  },
+  {
+   "control": "steps",
+   "theme": "dark",
+   "presenter": "small",
+   "t0": 8.1,
+   "props": {
+    "kicker": "PIPELINE",
+    "title": "三步测完",
+    "items": [
+     "摸一下他的鼻息",
+     "看他还在不在*呼吸*",
+     "得出结论"
+    ]
+   }
+  },
+  {
+   "control": "counter",
+   "theme": "dark",
+   "presenter": "none",
+   "t0": 11.15,
+   "props": {
+    "kicker": "RESULT",
+    "title": "检测结果",
+    "label": "渣男概率",
+    "value": 100,
+    "unit": "%",
+    "note": "还在呼吸，*绝对就是渣男*"
+   }
+  },
+  {
+   "control": "reveal",
+   "theme": "dark",
+   "presenter": "small",
+   "t0": 13.6,
+   "props": {
+    "q1": "男人什么时候",
+    "q2": "才会*老实*",
+    "label": "ANSWER",
+    "line": "只有一种情况",
+    "sub": "段子，仅供娱乐",
+    "word": "挂墙上"
+   }
+  }
+ ]
+}
