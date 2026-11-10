@@ -1,0 +1,129 @@
+{
+ "id": "15-card-table-shuffle-koubo",
+ "title": "卡牌桌 · 横屏版",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#f6f3ea",
+  "bgAlt": "#14120f",
+  "ink": "#141216",
+  "inkAlt": "#f3eee6",
+  "accent": "#4878f0",
+  "accentOnDark": "#6f95ff",
+  "muted": "#6b6670",
+  "mutedAlt": "#9d97a2",
+  "line": "rgba(20,18,22,.16)",
+  "lineOnDark": "rgba(243,238,230,.14)",
+  "panel": "rgba(20,18,22,.05)",
+  "panelDark": "rgba(255,255,255,.05)",
+  "paper": "#0f0e12",
+  "tagBg": "rgba(217,192,114,.16)",
+  "onAccent": "#14120f"
+ },
+ "type": {
+  "titlePx": 0.078,
+  "heroPx": 0.106,
+  "statementPx": 0.088,
+  "bodyPx": 0.036,
+  "quotePx": 0.052,
+  "captionPx": 0.026,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "footer",
+  "grid": "none",
+  "progress": false,
+  "timeStyle": "clock"
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "split",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.7219,
+    "cy": 0.5278,
+    "w": 0.5889,
+    "h": 0.7259,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.7219,
+    "cy": 0.2849,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   },
+   "split": {
+    "cx": 0.7551,
+    "cy": 0.47,
+    "w": 0.7467,
+    "h": 0.74,
+    "r": 0.014
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.3,
+  "contentY": 0.36,
+  "safe": 0.79
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "paper",
+  "bullet": "number",
+  "radius": 0.02,
+  "underline": true,
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "rise",
+  "ease": "inout",
+  "stagger": 0.18
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "grid",
+  "compare",
+  "steps",
+  "quote",
+  "split",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 5.06,
+  "ink": "#141216",
+  "paper": "#f3eee6",
+  "accent": "#4878f0",
+  "accentDark": "#6f95ff",
+  "y": -0.68,
+  "x": 0.286
+ },
+ "measured": {
+  "source": "measure/15.json",
+  "dominant": "card",
+  "caption_cy": null,
+  "alt": []
+ }
+}

@@ -1,0 +1,121 @@
+{
+ "id": "16-camera-mode-koubo",
+ "title": "取景器 · 3:4",
+ "canvas": [
+  1080,
+  1440
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#f4f5f6",
+  "bgAlt": "#08090a",
+  "ink": "#101418",
+  "inkAlt": "#e8edf2",
+  "accent": "#2a6ee0",
+  "accentOnDark": "#5a9bf5",
+  "muted": "#6b7783",
+  "mutedAlt": "#7d8b99",
+  "line": "rgba(16,20,24,.14)",
+  "lineOnDark": "rgba(232,237,242,.14)",
+  "panel": "rgba(10,14,18,.05)",
+  "panelDark": "rgba(255,255,255,.045)",
+  "paper": "#0d1218",
+  "tagBg": "rgba(90,160,221,.14)",
+  "onAccent": "#04121c"
+ },
+ "type": {
+  "titlePx": 0.062,
+  "heroPx": 0.088,
+  "statementPx": 0.07,
+  "bodyPx": 0.032,
+  "quotePx": 0.04,
+  "captionPx": 0.024,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "none",
+  "progress": false,
+  "timeStyle": "frames",
+  "label": "REC",
+  "tag": "CAM"
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "LIVE",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.499,
+    "cy": 0.693,
+    "w": 0.3667,
+    "h": 0.4521,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.499,
+    "cy": 0.6135,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.858
+ },
+ "look": {
+  "titleStyle": "tagged",
+  "panelStyle": "window",
+  "bullet": "dash",
+  "radius": 0.008,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "wipe",
+  "ease": "out3",
+  "stagger": 0.14
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "counter",
+  "steps",
+  "compare",
+  "imageSlot",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 9.0,
+  "ink": "#101418",
+  "paper": "#e8edf2",
+  "accent": "#2a6ee0",
+  "accentDark": "#5a9bf5",
+  "y": -0.815
+ },
+ "measured": {
+  "source": "measure/16.json",
+  "dominant": "card",
+  "caption_cy": 0.84,
+  "alt": []
+ }
+}

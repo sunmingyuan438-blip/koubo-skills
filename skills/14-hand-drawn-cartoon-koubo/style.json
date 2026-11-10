@@ -1,0 +1,124 @@
+{
+ "id": "14-hand-drawn-cartoon-koubo",
+ "title": "手绘卡通 · 横屏版",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#fdf6e3",
+  "bgAlt": "#22201c",
+  "ink": "#22201c",
+  "inkAlt": "#fdf6e3",
+  "accent": "#e2762b",
+  "accentOnDark": "#f59a4e",
+  "muted": "#6f6a60",
+  "mutedAlt": "#a8a29a",
+  "line": "rgba(34,32,28,.28)",
+  "lineOnDark": "rgba(253,246,227,.22)",
+  "panel": "rgba(255,255,255,.75)",
+  "panelDark": "rgba(255,255,255,.08)",
+  "paper": "#fffdf4",
+  "tagBg": "rgba(226,118,43,.14)",
+  "onAccent": "#fffdf4",
+  "accentOnLight": "#d6691d"
+ },
+ "type": {
+  "titlePx": 0.084,
+  "heroPx": 0.112,
+  "statementPx": 0.094,
+  "bodyPx": 0.038,
+  "quotePx": 0.054,
+  "captionPx": 0.028,
+  "titleFamily": "KB Round",
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "none",
+  "progress": false,
+  "timeStyle": "clock"
+ },
+ "person": {
+  "mode": "card",
+  "style": "sketch",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.7844,
+    "cy": 0.4426,
+    "w": 0.4407,
+    "h": 0.7074,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.7844,
+    "cy": 0.2089,
+    "w": 0.24,
+    "h": 0.24,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.3,
+  "contentY": 0.36,
+  "safe": 0.81
+ },
+ "look": {
+  "titleStyle": "underline",
+  "panelStyle": "paper",
+  "bullet": "check",
+  "radius": 0.03,
+  "underline": true,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "pop",
+  "ease": "inout",
+  "stagger": 0.2
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "list",
+  "steps",
+  "grid",
+  "quote",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 5.06,
+  "ink": "#22201c",
+  "paper": "#fdf6e3",
+  "accent": "#d6691d",
+  "accentDark": "#f59a4e",
+  "y": -0.72
+ },
+ "measured": {
+  "source": "measure/14.json",
+  "dominant": "card",
+  "caption_cy": 0.86,
+  "alt": [
+   "参考片左右交替（左 14 / 右 15）"
+  ]
+ }
+}

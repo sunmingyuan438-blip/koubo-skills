@@ -1,0 +1,120 @@
+{
+ "id": "13-dark-dimensional-stage-wide-koubo",
+ "title": "深空多维舞台 · 横屏版",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark",
+   "light"
+  ],
+  "bg": "#eef1f6",
+  "bgAlt": "#04060d",
+  "ink": "#0c1018",
+  "inkAlt": "#e9eefb",
+  "accent": "#3b6cf0",
+  "accentOnDark": "#6f95ff",
+  "muted": "#5f6878",
+  "mutedAlt": "#8e99ad",
+  "line": "rgba(12,16,24,.14)",
+  "lineOnDark": "rgba(233,238,251,.14)",
+  "panel": "rgba(59,108,240,.07)",
+  "panelDark": "rgba(111,149,255,.10)",
+  "paper": "#0a0f1a",
+  "tagBg": "rgba(111,149,255,.16)",
+  "onAccent": "#f2f6ff"
+ },
+ "type": {
+  "titlePx": 0.064,
+  "heroPx": 0.092,
+  "statementPx": 0.074,
+  "bodyPx": 0.034,
+  "quotePx": 0.042,
+  "captionPx": 0.025,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "gradient",
+  "progress": false,
+  "timeStyle": "frames"
+ },
+ "person": {
+  "mode": "small",
+  "style": "glow",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.8552,
+    "cy": 0.4593,
+    "w": 0.3074,
+    "h": 0.7037,
+    "r": 0.012
+   },
+   "small": {
+    "cx": 0.9135,
+    "cy": 0.2093,
+    "w": 0.212,
+    "h": 0.212,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.15,
+  "heroY": 0.3,
+  "contentY": 0.36,
+  "safe": 0.79
+ },
+ "look": {
+  "titleStyle": "tagged",
+  "panelStyle": "glass",
+  "bullet": "dot",
+  "radius": 0.016,
+  "underline": false,
+  "counterStyle": "ring",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "settle",
+  "ease": "inout",
+  "stagger": 0.16
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "grid",
+  "compare",
+  "counter",
+  "chapter",
+  "bars",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 5.06,
+  "ink": "#0c1018",
+  "paper": "#e9eefb",
+  "accent": "#3b6cf0",
+  "accentDark": "#6f95ff",
+  "y": -0.68
+ },
+ "measured": {
+  "source": "measure/13.json",
+  "dominant": "small",
+  "caption_cy": null,
+  "alt": []
+ }
+}
