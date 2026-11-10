@@ -35,7 +35,7 @@
   "statementPx": 0.094,
   "bodyPx": 0.038,
   "quotePx": 0.054,
-  "captionPx": 0.028,
+  "captionPx": 0.048,
   "titleFamily": "KB Round",
   "weight": 900,
   "tracking": -0.02,
@@ -78,7 +78,7 @@
   "titleY": 0.15,
   "heroY": 0.3,
   "contentY": 0.36,
-  "safe": 0.81
+  "safe": 0.783
  },
  "look": {
   "titleStyle": "underline",
@@ -106,12 +106,13 @@
   "outro"
  ],
  "caption": {
-  "size": 5.06,
+  "size": 4.5,
   "ink": "#22201c",
   "paper": "#fdf6e3",
   "accent": "#d6691d",
   "accentDark": "#f59a4e",
-  "y": -0.72
+  "y": -0.72,
+  "x": 0.338
  },
  "measured": {
   "source": "measure/14.json",

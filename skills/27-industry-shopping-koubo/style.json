@@ -35,7 +35,7 @@
   "statementPx": 0.108,
   "bodyPx": 0.039,
   "quotePx": 0.056,
-  "captionPx": 0.028,
+  "captionPx": 0.048,
   "weight": 900,
   "tracking": -0.02,
   "heroLh": 1.12
@@ -68,8 +68,8 @@
    "small": {
     "cx": 0.2083,
     "cy": 0.5956,
-    "w": 0.24,
-    "h": 0.24,
+    "w": 0.27,
+    "h": 0.27,
     "r": 0.5
    }
   }
@@ -79,7 +79,7 @@
   "titleY": 0.14,
   "heroY": 0.25,
   "contentY": 0.3,
-  "safe": 0.763
+  "safe": 0.772
  },
  "look": {
   "titleStyle": "tagged",
@@ -108,12 +108,12 @@
   "outro"
  ],
  "caption": {
-  "size": 9.0,
+  "size": 8.0,
   "ink": "#171219",
   "paper": "#fdf7ee",
   "accent": "#e5560f",
   "accentDark": "#ff7a36",
-  "y": -0.626
+  "y": -0.643
  },
  "measured": {
   "source": "measure/27.json",

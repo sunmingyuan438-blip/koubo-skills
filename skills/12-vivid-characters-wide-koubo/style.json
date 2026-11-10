@@ -35,7 +35,7 @@
   "statementPx": 0.09,
   "bodyPx": 0.037,
   "quotePx": 0.052,
-  "captionPx": 0.027,
+  "captionPx": 0.048,
   "weight": 900,
   "tracking": -0.02,
   "heroLh": 1.12
@@ -85,7 +85,7 @@
   "titleY": 0.15,
   "heroY": 0.3,
   "contentY": 0.36,
-  "safe": 0.79
+  "safe": 0.763
  },
  "look": {
   "titleStyle": "boxed",
@@ -113,12 +113,14 @@
   "outro"
  ],
  "caption": {
-  "size": 5.06,
+  "size": 4.5,
   "ink": "#1a1620",
   "paper": "#f7f1e8",
   "accent": "#bd710f",
   "accentDark": "#ffbe63",
-  "y": -0.68
+  "y": -0.68,
+  "x": 0.377,
+  "maxLineWidth": 0.635
  },
  "measured": {
   "source": "measure/12.json",

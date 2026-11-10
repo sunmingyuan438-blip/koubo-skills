@@ -34,7 +34,7 @@
   "statementPx": 0.09,
   "bodyPx": 0.037,
   "quotePx": 0.052,
-  "captionPx": 0.027,
+  "captionPx": 0.048,
   "weight": 900,
   "tracking": -0.02,
   "heroLh": 1.12
@@ -66,10 +66,10 @@
     "r": 0.012
    },
    "small": {
-    "cx": 0.8792,
+    "cx": 0.84,
     "cy": 0.2337,
-    "w": 0.16,
-    "h": 0.16,
+    "w": 0.27,
+    "h": 0.27,
     "r": 0.5
    },
    "split": {
@@ -113,7 +113,7 @@
   "outro"
  ],
  "caption": {
-  "size": 9.0,
+  "size": 8.0,
   "ink": "#1a1620",
   "paper": "#f7f1e8",
   "accent": "#e0662a",

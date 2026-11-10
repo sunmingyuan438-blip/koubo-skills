@@ -34,7 +34,7 @@
   "statementPx": 0.086,
   "bodyPx": 0.036,
   "quotePx": 0.05,
-  "captionPx": 0.026,
+  "captionPx": 0.048,
   "weight": 900,
   "tracking": -0.02,
   "heroLh": 1.12
@@ -76,7 +76,7 @@
   "titleY": 0.255,
   "heroY": 0.27,
   "contentY": 0.36,
-  "safe": 0.7
+  "safe": 0.692
  },
  "look": {
   "titleStyle": "plain",
@@ -105,7 +105,7 @@
   "outro"
  ],
  "caption": {
-  "size": 9.0,
+  "size": 8.0,
   "ink": "#16130f",
   "paper": "#f6f4ee",
   "accent": "#1049d8",

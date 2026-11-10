@@ -34,7 +34,7 @@
   "statementPx": 0.086,
   "bodyPx": 0.036,
   "quotePx": 0.05,
-  "captionPx": 0.026,
+  "captionPx": 0.048,
   "weight": 900,
   "tracking": -0.02,
   "heroLh": 1.12
@@ -67,8 +67,8 @@
    "small": {
     "cx": 0.7667,
     "cy": 0.3796,
-    "w": 0.24,
-    "h": 0.24,
+    "w": 0.27,
+    "h": 0.27,
     "r": 0.5
    }
   }
@@ -78,7 +78,7 @@
   "titleY": 0.14,
   "heroY": 0.25,
   "contentY": 0.3,
-  "safe": 0.81
+  "safe": 0.799
  },
  "look": {
   "titleStyle": "plain",
@@ -107,7 +107,7 @@
   "outro"
  ],
  "caption": {
-  "size": 9.0,
+  "size": 8.0,
   "ink": "#16130f",
   "paper": "#f6f4ee",
   "accent": "#1f6ae0",

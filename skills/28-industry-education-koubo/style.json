@@ -34,7 +34,7 @@
   "statementPx": 0.082,
   "bodyPx": 0.035,
   "quotePx": 0.046,
-  "captionPx": 0.026,
+  "captionPx": 0.048,
   "weight": 900,
   "tracking": -0.02,
   "heroLh": 1.12
@@ -65,10 +65,10 @@
     "r": 0.012
    },
    "small": {
-    "cx": 0.851,
-    "cy": 0.083,
-    "w": 0.2063,
-    "h": 0.2063,
+    "cx": 0.84,
+    "cy": 0.1009,
+    "w": 0.27,
+    "h": 0.27,
     "r": 0.5
    }
   }
@@ -105,7 +105,7 @@
   "outro"
  ],
  "caption": {
-  "size": 9.0,
+  "size": 8.0,
   "ink": "#1d1a14",
   "paper": "#f2f0e6",
   "accent": "#c07c1c",

@@ -254,7 +254,7 @@ def main():
         th = "dark" if theme_at((c["s"] + c["e"]) / 2) == "dark" else "light"
         th = th if th in ACCENT else "light"
         seg = d.TextSegment(c["text"], rng(c["s"], c["e"]), font=font,
-                            style=d.TextStyle(size=cs.get("size", 9), bold=True, color=paper if th == "dark" else ink, align=1,
+                            style=d.TextStyle(size=cs.get("size", 8), bold=True, color=paper if th == "dark" else ink, align=1,
                                               auto_wrapping=True,
                                               # 横屏人物在侧边时字幕移到空白区：行宽收到该区宽度（与 runtime 同源）
                                               max_line_width=cs.get("maxLineWidth", 0.73 if cs.get("x", .5) == .5 else

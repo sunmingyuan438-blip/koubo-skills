@@ -29,7 +29,7 @@
 
   // 字号基准
   // 竖屏在手机上按全宽观看：正文/标题/大字统一放大（仍受 fit() 按版心宽度约束）
-  const PS = PORTRAIT ? { body: 1.22, title: 1.15, hero: 1.25 } : { body: 1.1, title: 1.05, hero: 1.08 };
+  const PS = PORTRAIT ? { body: 1.28, title: 1.15, hero: 1.25 } : { body: 1.1, title: 1.05, hero: 1.08 };
   const BS = R(TY.bodyPx ?? 0.03, MIN) * PS.body;   // 正文
   const KS = Math.max(14, R(0.019, MIN));          // kicker
   const HS = Math.max(13, R(0.0155, MIN));         // HUD / foot
@@ -926,7 +926,7 @@
 
   // ---------- 构图（compose）：内容块整体放大并在可用区内纵向居中 ----------
   // 控件各自按「顶部锚定」排版，内容少时下半屏会空。这里在终态量出内容块外框，
-  // 以外框左上角为原点等比放大（上限 layout.composeMax，默认 1.3），再在 [原顶边, SAFE] 内按 42% 视觉重心下移。
+  // 以外框左上角为原点等比放大（上限 layout.composeMax，默认 1.22），再在 [原顶边, SAFE] 内按 42% 视觉重心下移。
   // 候选从大到小试：放大后任何元素碰到人物框 / HUD / 版心右界 / 字幕安全线就降一档，全不行则保持原样。
   // 只依赖终态几何，与 t 无关：renderAt 仍是 t 与 DATA 的纯函数。
   function compose(content, root, mode) {
@@ -957,7 +957,7 @@
     root.querySelectorAll('.hud').forEach(h => { const b = h.getBoundingClientRect(); if (b.width > 0.5 && b.height > 0.5) obs.push({ l: b.left - sr.left, t: b.top - sr.top, r: b.right - sr.left, b: b.bottom - sr.top }); });
     obs = obs.filter(o => !rects.some(q => hit(q, o)));   // 原样就相交的（控件自己安排的贴靠）不算障碍
     const K = LY.composeY ?? 0.42;
-    const smax = Math.max(1, Math.min(LY.compose === 'center' ? 1 : (LY.composeMax ?? 1.3), (RT - B.l) / bw, room * 0.9 / bh));
+    const smax = Math.max(1, Math.min(LY.compose === 'center' ? 1 : (LY.composeMax ?? 1.22), (RT - B.l) / bw, room * 0.9 / bh));
     for (let s = smax; s >= 1 - 1e-6; s = s > 1 ? Math.max(1, s - 0.05) : 0) {
       const slack = room - bh * s;
       for (const ty of [slack * K, slack * K * 0.5, 0]) {
@@ -1042,12 +1042,14 @@
     const c = D.captions.find(x => t >= x.s && t < x.e);
     if (!c) return;
     const dark = theme === 'dark';
-    const size = R(TY.captionPx ?? 0.024, MIN);
+    // 与剪映草稿同源：字号 = caption.size 换算出的 type.captionPx；行宽 = 草稿的 max_line_width；
+    // 垂直以 caption.y 为文字块中心（剪映 transform_y 是文字块中心，两行时上下各长半行）
+    const size = R(TY.captionPx ?? 0.048, MIN);
+    const cx = S.caption?.x ?? .5;
+    const lw = (S.caption?.maxLineWidth ?? (cx === .5 ? 0.73 : 2 * Math.min(cx - 0.06, 0.94 - cx))) * W;
     const box = el(root, 'abs caption', {
-      // 字幕水平中心 caption.x（横屏人物在侧边时移到空白区中线）；宽度取两侧对称可用宽
-      left: px((S.caption?.x ?? .5) * W - Math.min((S.caption?.x ?? .5) * W - L, RT - (S.caption?.x ?? .5) * W)),
-      top: px((1 - (S.caption?.y ?? -0.79)) / 2 * H - size * 0.7),
-      width: px(2 * Math.min((S.caption?.x ?? .5) * W - L, RT - (S.caption?.x ?? .5) * W)), textAlign: 'center',
+      left: px(cx * W - lw / 2), top: px((1 - (S.caption?.y ?? -0.79)) / 2 * H), transform: 'translateY(-50%)',
+      width: px(lw), textAlign: 'center',
       fontSize: px(size), fontWeight: 700, lineHeight: 1.35,
       color: dark ? (TH.captionOnDark || TH.inkAlt || '#fff') : (TH.captionOn || TH.ink),
       textShadow: dark ? '0 2px 10px rgba(0,0,0,.55)' : '0 2px 10px rgba(255,255,255,.6)',

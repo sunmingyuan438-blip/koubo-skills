@@ -103,7 +103,7 @@ def crop_for(mode, sw, sh, face, spread):
         if abs(cx_px - CW * (STYLE.get("caption") or {}).get("x", .5)) < CW * 0.3:
             top_ = f0["cy"] * CH - fh / 2
             if top_ < cap_cy:
-                new_h = min(new_h, max(fh, cap_cy - 0.04 * CH - top_))
+                new_h = min(new_h, max(fh, cap_cy - max(0.04 * CH, (STYLE.get('type') or {}).get('captionPx', 0.048) * MIN * 1.35 + 0.012 * CH) - top_))
         if new_h > fh * 1.02:
             top = f0["cy"] * CH - fh / 2
             frame = {**f0, "h": round(new_h / MIN, 4), "cy": round((top + new_h / 2) / CH, 4)}

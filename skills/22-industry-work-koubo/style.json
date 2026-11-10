@@ -34,7 +34,7 @@
   "statementPx": 0.07,
   "bodyPx": 0.032,
   "quotePx": 0.04,
-  "captionPx": 0.024,
+  "captionPx": 0.048,
   "weight": 900,
   "tracking": -0.02,
   "heroLh": 1.12
@@ -78,7 +78,7 @@
   "titleY": 0.4,
   "heroY": 0.42,
   "contentY": 0.46,
-  "safe": 0.7
+  "safe": 0.712
  },
  "look": {
   "titleStyle": "tagged",
@@ -107,11 +107,11 @@
   "outro"
  ],
  "caption": {
-  "size": 9.0,
+  "size": 8.0,
   "ink": "#101418",
   "paper": "#e8edf2",
   "accent": "#2f66e8",
   "accentDark": "#5f8ff5",
-  "y": -0.48
+  "y": -0.52
  }
 }
