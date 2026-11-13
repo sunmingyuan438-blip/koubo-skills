@@ -115,6 +115,216 @@
     else e.style.transform = `translate(${(1 - k) * dx}px, ${(1 - k) * dy}px)`;
   }
 
+  // ---------- 底纹扩展（v3，2026-11-10）：静态 SVG，只由 style 令牌与 theme 决定（纯函数；按 theme 缓存） ----------
+  // 颜色：c.ink / c.acc / c.d[0..3]（theme.deco，可缺省）；尺寸单位 u = 短边/1080。装饰只放在四角与边缘，版心留白
+  const U = MIN / 1080;
+  const rng = seed => () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const f1 = v => (Math.round(v * 10) / 10);
+  const DECO = {
+    blueprint: c => {
+      const s = 54 * U, m = s * 5; let o = `<defs><pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><path d='M${s} 0H0V${s}' fill='none' stroke='${c.ink}' stroke-opacity='.05'/></pattern>` +
+        `<pattern id='b' width='${m}' height='${m}' patternUnits='userSpaceOnUse'><path d='M${m} 0H0V${m}' fill='none' stroke='${c.ink}' stroke-opacity='.10'/></pattern></defs><rect width='${W}' height='${H}' fill='url(#a)'/><rect width='${W}' height='${H}' fill='url(#b)'/>`;
+      const k = 26 * U, e = 34 * U;
+      [[e, e], [W - e, e], [e, H - e], [W - e, H - e]].forEach(([x, y]) => { o += `<path d='M${x - k} ${y}H${x + k}M${x} ${y - k}V${y + k}' stroke='${c.acc}' stroke-opacity='.7' stroke-width='${1.5 * U}'/><circle cx='${x}' cy='${y}' r='${7 * U}' fill='none' stroke='${c.acc}' stroke-opacity='.7'/>`; });
+      for (let i = 0; i <= 24; i++) { const x = e + k * 2 + i * (W - 2 * e - 4 * k) / 24; o += `<path d='M${f1(x)} ${H - e}v${-(i % 6 ? 6 : 14) * U}' stroke='${c.ink}' stroke-opacity='.28'/>`; }
+      return o;
+    },
+    ruler: c => {
+      let o = `<defs><radialGradient id='g' cx='.5' cy='.42' r='.6'><stop offset='0' stop-color='${c.d[0] || c.acc}' stop-opacity='.20'/><stop offset='1' stop-color='${c.d[0] || c.acc}' stop-opacity='0'/></radialGradient></defs><rect width='${W}' height='${H}' fill='url(#g)'/>`;
+      const y = H - 30 * U; o += `<path d='M${40 * U} ${y}H${W - 40 * U}' stroke='${c.ink}' stroke-opacity='.22'/>`;
+      for (let i = 0; i <= 60; i++) { const x = 40 * U + i * (W - 80 * U) / 60; o += `<path d='M${f1(x)} ${y}v${-(i % 10 ? 5 : 13) * U}' stroke='${c.ink}' stroke-opacity='${i % 10 ? .16 : .4}'/>`; }
+      const r = rng(7); for (let i = 0; i < 22; i++) { const yy = r() * H, l = (20 + r() * 60) * U, left = r() < .5; o += `<path d='M${left ? 0 : W - l} ${f1(yy)}h${f1(l)}' stroke='${c.ink}' stroke-opacity='.10'/>`; }
+      return o;
+    },
+    chalk: c => {
+      const r = rng(11); let o = `<defs><filter id='s'><feGaussianBlur stdDeviation='${40 * U}'/></filter></defs><g filter='url(#s)'>`;
+      for (let i = 0; i < 9; i++) o += `<ellipse cx='${f1(r() * W)}' cy='${f1(r() * H)}' rx='${f1((180 + r() * 260) * U)}' ry='${f1((50 + r() * 90) * U)}' fill='#fff' fill-opacity='${f1(.3 + r() * .3) / 10}' transform='rotate(${f1(-12 + r() * 24)} ${W / 2} ${H / 2})'/>`;
+      o += `</g>`;
+      const b = 14 * U, wood = c.d[0] || '#8a6a45';
+      o += `<rect x='${b / 2}' y='${b / 2}' width='${W - b}' height='${H - b}' fill='none' stroke='${wood}' stroke-width='${b}'/><rect x='${b}' y='${b}' width='${W - 2 * b}' height='${H - 2 * b}' fill='none' stroke='#000' stroke-opacity='.35' stroke-width='${2 * U}'/>`;
+      [[.42, '#f4f1e6'], [.47, c.d[1] || '#e9c75a'], [.52, c.d[2] || '#8fc3dd']].forEach(([x, col]) => { o += `<rect x='${x * W}' y='${H - b * 1.25}' width='${44 * U}' height='${7 * U}' rx='${3 * U}' fill='${col}'/>`; });
+      return o;
+    },
+    pixel: c => {
+      const p = 6 * U, r = rng(23); let o = '';
+      for (let i = 0; i < 130; i++) { const x = Math.floor(r() * W / p) * p, y = Math.floor(r() * H * .62 / p) * p, k = r(); o += `<rect x='${f1(x)}' y='${f1(y)}' width='${f1(k > .9 ? p * 1.5 : p * .7)}' height='${f1(k > .9 ? p * 1.5 : p * .7)}' fill='${k > .8 ? (c.d[1] || c.acc) : c.ink}' fill-opacity='${f1(.12 + k * .3)}'/>`; }
+      const band = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc]; const bh = 22 * U;
+      band.forEach((col, i) => { o += `<rect x='0' y='${H - (3 - i) * bh}' width='${W}' height='${bh}' fill='${col}' fill-opacity='${.10 + i * .07}'/>`; });
+      let x = 0; while (x < W) { const w = (5 + Math.floor(r() * 9)) * p * 2, h = (4 + Math.floor(r() * 14)) * p * 2;
+        o += `<rect x='${f1(x)}' y='${f1(H - h)}' width='${f1(w - p)}' height='${f1(h)}' fill='${c.bg}'/><rect x='${f1(x)}' y='${f1(H - h)}' width='${f1(w - p)}' height='${f1(h)}' fill='${c.ink}' fill-opacity='.07'/>`;
+        for (let wy = H - h + p * 2; wy < H - p * 2; wy += p * 3) for (let wx = x + p * 1.5; wx < x + w - p * 3; wx += p * 3) if (r() < .32) o += `<rect x='${f1(wx)}' y='${f1(wy)}' width='${f1(p)}' height='${f1(p)}' fill='${c.d[1] || c.acc}' fill-opacity='.75'/>`;
+        x += w; }
+      return o;
+    },
+    halftone: c => {
+      const s = 30 * U, fx = W * .98, fy = H * 1.02, fx2 = -W * .02, fy2 = -H * .04, R1 = MIN * .78, R2 = MIN * .5; let o = '';
+      for (let j = 0, y = 0; y < H + s; y += s * .866, j++) for (let x = (j % 2) * s / 2; x < W + s; x += s) {
+        const d1 = Math.hypot(x - fx, y - fy) / R1, d2 = Math.hypot(x - fx2, y - fy2) / R2;
+        const k = Math.max(0, 1 - d1), k2 = Math.max(0, 1 - d2);
+        if (k > .04) o += `<circle cx='${f1(x)}' cy='${f1(y)}' r='${f1(s * .52 * Math.pow(k, .8))}' fill='${c.acc}' fill-opacity='.55'/>`;
+        else if (k2 > .04) o += `<circle cx='${f1(x)}' cy='${f1(y)}' r='${f1(s * .5 * Math.pow(k2, .8))}' fill='${c.d[0] || c.ink}' fill-opacity='.4'/>`;
+      }
+      return o;
+    },
+    scan: c => {
+      const r = rng(31), s = 5 * U; let o = `<defs><pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><rect width='${s}' height='${1.4 * U}' fill='${c.ink}' fill-opacity='.07'/></pattern>` +
+        `<radialGradient id='v' cx='.5' cy='.5' r='.75'><stop offset='.55' stop-color='#000' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='${c.dark ? .55 : .14}'/></radialGradient></defs>`;
+      for (let i = 0; i < 9; i++) { const y = r() * H, h = (4 + r() * 22) * U, x = r() < .5 ? 0 : W * (.55 + r() * .3), w = W * (.12 + r() * .3), dx = (6 + r() * 14) * U;
+        o += `<rect x='${f1(x - dx)}' y='${f1(y)}' width='${f1(w)}' height='${f1(h)}' fill='${c.d[0] || '#35e0ff'}' fill-opacity='.22'/><rect x='${f1(x + dx)}' y='${f1(y + 3 * U)}' width='${f1(w)}' height='${f1(h)}' fill='${c.d[1] || '#ff3d7f'}' fill-opacity='.20'/>`; }
+      o += `<rect width='${W}' height='${H}' fill='url(#a)'/><rect width='${W}' height='${H}' fill='url(#v)'/>`;
+      const e = 30 * U, k = 34 * U;
+      [[e, e, 1, 1], [W - e, e, -1, 1], [e, H - e, 1, -1], [W - e, H - e, -1, -1]].forEach(([x, y, sx, sy]) => { o += `<path d='M${x + sx * k} ${y}H${x}V${y + sy * k}' fill='none' stroke='${c.ink}' stroke-opacity='.55' stroke-width='${2 * U}'/>`; });
+      return o;
+    },
+    frame: c => {
+      const a = 20 * U, b = 30 * U; let o = `<rect x='${a}' y='${a}' width='${W - 2 * a}' height='${H - 2 * a}' fill='none' stroke='${c.acc}' stroke-opacity='.75' stroke-width='${1.6 * U}'/><rect x='${b}' y='${b}' width='${W - 2 * b}' height='${H - 2 * b}' fill='none' stroke='${c.ink}' stroke-opacity='.22'/>`;
+      [[b, b], [W - b, b], [b, H - b], [W - b, H - b]].forEach(([x, y], i) => { o += `<rect x='${x - 6 * U}' y='${y - 6 * U}' width='${12 * U}' height='${12 * U}' fill='${[c.acc, c.d[0] || c.acc, c.d[1] || c.acc, c.acc][i]}' transform='rotate(45 ${x} ${y})'/>`; });
+      o += `<circle cx='${W / 2}' cy='${H - a}' r='${4 * U}' fill='${c.acc}'/>`;
+      return o;
+    },
+    papercut: c => {
+      const cols = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc, c.d[3] || c.acc];
+      let o = `<defs><filter id='s' x='-20%' y='-20%' width='140%' height='140%'><feDropShadow dx='0' dy='${5 * U}' stdDeviation='${7 * U}' flood-color='#000' flood-opacity='.28'/></filter></defs>`;
+      cols.forEach((col, i) => { o += `<circle cx='0' cy='${H}' r='${(285 - i * 66) * U}' fill='${col}' filter='url(#s)'/>`; });
+      cols.slice().reverse().forEach((col, i) => { o += `<circle cx='${W}' cy='0' r='${(330 - i * 78) * U}' fill='${col}' filter='url(#s)'/>`; });
+      let d = `M${W * .42} ${H}`; for (let x = W * .42; x <= W + 60 * U; x += 60 * U) d += `Q${f1(x + 30 * U)} ${f1(H - 58 * U)} ${f1(x + 60 * U)} ${H}`;
+      o += `<path d='${d}Z' fill='${cols[1]}' fill-opacity='.9' filter='url(#s)'/>`;
+      return o;
+    },
+    iso: c => {
+      const s = 60 * U, h = s * Math.tan(Math.PI / 6); let o = `<defs><pattern id='a' width='${f1(s * 2)}' height='${f1(h * 2)}' patternUnits='userSpaceOnUse'><path d='M0 ${f1(h)}L${f1(s)} 0L${f1(s * 2)} ${f1(h)}L${f1(s)} ${f1(h * 2)}Z' fill='none' stroke='${c.ink}' stroke-opacity='.07'/></pattern></defs><rect width='${W}' height='${H}' fill='url(#a)'/>`;
+      const cube = (x, y, k, col) => { const a = s * k, b = h * k; return `<path d='M${f1(x)} ${f1(y)}l${f1(a)} ${f1(-b)}l${f1(a)} ${f1(b)}l${f1(-a)} ${f1(b)}Z' fill='${col}' fill-opacity='.55'/><path d='M${f1(x)} ${f1(y)}v${f1(a * 1.1)}l${f1(a)} ${f1(b)}v${f1(-a * 1.1)}Z' fill='${col}' fill-opacity='.85'/><path d='M${f1(x + 2 * a)} ${f1(y)}v${f1(a * 1.1)}l${f1(-a)} ${f1(b)}v${f1(-a * 1.1)}Z' fill='${col}'/>`; };
+      o += cube(30 * U, H - 250 * U, 1.5, c.d[0] || c.acc) + cube(190 * U, H - 150 * U, 1, c.d[1] || c.acc) + cube(W - 150 * U, 60 * U, .8, c.d[2] || c.acc);
+      return o;
+    },
+    metro: c => {
+      const cols = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc], w = 9 * U; let o = '';
+      cols.forEach((col, i) => { const y = H - (34 + i * 20) * U, k = (120 + i * 20) * U, x1 = W * (.20 + i * .05);
+        o += `<path d='M0 ${f1(y - k)}H${f1(x1)}l${f1(k)} ${f1(k)}H${W}' fill='none' stroke='${col}' stroke-width='${w}' stroke-linejoin='round'/>`;
+        [.06 + i * .04, .5 + i * .06, .84 - i * .05].forEach((t, j) => { const x = W * t, yy = x < x1 ? y - k : y; o += `<circle cx='${f1(x)}' cy='${f1(yy)}' r='${8 * U}' fill='${c.bg}' stroke='${j === 1 ? c.ink : col}' stroke-width='${3 * U}'/>`; }); });
+      o += `<path d='M${W - 300 * U} 0v${70 * U}l${70 * U} ${70 * U}H${W}' fill='none' stroke='${cols[0]}' stroke-width='${w}' stroke-linejoin='round' stroke-opacity='.9'/><circle cx='${W - 300 * U}' cy='${48 * U}' r='${8 * U}' fill='${c.bg}' stroke='${cols[0]}' stroke-width='${3 * U}'/>`;
+      return o;
+    },
+    wall: c => {
+      const gold = c.d[0] || c.acc, y = H - 44 * U;
+      let o = `<defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${f1(.9 / U) / 1}' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0'/></filter>` +
+        `<radialGradient id='v' cx='.5' cy='.4' r='.8'><stop offset='.4' stop-color='#000' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='.38'/></radialGradient></defs><rect width='${W}' height='${H}' filter='url(#n)'/><rect width='${W}' height='${H}' fill='url(#v)'/>`;
+      o += `<path d='M${40 * U} ${y}H${W - 40 * U}' stroke='${gold}' stroke-width='${2 * U}'/>`;
+      for (let i = 0; i < 7; i++) { const x = 40 * U + (i + .5) * (W - 80 * U) / 7; o += `<path d='M${f1(x)} ${y}v${-16 * U}' stroke='${gold}' stroke-width='${1.5 * U}'/><circle cx='${f1(x)}' cy='${y}' r='${4 * U}' fill='${gold}'/>`; }
+      o += `<path d='M${40 * U} ${38 * U}H${W - 40 * U}' stroke='${gold}' stroke-opacity='.5'/>`;
+      return o;
+    },
+    clay: c => {
+      const cols = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc]; let o = `<defs>`;
+      cols.forEach((col, i) => { o += `<radialGradient id='g${i}' cx='.35' cy='.3' r='.8'><stop offset='0' stop-color='#fff' stop-opacity='.9'/><stop offset='.35' stop-color='${col}'/><stop offset='1' stop-color='${col}'/></radialGradient>`; });
+      o += `<filter id='s' x='-30%' y='-30%' width='160%' height='180%'><feDropShadow dx='0' dy='${16 * U}' stdDeviation='${16 * U}' flood-color='#5a3a2a' flood-opacity='.22'/></filter></defs>`;
+      [[70, H / U - 90, 150, 0], [250, H / U - 40, 90, 1], [W / U - 120, 70, 110, 2], [W / U - 290, 20, 60, 0], [40, 90, 46, 1]].forEach(([x, y, r, i]) => { o += `<ellipse cx='${x * U}' cy='${y * U}' rx='${r * U}' ry='${r * .86 * U}' fill='url(#g${i})' filter='url(#s)'/>`; });
+      return o;
+    },
+    kaleido: c => {
+      const cx = W / 2, cy = H / 2, cols = [c.acc, c.d[0] || c.acc, c.d[1] || c.acc]; let o = '';
+      [[MIN * 1.25, 12, .07], [MIN * .95, 12, .08], [MIN * .62, 12, .09]].forEach(([r, n, op], k) => { for (let i = 0; i < n; i++) { const a = (i / n) * 360 + k * 15;
+        o += `<path d='M${cx} ${cy}Q${f1(cx + r * .22)} ${f1(cy - r * .5)} ${cx} ${f1(cy - r)}Q${f1(cx - r * .22)} ${f1(cy - r * .5)} ${cx} ${cy}Z' fill='${cols[k]}' fill-opacity='${op}' transform='rotate(${a} ${cx} ${cy})'/>`; } });
+      o += `<circle cx='${cx}' cy='${cy}' r='${MIN * .49}' fill='none' stroke='${c.ink}' stroke-opacity='.12'/><circle cx='${cx}' cy='${cy}' r='${MIN * .66}' fill='none' stroke='${c.ink}' stroke-opacity='.07'/>`;
+      return o;
+    },
+    mosaic: c => {
+      const s = 60 * U, r = rng(47), cols = [c.acc, c.d[0] || c.acc, c.d[1] || c.ink, c.ink]; let o = '';
+      for (let y = 0; y < H; y += s) for (let x = 0; x < W; x += s) { const k = r(), edge = Math.max(Math.abs(x + s / 2 - W / 2) / (W / 2), Math.abs(y + s / 2 - H / 2) / (H / 2));
+        if (k < .62) o += `<rect x='${f1(x + 2 * U)}' y='${f1(y + 2 * U)}' width='${f1(s - 4 * U)}' height='${f1(s - 4 * U)}' rx='${3 * U}' fill='${cols[Math.floor(r() * 4)]}' fill-opacity='${f1((.03 + k * .1) * (.35 + edge * edge * 1.6) * 10) / 10}'/>`; }
+      return o;
+    },
+    brush: c => {
+      const r = rng(59), cols = [c.acc, c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.ink, c.d[3] || c.ink]; let o = '';
+      const stroke = (x, y, a) => { const l = (30 + r() * 42) * U, t = (11 + r() * 8) * U; return `<rect x='${f1(x - l / 2)}' y='${f1(y - t / 2)}' width='${f1(l)}' height='${f1(t)}' rx='${f1(t / 2)}' fill='${cols[Math.floor(r() * cols.length)]}' transform='rotate(${f1(a)} ${f1(x)} ${f1(y)})'/>`; };
+      for (let i = 0; i < 260; i++) { const x = r() * W, y = r() * H * .085; if (r() > Math.pow(1 - x / W, 1.4) * 1.1) continue; o += stroke(x, y, 20 + (r() - .5) * 50); }
+      for (let i = 0; i < 260; i++) { const x = W * (.885 + r() * .13), y = H * (.80 + r() * .22); if (r() > Math.min(1, (x / W - .885) * 7) * Math.min(1, (y / H - .8) * 6)) continue; o += stroke(x, y, 210 + (r() - .5) * 50); }
+      return o;
+    },
+    collage: c => {
+      const A = c.acc, B = c.d[0] || c.acc, Y = c.d[1] || c.acc, K = c.d[2] || c.ink, u = U;
+      return `<path d='M${-30 * u} ${H}a${125 * u} ${125 * u} 0 0 1 ${250 * u} 0Z' fill='${B}'/><circle cx='${200 * u}' cy='${H - 150 * u}' r='${30 * u}' fill='${K}'/>` +
+        `<rect x='${12 * u}' y='${H - 230 * u}' width='${26 * u}' height='${110 * u}' rx='${13 * u}' fill='${Y}'/><path d='M${60 * u} ${H - 10 * u}L${235 * u} ${H - 190 * u}' stroke='${K}' stroke-width='${7 * u}'/>` +
+        `<path d='M${W - 250 * u} 0a${190 * u} ${190 * u} 0 0 0 ${190 * u} ${190 * u}V0Z' fill='${A}' transform='translate(${60 * u} 0)'/><circle cx='${W - 300 * u}' cy='${56 * u}' r='${40 * u}' fill='${Y}'/>` +
+        `<path d='M${40 * u} ${44 * u}h${56 * u}' stroke='${K}' stroke-width='${2 * u}'/>`;
+    },
+    scroll: c => {
+      const band = c.d[0] || '#3b4a4a', gold = c.d[1] || '#b9a26a', bh = 30 * U, r = rng(71);
+      let o = `<defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${.006 / U}' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 .4  0 0 0 0 .33  0 0 0 0 .2  0 0 0 .55 -.16'/></filter></defs><rect width='${W}' height='${H}' filter='url(#n)'/>`;
+      o += `<rect width='${W}' height='${bh}' fill='${band}'/><rect y='${H - bh}' width='${W}' height='${bh}' fill='${band}'/><path d='M0 ${bh}H${W}M0 ${H - bh}H${W}' stroke='${gold}' stroke-width='${2.5 * U}'/>`;
+      let y = H - bh - 46 * U, d = `M${W * .05} ${f1(y - 150 * U)}C${W * .07} ${f1(y - 10 * U)} ${W * .12} ${f1(y)} ${W * .2} ${f1(y)}`;
+      for (let x = W * .2; x < W * .98; x += W * .06) { y += (r() - .5) * 8 * U; d += `S${f1(x + W * .03)} ${f1(y + (r() - .5) * 10 * U)} ${f1(x + W * .06)} ${f1(y)}`; }
+      o += `<path d='${d}' fill='none' stroke='${c.ink}' stroke-opacity='.8' stroke-width='${2.2 * U}' stroke-linecap='round'/>`;
+      return o;
+    },
+    gallery: c => {
+      const hy = H * .6; let o = `<defs><linearGradient id='f' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fff' stop-opacity='.07'/><stop offset='1' stop-color='#fff' stop-opacity='0'/></linearGradient>` +
+        `<radialGradient id='l' cx='.5' cy='.2' r='.7'><stop offset='0' stop-color='#fff' stop-opacity='.09'/><stop offset='1' stop-color='#fff' stop-opacity='0'/></radialGradient></defs><rect width='${W}' height='${hy}' fill='url(#l)'/><rect y='${hy}' width='${W}' height='${H - hy}' fill='url(#f)'/>`;
+      for (let i = -8; i <= 8; i++) o += `<path d='M${W / 2 + i * 40 * U} ${hy}L${f1(W / 2 + i * 330 * U)} ${H}' stroke='${c.ink}' stroke-opacity='.06'/>`;
+      [.0, .12, .3, .58].forEach(k => { o += `<path d='M0 ${f1(hy + (H - hy) * k)}H${W}' stroke='${c.ink}' stroke-opacity='.06'/>`; });
+      o += `<path d='M${W * .4} ${40 * U}H${W * .6}' stroke='${c.ink}' stroke-opacity='.4' stroke-width='${3 * U}' stroke-linecap='round'/>`;
+      return o;
+    },
+    riso: c => {
+      const A = c.acc, B = c.d[0] || c.ink, s = 13 * U; let o = `<defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${1.1 / U}' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 .3  0 0 0 0 .25  0 0 0 0 .2  0 0 0 .16 0'/></filter>` +
+        `<pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><circle cx='${s / 2}' cy='${s / 2}' r='${s * .32}' fill='${A}'/></pattern><pattern id='b' width='${s}' height='${s}' patternUnits='userSpaceOnUse' patternTransform='rotate(30)'><circle cx='${s / 2}' cy='${s / 2}' r='${s * .3}' fill='${B}'/></pattern></defs>`;
+      o += `<circle cx='${W - 60 * U}' cy='${H - 40 * U}' r='${210 * U}' fill='url(#a)'/><circle cx='${W - 250 * U}' cy='${H + 10 * U}' r='${150 * U}' fill='url(#b)'/><circle cx='${10 * U}' cy='${0}' r='${92 * U}' fill='url(#b)'/><circle cx='${120 * U}' cy='${-14 * U}' r='${54 * U}' fill='url(#a)'/>`;
+      const e = 26 * U, k = 16 * U;
+      [[e, H - e], [W - e, e]].forEach(([x, y]) => { o += `<path d='M${x - k} ${y}H${x + k}M${x} ${y - k}V${y + k}' stroke='${B}' stroke-width='${1.5 * U}'/><circle cx='${x}' cy='${y}' r='${6 * U}' fill='none' stroke='${A}' stroke-width='${1.5 * U}'/>`; });
+      return o + `<rect width='${W}' height='${H}' filter='url(#n)'/>`;
+    },
+    notes: c => {
+      const s = 34 * U, tape = c.d[0] || c.acc, hl = c.d[1] || c.acc;
+      let o = `<defs><pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><circle cx='${s / 2}' cy='${s / 2}' r='${1.6 * U}' fill='${c.ink}' fill-opacity='.2'/></pattern><pattern id='t' width='${14 * U}' height='${14 * U}' patternUnits='userSpaceOnUse' patternTransform='rotate(45)'><rect width='${7 * U}' height='${14 * U}' fill='#fff' fill-opacity='.35'/></pattern></defs><rect width='${W}' height='${H}' fill='url(#a)'/>`;
+      o += `<g transform='rotate(-7 ${60 * U} ${40 * U})'><rect x='${-30 * U}' y='${26 * U}' width='${190 * U}' height='${34 * U}' fill='${tape}' fill-opacity='.85'/><rect x='${-30 * U}' y='${26 * U}' width='${190 * U}' height='${34 * U}' fill='url(#t)'/></g>`;
+      o += `<g transform='rotate(5 ${W - 100 * U} ${H - 50 * U})'><rect x='${W - 210 * U}' y='${H - 62 * U}' width='${230 * U}' height='${30 * U}' fill='${hl}' fill-opacity='.8'/><rect x='${W - 210 * U}' y='${H - 62 * U}' width='${230 * U}' height='${30 * U}' fill='url(#t)'/></g>`;
+      o += `<path d='M${40 * U} ${H - 120 * U}c${40 * U} ${-50 * U} ${90 * U} ${-40 * U} ${80 * U} ${10 * U}s${-70 * U} ${30 * U} ${-20 * U} ${-20 * U}s${110 * U} ${-20 * U} ${150 * U} ${40 * U}' fill='none' stroke='${c.ink}' stroke-opacity='.55' stroke-width='${2.4 * U}' stroke-linecap='round'/><path d='M${236 * U} ${H - 106 * U}l${16 * U} ${18 * U}l${-22 * U} ${4 * U}' fill='none' stroke='${c.ink}' stroke-opacity='.55' stroke-width='${2.4 * U}' stroke-linecap='round' stroke-linejoin='round'/>`;
+      return o;
+    },
+    mindmap: c => {
+      const A = c.acc, B = c.d[0] || c.acc, G = c.d[1] || c.acc; let o = '';
+      const br = (x0, y0, x1, y1, col, w) => `<path d='M${f1(x0)} ${f1(y0)}C${f1(x0 + (x1 - x0) * .5)} ${f1(y0)} ${f1(x0 + (x1 - x0) * .5)} ${f1(y1)} ${f1(x1)} ${f1(y1)}' fill='none' stroke='${col}' stroke-opacity='.55' stroke-width='${w * U}' stroke-linecap='round'/><circle cx='${f1(x1)}' cy='${f1(y1)}' r='${(w + 5) * U}' fill='${col}' fill-opacity='.8'/>`;
+      const ox = 50 * U, oy = H - 60 * U;
+      o += br(ox, oy, ox + 250 * U, oy - 150 * U, A, 7) + br(ox, oy, ox + 330 * U, oy + 10 * U, B, 6) + br(ox + 250 * U, oy - 150 * U, ox + 430 * U, oy - 220 * U, A, 4) + br(ox + 250 * U, oy - 150 * U, ox + 450 * U, oy - 110 * U, G, 4) + br(ox + 330 * U, oy + 10 * U, ox + 520 * U, oy - 30 * U, B, 3.5);
+      o += `<circle cx='${ox}' cy='${oy}' r='${22 * U}' fill='${A}'/>`;
+      const tx = W - 40 * U, ty = 50 * U;
+      o += br(tx, ty, tx - 220 * U, ty + 70 * U, G, 6) + br(tx, ty, tx - 300 * U, ty - 6 * U, B, 5) + br(tx - 220 * U, ty + 70 * U, tx - 380 * U, ty + 110 * U, G, 3.5) + `<circle cx='${tx}' cy='${ty}' r='${16 * U}' fill='${G}'/>`;
+      return o;
+    },
+    neon: c => {
+      const cols = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc]; let o = `<defs><filter id='g' x='-10%' y='-200%' width='120%' height='500%'><feGaussianBlur stdDeviation='${7 * U}' result='b'/><feMerge><feMergeNode in='b'/><feMergeNode in='b'/><feMergeNode in='SourceGraphic'/></feMerge></filter>` +
+        `<radialGradient id='v' cx='.5' cy='.45' r='.8'><stop offset='0' stop-color='${cols[0]}' stop-opacity='.10'/><stop offset='1' stop-color='#000' stop-opacity='.35'/></radialGradient></defs><rect width='${W}' height='${H}' fill='url(#v)'/>`;
+      cols.forEach((col, i) => { const y = H - (62 - i * 18) * U, amp = (16 - i * 3) * U, wl = (230 + i * 70) * U; let d = `M0 ${f1(y)}`;
+        for (let x = 0; x < W; x += wl) d += `q${f1(wl / 4)} ${f1(-amp * 2)} ${f1(wl / 2)} 0t${f1(wl / 2)} 0`;
+        o += `<path d='${d}' fill='none' stroke='${col}' stroke-width='${2.6 * U}' stroke-opacity='.9' filter='url(#g)'/>`; });
+      o += `<path d='M${40 * U} ${46 * U}H${260 * U}' stroke='${cols[0]}' stroke-width='${2.4 * U}' filter='url(#g)'/><path d='M${W - 260 * U} ${46 * U}H${W - 40 * U}' stroke='${cols[1]}' stroke-width='${2.4 * U}' filter='url(#g)'/>`;
+      return o;
+    },
+    cards: c => {
+      const r = rng(83); let o = `<defs><filter id='s' x='-30%' y='-30%' width='160%' height='170%'><feDropShadow dx='0' dy='${8 * U}' stdDeviation='${10 * U}' flood-color='#000' flood-opacity='.16'/></filter></defs>`;
+      [[-30, H / U - 150, 210, 124, -9, 0], [150, H / U - 70, 170, 100, 6, 1], [W / U - 200, -30, 220, 130, 8, 1], [W / U - 370, 24, 130, 78, -6, 0], [20, 30, 120, 72, 5, 1]].forEach(([x, y, w, h, a, k]) => {
+        const col = k ? (c.dark ? '#1c1f27' : '#ffffff') : (c.d[0] || '#16171c');
+        o += `<g transform='rotate(${a} ${(x + w / 2) * U} ${(y + h / 2) * U})' filter='url(#s)'><rect x='${x * U}' y='${y * U}' width='${w * U}' height='${h * U}' rx='${8 * U}' fill='${col}'/><rect x='${(x + 12) * U}' y='${(y + 14) * U}' width='${w * .45 * U}' height='${7 * U}' rx='${3 * U}' fill='${c.acc}'/><rect x='${(x + 12) * U}' y='${(y + 30) * U}' width='${w * .7 * U}' height='${5 * U}' rx='${2 * U}' fill='${k ? c.ink : '#fff'}' fill-opacity='.22'/><rect x='${(x + 12) * U}' y='${(y + 42) * U}' width='${w * .55 * U}' height='${5 * U}' rx='${2 * U}' fill='${k ? c.ink : '#fff'}' fill-opacity='.14'/></g>`; });
+      return o;
+    },
+    swiss: c => {
+      const m = 70 * U, n = 12, g = (W - 2 * m) / n; let o = '';
+      for (let i = 0; i <= n; i++) o += `<path d='M${f1(m + i * g)} 0V${H}' stroke='${c.ink}' stroke-opacity='.045'/>`;
+      o += `<path d='M${m} ${62 * U}H${W - m}' stroke='${c.ink}' stroke-width='${5 * U}'/><path d='M${m} ${H - 52 * U}H${W - m}' stroke='${c.ink}' stroke-opacity='.5' stroke-width='${1.2 * U}'/><rect x='${m}' y='${H - 52 * U}' width='${g * 2}' height='${8 * U}' fill='${c.acc}'/>`;
+      return o;
+    },
+    blocks: c => {
+      const A = c.acc, B = c.d[0] || c.acc;
+      return `<rect x='0' y='${H - 16 * U}' width='${W * .34}' height='${16 * U}' fill='${A}'/><rect x='${W * .34}' y='${H - 16 * U}' width='${W * .12}' height='${16 * U}' fill='${B}'/><rect x='${W - 26 * U}' y='0' width='${26 * U}' height='${H * .3}' fill='${A}'/><circle cx='${60 * U}' cy='${60 * U}' r='${9 * U}' fill='${B}'/><path d='M${84 * U} ${60 * U}h${90 * U}' stroke='${c.ink}' stroke-opacity='.35' stroke-width='${2 * U}'/>`;
+    },
+  };
+  const _decoCache = {};
+  const decoUrl = (g, c) => {
+    const key = g + '|' + c.theme;
+    if (!_decoCache[key]) _decoCache[key] = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='${W}' height='${H}' viewBox='0 0 ${W} ${H}'>${DECO[g](c)}</svg>`)}")`;
+    return _decoCache[key];
+  };
+
   // ---------- 背景 ----------
   function background(root, theme) {
     const dark = theme === 'dark';
@@ -141,6 +351,10 @@
     } else if (g === 'gradient') {
       const glow = dark ? (TH.bg2 || 'rgba(255,255,255,.07)') : (TH.tagBg || 'rgba(0,0,0,.04)');
       root.style.backgroundImage = `radial-gradient(120% 70% at 50% 0%, ${glow} 0%, transparent 65%)`;
+    } else if (DECO[g]) {
+      root.style.backgroundImage = decoUrl(g, { theme, dark, bg, ink, acc: accOf(theme), d: (dark ? TH.decoOnDark : TH.deco) || TH.deco || [] });
+      root.style.backgroundSize = `${W}px ${H}px`;
+      root.style.backgroundRepeat = 'no-repeat';
     }
     return ink;
   }
@@ -227,6 +441,17 @@
       css.background = dark ? 'rgba(10,14,20,.82)' : paperOf(theme);
       css.border = `1px solid ${line}`;
       css.boxShadow = `0 ${px(R(0.01, MIN))} ${px(R(0.03, MIN))} rgba(0,0,0,${dark ? .5 : .12})`;
+    } else if (st === 'neon') {
+      css.background = dark ? 'rgba(0,0,0,.28)' : 'rgba(255,255,255,.7)';
+      css.border = `${px(Math.max(2, R(0.002, MIN)))} solid ${accOf(theme)}`;
+      css.boxShadow = `0 0 ${px(R(0.018, MIN))} ${accOf(theme)}88, inset 0 0 ${px(R(0.012, MIN))} ${accOf(theme)}33`;
+    } else if (st === 'hard') {
+      css.background = dark ? (TH.panelDark || '#1b1b1f') : paperOf(theme);
+      css.border = `${px(Math.max(2, R(0.0028, MIN)))} solid ${inkOf(theme)}`;
+      css.boxShadow = `${px(R(0.008, MIN))} ${px(R(0.008, MIN))} 0 ${accOf(theme)}`;
+    } else if (st === 'sticker') {
+      css.background = dark ? (TH.panelDark || 'rgba(255,255,255,.08)') : (TH.panel || '#fff6c9');
+      css.boxShadow = `0 ${px(R(0.006, MIN))} ${px(R(0.014, MIN))} rgba(0,0,0,${dark ? .4 : .14})`;
     } else if (st === 'glass') {
       css.background = dark ? 'rgba(255,255,255,.07)' : 'rgba(255,255,255,.6)';
       css.border = `1px solid ${line}`;
@@ -234,6 +459,7 @@
     }
     const p = el(root, 'abs panel', css);
     p.hdr = 0;
+    if (st === 'sticker') el(p, 'abs', { left: '50%', top: px(-R(0.011, MIN)), width: px(R(0.085, MIN)), height: px(R(0.022, MIN)), marginLeft: px(-R(0.0425, MIN)), background: accOf(theme), opacity: 0.55 });
     if (st === 'window') {
       const hh = R(0.03, MIN);
       p.hdr = hh;

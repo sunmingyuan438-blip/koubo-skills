@@ -2,6 +2,86 @@
 
 把真人口播包装成不同视觉风格的短视频：每个 skill 自带渲染引擎、字体与控件，产出**可编辑的剪映草稿**（动效层、人物、口播、字幕分轨），也可直接导出 MP4。适用于 Claude Code / Codex 等支持 `SKILL.md` 的宿主。
 
+下面每张动图都是该 skill 用同一段 19.3 秒样板口播真跑出来的（点图看完整视频）。样板里的主播是程序绘制的无五官人形、声音是合成配音，不含任何真人。按风格分 8 类：[科技暗场](#科技暗场)（8） · [纸面手作](#纸面手作)（10） · [编辑网格](#编辑网格)（7） · [海报印刷](#海报印刷)（6） · [角色舞台](#角色舞台)（6） · [场景拟物](#场景拟物)（6） · [影像艺术](#影像艺术)（5） · [行业专题](#行业专题)（12）
+
+### 科技暗场
+
+深色底 + 等宽字 / HUD / 发光，适合科技、AI、数据、产品发布
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/02-tech-console-koubo/assets/sample.mp4"><img src="skills/02-tech-console-koubo/assets/sample.gif" width="260"></a><br><b>02 · 控制台 · 横屏版</b><br><sub>1920×1080 · 暗底 · <a href="skills/02-tech-console-koubo">skill</a> · <a href="skills/02-tech-console-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/10-tech-console-portrait-koubo/assets/sample.mp4"><img src="skills/10-tech-console-portrait-koubo/assets/sample.gif" width="150"></a><br><b>10 · 控制台 · 竖屏版</b><br><sub>1080×1920 · 暗底 · <a href="skills/10-tech-console-portrait-koubo">skill</a> · <a href="skills/10-tech-console-portrait-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/04-kinetic-tech-koubo/assets/sample.mp4"><img src="skills/04-kinetic-tech-koubo/assets/sample.gif" width="150"></a><br><b>04 · 动态技术 · 竖屏版</b><br><sub>1080×1920 · 暗底 · <a href="skills/04-kinetic-tech-koubo">skill</a> · <a href="skills/04-kinetic-tech-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/09-dark-dimensional-stage-koubo/assets/sample.mp4"><img src="skills/09-dark-dimensional-stage-koubo/assets/sample.gif" width="150"></a><br><b>09 · 深空多维舞台 · 竖屏版</b><br><sub>1080×1920 · 暗底 · <a href="skills/09-dark-dimensional-stage-koubo">skill</a> · <a href="skills/09-dark-dimensional-stage-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/13-dark-dimensional-stage-wide-koubo/assets/sample.mp4"><img src="skills/13-dark-dimensional-stage-wide-koubo/assets/sample.gif" width="260"></a><br><b>13 · 深空多维舞台 · 横屏版</b><br><sub>1920×1080 · 暗底 · <a href="skills/13-dark-dimensional-stage-wide-koubo">skill</a> · <a href="skills/13-dark-dimensional-stage-wide-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/33-screen-collage-koubo/assets/sample.mp4"><img src="skills/33-screen-collage-koubo/assets/sample.gif" width="260"></a><br><b>33 · 屏幕拼贴 · 品牌故事</b><br><sub>1920×1080 · 暗底 · <a href="skills/33-screen-collage-koubo">skill</a> · <a href="skills/33-screen-collage-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/38-engineering-blueprint-koubo/assets/sample.mp4"><img src="skills/38-engineering-blueprint-koubo/assets/sample.gif" width="260"></a><br><b>38 · 工程蓝图 · 产品拆解</b><br><sub>1920×1080 · 暗底 · <a href="skills/38-engineering-blueprint-koubo">skill</a> · <a href="skills/38-engineering-blueprint-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/45-glowing-lightboard-koubo/assets/sample.mp4"><img src="skills/45-glowing-lightboard-koubo/assets/sample.gif" width="260"></a><br><b>45 · 发光灯板 · 知识讲解</b><br><sub>1920×1080 · 暗底 · <a href="skills/45-glowing-lightboard-koubo">skill</a> · <a href="skills/45-glowing-lightboard-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
+### 纸面手作
+
+纸张、笔记、黑板、剪纸、黏土、油画，适合知识讲解与温和叙事
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/01-paper-perspective-koubo/assets/sample.mp4"><img src="skills/01-paper-perspective-koubo/assets/sample.gif" width="260"></a><br><b>01 · 纸面观点 · 横屏版</b><br><sub>1920×1080 · 亮底 · <a href="skills/01-paper-perspective-koubo">skill</a> · <a href="skills/01-paper-perspective-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/08-paper-perspective-portrait-koubo/assets/sample.mp4"><img src="skills/08-paper-perspective-portrait-koubo/assets/sample.gif" width="150"></a><br><b>08 · 纸面观点 · 竖屏版</b><br><sub>1080×1920 · 亮底 · <a href="skills/08-paper-perspective-portrait-koubo">skill</a> · <a href="skills/08-paper-perspective-portrait-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/14-hand-drawn-cartoon-koubo/assets/sample.mp4"><img src="skills/14-hand-drawn-cartoon-koubo/assets/sample.gif" width="260"></a><br><b>14 · 手绘卡通 · 横屏版</b><br><sub>1920×1080 · 亮底 · <a href="skills/14-hand-drawn-cartoon-koubo">skill</a> · <a href="skills/14-hand-drawn-cartoon-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/34-paper-scroll-koubo/assets/sample.mp4"><img src="skills/34-paper-scroll-koubo/assets/sample.gif" width="260"></a><br><b>34 · 长卷 · 品牌故事</b><br><sub>1920×1080 · 亮底 · <a href="skills/34-paper-scroll-koubo">skill</a> · <a href="skills/34-paper-scroll-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/41-dot-grid-notes-koubo/assets/sample.mp4"><img src="skills/41-dot-grid-notes-koubo/assets/sample.gif" width="260"></a><br><b>41 · 点阵笔记 · 知识讲解</b><br><sub>1920×1080 · 亮底 · <a href="skills/41-dot-grid-notes-koubo">skill</a> · <a href="skills/41-dot-grid-notes-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/42-chalkboard-koubo/assets/sample.mp4"><img src="skills/42-chalkboard-koubo/assets/sample.gif" width="260"></a><br><b>42 · 黑板 · 知识讲解</b><br><sub>1920×1080 · 暗底 · <a href="skills/42-chalkboard-koubo">skill</a> · <a href="skills/42-chalkboard-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/46-growing-mind-map-koubo/assets/sample.mp4"><img src="skills/46-growing-mind-map-koubo/assets/sample.gif" width="260"></a><br><b>46 · 生长导图 · 知识讲解</b><br><sub>1920×1080 · 亮底 · <a href="skills/46-growing-mind-map-koubo">skill</a> · <a href="skills/46-growing-mind-map-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/50-layered-papercut-koubo/assets/sample.mp4"><img src="skills/50-layered-papercut-koubo/assets/sample.gif" width="260"></a><br><b>50 · 叠层剪纸 · 知识讲解</b><br><sub>1920×1080 · 暗底 · <a href="skills/50-layered-papercut-koubo">skill</a> · <a href="skills/50-layered-papercut-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/52-clay-lab-koubo/assets/sample.mp4"><img src="skills/52-clay-lab-koubo/assets/sample.gif" width="260"></a><br><b>52 · 黏土实验室 · 知识讲解</b><br><sub>1920×1080 · 亮底 · <a href="skills/52-clay-lab-koubo">skill</a> · <a href="skills/52-clay-lab-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/58-brush-repainting-koubo/assets/sample.mp4"><img src="skills/58-brush-repainting-koubo/assets/sample.gif" width="260"></a><br><b>58 · 笔触重绘 · 艺术照片</b><br><sub>1920×1080 · 亮底 · <a href="skills/58-brush-repainting-koubo">skill</a> · <a href="skills/58-brush-repainting-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
+### 编辑网格
+
+杂志版式、留白、网格与单一强调色，适合观点、评论、教程
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/03-modern-editorial-koubo/assets/sample.mp4"><img src="skills/03-modern-editorial-koubo/assets/sample.gif" width="150"></a><br><b>03 · 现代编辑 · 竖屏版</b><br><sub>1080×1920 · 亮底 · <a href="skills/03-modern-editorial-koubo">skill</a> · <a href="skills/03-modern-editorial-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/07-modern-editorial-wide-koubo/assets/sample.mp4"><img src="skills/07-modern-editorial-wide-koubo/assets/sample.gif" width="260"></a><br><b>07 · 现代编辑 · 横屏版</b><br><sub>1920×1080 · 亮底 · <a href="skills/07-modern-editorial-wide-koubo">skill</a> · <a href="skills/07-modern-editorial-wide-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/17-beyond-the-frame-koubo/assets/sample.mp4"><img src="skills/17-beyond-the-frame-koubo/assets/sample.gif" width="150"></a><br><b>17 · 越界 · 3:4</b><br><sub>1440×1920 · 亮底 · <a href="skills/17-beyond-the-frame-koubo">skill</a> · <a href="skills/17-beyond-the-frame-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/35-light-dark-cuts-koubo/assets/sample.mp4"><img src="skills/35-light-dark-cuts-koubo/assets/sample.gif" width="260"></a><br><b>35 · 明暗切 · 产品宣传</b><br><sub>1920×1080 · 暗底 · <a href="skills/35-light-dark-cuts-koubo">skill</a> · <a href="skills/35-light-dark-cuts-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/37-workflow-demo-koubo/assets/sample.mp4"><img src="skills/37-workflow-demo-koubo/assets/sample.gif" width="260"></a><br><b>37 · 流程演示 · 产品教程</b><br><sub>1920×1080 · 亮底 · <a href="skills/37-workflow-demo-koubo">skill</a> · <a href="skills/37-workflow-demo-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/43-swiss-grid-koubo/assets/sample.mp4"><img src="skills/43-swiss-grid-koubo/assets/sample.gif" width="260"></a><br><b>43 · 瑞士网格 · 知识讲解</b><br><sub>1920×1080 · 亮底 · <a href="skills/43-swiss-grid-koubo">skill</a> · <a href="skills/43-swiss-grid-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/57-double-exposure-koubo/assets/sample.mp4"><img src="skills/57-double-exposure-koubo/assets/sample.gif" width="260"></a><br><b>57 · 双重曝光 · 人像叠影</b><br><sub>1920×1080 · 亮底 · <a href="skills/57-double-exposure-koubo">skill</a> · <a href="skills/57-double-exposure-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
+### 海报印刷
+
+大字号、色块、几何拼贴、孔版网点，适合态度表达与宣传
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/05-vibrant-poster-koubo/assets/sample.mp4"><img src="skills/05-vibrant-poster-koubo/assets/sample.gif" width="150"></a><br><b>05 · 鲜活海报 · 竖屏版</b><br><sub>1080×1920 · 亮底 · <a href="skills/05-vibrant-poster-koubo">skill</a> · <a href="skills/05-vibrant-poster-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/11-vibrant-poster-wide-koubo/assets/sample.mp4"><img src="skills/11-vibrant-poster-wide-koubo/assets/sample.gif" width="260"></a><br><b>11 · 鲜活海报 · 横屏版</b><br><sub>1920×1080 · 亮底 · <a href="skills/11-vibrant-poster-wide-koubo">skill</a> · <a href="skills/11-vibrant-poster-wide-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/40-modular-collage-koubo/assets/sample.mp4"><img src="skills/40-modular-collage-koubo/assets/sample.gif" width="260"></a><br><b>40 · 模块拼贴 · 创作者工具</b><br><sub>1920×1080 · 亮底 · <a href="skills/40-modular-collage-koubo">skill</a> · <a href="skills/40-modular-collage-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/44-color-geometry-koubo/assets/sample.mp4"><img src="skills/44-color-geometry-koubo/assets/sample.gif" width="260"></a><br><b>44 · 色块几何 · 知识讲解</b><br><sub>1920×1080 · 亮底 · <a href="skills/44-color-geometry-koubo">skill</a> · <a href="skills/44-color-geometry-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/48-two-color-risograph-koubo/assets/sample.mp4"><img src="skills/48-two-color-risograph-koubo/assets/sample.gif" width="260"></a><br><b>48 · 双色孔版 · 知识讲解</b><br><sub>1920×1080 · 亮底 · <a href="skills/48-two-color-risograph-koubo">skill</a> · <a href="skills/48-two-color-risograph-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/54-geometric-collage-koubo/assets/sample.mp4"><img src="skills/54-geometric-collage-koubo/assets/sample.gif" width="260"></a><br><b>54 · 几何拼贴 · 动态海报</b><br><sub>1920×1080 · 亮底 · <a href="skills/54-geometric-collage-koubo">skill</a> · <a href="skills/54-geometric-collage-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
+### 角色舞台
+
+角色卡、剧场、发布会舞台、展厅，适合故事、人物与揭晓
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/06-vivid-characters-koubo/assets/sample.mp4"><img src="skills/06-vivid-characters-koubo/assets/sample.gif" width="150"></a><br><b>06 · 鲜活角色 · 竖屏版</b><br><sub>1080×1920 · 亮底 · <a href="skills/06-vivid-characters-koubo">skill</a> · <a href="skills/06-vivid-characters-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/12-vivid-characters-wide-koubo/assets/sample.mp4"><img src="skills/12-vivid-characters-wide-koubo/assets/sample.gif" width="260"></a><br><b>12 · 鲜活角色 · 横屏版</b><br><sub>1920×1080 · 亮底 · <a href="skills/12-vivid-characters-wide-koubo">skill</a> · <a href="skills/12-vivid-characters-wide-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/15-card-table-shuffle-koubo/assets/sample.mp4"><img src="skills/15-card-table-shuffle-koubo/assets/sample.gif" width="260"></a><br><b>15 · 卡牌桌 · 横屏版</b><br><sub>1920×1080 · 亮底 · <a href="skills/15-card-table-shuffle-koubo">skill</a> · <a href="skills/15-card-table-shuffle-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/20-character-theater-koubo/assets/sample.mp4"><img src="skills/20-character-theater-koubo/assets/sample.gif" width="260"></a><br><b>20 · 角色剧场 · 横屏版</b><br><sub>1920×1080 · 暗底 · <a href="skills/20-character-theater-koubo">skill</a> · <a href="skills/20-character-theater-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/39-keynote-stage-koubo/assets/sample.mp4"><img src="skills/39-keynote-stage-koubo/assets/sample.gif" width="260"></a><br><b>39 · 发布会舞台 · 产品演示</b><br><sub>1920×1080 · 亮底 · <a href="skills/39-keynote-stage-koubo">skill</a> · <a href="skills/39-keynote-stage-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/47-museum-timeline-koubo/assets/sample.mp4"><img src="skills/47-museum-timeline-koubo/assets/sample.gif" width="260"></a><br><b>47 · 博物馆年表 · 知识讲解</b><br><sub>1920×1080 · 暗底 · <a href="skills/47-museum-timeline-koubo">skill</a> · <a href="skills/47-museum-timeline-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
+### 场景拟物
+
+取景器、桌面、新闻台、像素游戏、等距系统、地铁线网
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/16-camera-mode-koubo/assets/sample.mp4"><img src="skills/16-camera-mode-koubo/assets/sample.gif" width="150"></a><br><b>16 · 取景器 · 3:4</b><br><sub>1080×1440 · 亮底 · <a href="skills/16-camera-mode-koubo">skill</a> · <a href="skills/16-camera-mode-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/18-mac-desktop-koubo/assets/sample.mp4"><img src="skills/18-mac-desktop-koubo/assets/sample.gif" width="260"></a><br><b>18 · 桌面 · 4:3</b><br><sub>1440×1080 · 亮底 · <a href="skills/18-mac-desktop-koubo">skill</a> · <a href="skills/18-mac-desktop-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/19-news-desk-koubo/assets/sample.mp4"><img src="skills/19-news-desk-koubo/assets/sample.gif" width="260"></a><br><b>19 · 新闻台 · 4:3</b><br><sub>1440×1080 · 暗底 · <a href="skills/19-news-desk-koubo">skill</a> · <a href="skills/19-news-desk-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/36-pixel-platformer-koubo/assets/sample.mp4"><img src="skills/36-pixel-platformer-koubo/assets/sample.gif" width="260"></a><br><b>36 · 像素闯关 · 产品介绍</b><br><sub>1920×1080 · 暗底 · <a href="skills/36-pixel-platformer-koubo">skill</a> · <a href="skills/36-pixel-platformer-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/49-isometric-systems-koubo/assets/sample.mp4"><img src="skills/49-isometric-systems-koubo/assets/sample.gif" width="260"></a><br><b>49 · 等距系统 · 知识讲解</b><br><sub>1920×1080 · 亮底 · <a href="skills/49-isometric-systems-koubo">skill</a> · <a href="skills/49-isometric-systems-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/51-metro-network-koubo/assets/sample.mp4"><img src="skills/51-metro-network-koubo/assets/sample.gif" width="260"></a><br><b>51 · 地铁线网 · 知识讲解</b><br><sub>1920×1080 · 亮底 · <a href="skills/51-metro-network-koubo">skill</a> · <a href="skills/51-metro-network-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
+### 影像艺术
+
+半调、画廊、马赛克、故障、万花筒，适合照片、回忆与情绪片
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/53-halftone-dots-koubo/assets/sample.mp4"><img src="skills/53-halftone-dots-koubo/assets/sample.gif" width="260"></a><br><b>53 · 半调网点 · 人像标题</b><br><sub>1920×1080 · 暗底 · <a href="skills/53-halftone-dots-koubo">skill</a> · <a href="skills/53-halftone-dots-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/55-spatial-gallery-koubo/assets/sample.mp4"><img src="skills/55-spatial-gallery-koubo/assets/sample.gif" width="260"></a><br><b>55 · 空间画廊 · 照片回忆</b><br><sub>1920×1080 · 暗底 · <a href="skills/55-spatial-gallery-koubo">skill</a> · <a href="skills/55-spatial-gallery-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/56-photo-mosaic-koubo/assets/sample.mp4"><img src="skills/56-photo-mosaic-koubo/assets/sample.gif" width="260"></a><br><b>56 · 照片马赛克 · 画面揭晓</b><br><sub>1920×1080 · 暗底 · <a href="skills/56-photo-mosaic-koubo">skill</a> · <a href="skills/56-photo-mosaic-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/59-signal-glitch-koubo/assets/sample.mp4"><img src="skills/59-signal-glitch-koubo/assets/sample.gif" width="260"></a><br><b>59 · 信号故障 · 照片转场</b><br><sub>1920×1080 · 暗底 · <a href="skills/59-signal-glitch-koubo">skill</a> · <a href="skills/59-signal-glitch-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/60-mirror-kaleidoscope-koubo/assets/sample.mp4"><img src="skills/60-mirror-kaleidoscope-koubo/assets/sample.gif" width="260"></a><br><b>60 · 镜像万花筒 · 照片律动</b><br><sub>1920×1080 · 亮底 · <a href="skills/60-mirror-kaleidoscope-koubo">skill</a> · <a href="skills/60-mirror-kaleidoscope-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
+### 行业专题
+
+竖屏 1080×1920，每个行业一条结构主轴（关系 / 工作 / 科技 / 汽车 / 吃喝 / 护肤 / 购物 / 教培 / 健康 / 法律 / 金融 / 房产）
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/21-industry-relationships-koubo/assets/sample.mp4"><img src="skills/21-industry-relationships-koubo/assets/sample.gif" width="150"></a><br><b>21 · 关系 · 一场对话复盘</b><br><sub>1080×1920 · 暗底 · <a href="skills/21-industry-relationships-koubo">skill</a> · <a href="skills/21-industry-relationships-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/22-industry-work-koubo/assets/sample.mp4"><img src="skills/22-industry-work-koubo/assets/sample.gif" width="150"></a><br><b>22 · 工作 · 三行周报</b><br><sub>1080×1920 · 亮底 · <a href="skills/22-industry-work-koubo">skill</a> · <a href="skills/22-industry-work-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/23-industry-tech-koubo/assets/sample.mp4"><img src="skills/23-industry-tech-koubo/assets/sample.gif" width="150"></a><br><b>23 · 科技 · 换机还是再等等</b><br><sub>1080×1920 · 暗底 · <a href="skills/23-industry-tech-koubo">skill</a> · <a href="skills/23-industry-tech-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/24-industry-cars-koubo/assets/sample.mp4"><img src="skills/24-industry-cars-koubo/assets/sample.gif" width="150"></a><br><b>24 · 汽车 · 四项持有成本</b><br><sub>1080×1920 · 暗底 · <a href="skills/24-industry-cars-koubo">skill</a> · <a href="skills/24-industry-cars-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/25-industry-food-koubo/assets/sample.mp4"><img src="skills/25-industry-food-koubo/assets/sample.gif" width="150"></a><br><b>25 · 吃喝 · 值不值得等</b><br><sub>1080×1920 · 暗底 · <a href="skills/25-industry-food-koubo">skill</a> · <a href="skills/25-industry-food-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/26-industry-skincare-koubo/assets/sample.mp4"><img src="skills/26-industry-skincare-koubo/assets/sample.gif" width="150"></a><br><b>26 · 护肤 · 看懂成分表</b><br><sub>1080×1920 · 亮底 · <a href="skills/26-industry-skincare-koubo">skill</a> · <a href="skills/26-industry-skincare-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/27-industry-shopping-koubo/assets/sample.mp4"><img src="skills/27-industry-shopping-koubo/assets/sample.gif" width="150"></a><br><b>27 · 购物 · 四个测试场景</b><br><sub>1080×1920 · 暗底 · <a href="skills/27-industry-shopping-koubo">skill</a> · <a href="skills/27-industry-shopping-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/28-industry-education-koubo/assets/sample.mp4"><img src="skills/28-industry-education-koubo/assets/sample.gif" width="150"></a><br><b>28 · 教培 · 三套方案</b><br><sub>1080×1920 · 亮底 · <a href="skills/28-industry-education-koubo">skill</a> · <a href="skills/28-industry-education-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/29-industry-health-koubo/assets/sample.mp4"><img src="skills/29-industry-health-koubo/assets/sample.gif" width="150"></a><br><b>29 · 健康 · 读懂化验单</b><br><sub>1080×1920 · 暗底 · <a href="skills/29-industry-health-koubo">skill</a> · <a href="skills/29-industry-health-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/30-industry-law-koubo/assets/sample.mp4"><img src="skills/30-industry-law-koubo/assets/sample.gif" width="150"></a><br><b>30 · 法律 · 讨薪步骤</b><br><sub>1080×1920 · 亮底 · <a href="skills/30-industry-law-koubo">skill</a> · <a href="skills/30-industry-law-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/31-industry-finance-koubo/assets/sample.mp4"><img src="skills/31-industry-finance-koubo/assets/sample.gif" width="150"></a><br><b>31 · 金融 · 三本账</b><br><sub>1080×1920 · 亮底 · <a href="skills/31-industry-finance-koubo">skill</a> · <a href="skills/31-industry-finance-koubo/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/32-industry-realestate-koubo/assets/sample.mp4"><img src="skills/32-industry-realestate-koubo/assets/sample.gif" width="150"></a><br><b>32 · 房产 · 一镜带看</b><br><sub>1080×1920 · 暗底 · <a href="skills/32-industry-realestate-koubo">skill</a> · <a href="skills/32-industry-realestate-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
 ## 安装（每个 skill 独立）
 
 ```sh
@@ -21,71 +101,6 @@ cd ../.. && node scripts/setup_light.mjs
 3. **按口播逐句**写镜头表（提问 → 方法 → 结论 → 揭晓），见 `examples/shots-控件演示.json`
 4. `node scripts/engine/render.mjs build …` → `audit`（像素级版面审计：越界/压字/压人物/字号过小即报错）→ `render`
 5. `python3 scripts/build_jianying_draft.py draft.json <新草稿目录>` → 登记进剪映（先退出剪映）
-
-## 60 套风格
-
-| skill | 风格 | 画幅 | 强调色 | 默认人物 | 控件数 | 标题字体 |
-| --- | --- | --- | --- | --- | --- | --- |
-| `01-paper-perspective-koubo` | 纸面观点 · 横屏版 | 1920×1080 | `#0f5c46` | card | 10 | Noto Sans SC |
-| `02-tech-console-koubo` | 控制台 · 横屏版 | 1920×1080 | `#3f7fb8` | card | 9 | Noto Sans SC |
-| `03-modern-editorial-koubo` | 现代编辑 · 竖屏版 | 1080×1920 | `#1049d8` | small | 10 | Noto Sans SC |
-| `04-kinetic-tech-koubo` | 动态技术 · 竖屏版 | 1080×1920 | `#d8ff3e` | small | 6 | Noto Sans SC |
-| `05-vibrant-poster-koubo` | 鲜活海报 · 竖屏版 | 1080×1920 | `#e8342c` | small | 9 | KB Condensed、KB Condensed |
-| `06-vivid-characters-koubo` | 鲜活角色 · 竖屏版 | 1080×1920 | `#f0a23c` | card | 10 | Noto Sans SC |
-| `07-modern-editorial-wide-koubo` | 现代编辑 · 横屏版 | 1920×1080 | `#1049d8` | small | 9 | Noto Sans SC |
-| `08-paper-perspective-portrait-koubo` | 纸面观点 · 竖屏版 | 1080×1920 | `#0f5c46` | card | 9 | Noto Sans SC |
-| `09-dark-dimensional-stage-koubo` | 深空多维舞台 · 竖屏版 | 1080×1920 | `#3b6cf0` | small | 9 | Noto Sans SC |
-| `10-tech-console-portrait-koubo` | 控制台 · 竖屏版 | 1080×1920 | `#3f7fb8` | small | 8 | Noto Sans SC |
-| `11-vibrant-poster-wide-koubo` | 鲜活海报 · 横屏版 | 1920×1080 | `#e8342c` | small | 9 | KB Condensed、KB Condensed |
-| `12-vivid-characters-wide-koubo` | 鲜活角色 · 横屏版 | 1920×1080 | `#f0a23c` | small | 10 | Noto Sans SC |
-| `13-dark-dimensional-stage-wide-koubo` | 深空多维舞台 · 横屏版 | 1920×1080 | `#3b6cf0` | small | 9 | Noto Sans SC |
-| `14-hand-drawn-cartoon-koubo` | 手绘卡通 · 横屏版 | 1920×1080 | `#e2762b` | card | 9 | KB Round |
-| `15-card-table-shuffle-koubo` | 卡牌桌 · 横屏版 | 1920×1080 | `#4878f0` | card | 10 | Noto Sans SC |
-| `16-camera-mode-koubo` | 取景器 · 3:4 | 1080×1440 | `#2a6ee0` | card | 8 | Noto Sans SC |
-| `17-beyond-the-frame-koubo` | 越界 · 3:4 | 1440×1920 | `#1f6ae0` | card | 10 | Noto Sans SC |
-| `18-mac-desktop-koubo` | 桌面 · 4:3 | 1440×1080 | `#6f8ad6` | card | 9 | Noto Sans SC |
-| `19-news-desk-koubo` | 新闻台 · 4:3 | 1440×1080 | `#d94a3d` | card | 10 | Noto Sans SC |
-| `20-character-theater-koubo` | 角色剧场 · 横屏版 | 1920×1080 | `#2a6ee0` | card | 10 | Noto Sans SC |
-| `21-industry-relationships-koubo` | 关系 · 一场对话复盘 | 1080×1920 | `#d95d78` | card | 10 | Noto Sans SC |
-| `22-industry-work-koubo` | 工作 · 三行周报 | 1080×1920 | `#2f66e8` | card | 10 | Noto Sans SC |
-| `23-industry-tech-koubo` | 科技 · 换机还是再等等 | 1080×1920 | `#4a90e0` | small | 9 | Noto Sans SC |
-| `24-industry-cars-koubo` | 汽车 · 四项持有成本 | 1080×1920 | `#30c98c` | card | 9 | Noto Sans SC |
-| `25-industry-food-koubo` | 吃喝 · 值不值得等 | 1080×1920 | `#e0662a` | card | 9 | Noto Sans SC |
-| `26-industry-skincare-koubo` | 护肤 · 看懂成分表 | 1080×1920 | `#d86078` | card | 8 | Noto Sans SC |
-| `27-industry-shopping-koubo` | 购物 · 四个测试场景 | 1080×1920 | `#f06018` | card | 10 | Noto Sans SC |
-| `28-industry-education-koubo` | 教培 · 三套方案 | 1080×1920 | `#c07c1c` | card | 8 | Noto Sans SC |
-| `29-industry-health-koubo` | 健康 · 读懂化验单 | 1080×1920 | `#2f9f8a` | card | 9 | Noto Sans SC |
-| `30-industry-law-koubo` | 法律 · 讨薪步骤 | 1080×1920 | `#b03a22` | card | 9 | Noto Sans SC |
-| `31-industry-finance-koubo` | 金融 · 三本账 | 1080×1920 | `#a07a16` | card | 9 | Noto Sans SC |
-| `32-industry-realestate-koubo` | 房产 · 一镜带看 | 1080×1920 | `#5f8fdd` | small | 10 | Noto Sans SC |
-| `33-screen-collage-koubo` | 屏幕拼贴 · 品牌故事 | 1920×1080 | `#5b47e0` | card | 9 | Noto Sans SC |
-| `34-paper-scroll-koubo` | 长卷 · 品牌故事 | 1920×1080 | `#a3242b` | small | 9 | Noto Sans SC |
-| `35-light-dark-cuts-koubo` | 明暗切 · 产品宣传 | 1920×1080 | `#5a3cf0` | card | 9 | Noto Sans SC |
-| `36-pixel-platformer-koubo` | 像素闯关 · 产品介绍 | 1920×1080 | `#b3246f` | card | 8 | Noto Sans SC |
-| `37-workflow-demo-koubo` | 流程演示 · 产品教程 | 1920×1080 | `#e8432c` | card | 9 | Noto Sans SC |
-| `38-engineering-blueprint-koubo` | 工程蓝图 · 产品拆解 | 1920×1080 | `#5f47d8` | card | 8 | Noto Sans SC |
-| `39-keynote-stage-koubo` | 发布会舞台 · 产品演示 | 1920×1080 | `#6a55f5` | card | 9 | Noto Sans SC |
-| `40-modular-collage-koubo` | 模块拼贴 · 创作者工具 | 1920×1080 | `#5b3df0` | small | 9 | Noto Sans SC |
-| `41-dot-grid-notes-koubo` | 点阵笔记 · 知识讲解 | 1920×1080 | `#2f8a66` | small | 9 | KB Round |
-| `42-chalkboard-koubo` | 黑板 · 知识讲解 | 1920×1080 | `#2f6b52` | card | 9 | KB Round |
-| `43-swiss-grid-koubo` | 瑞士网格 · 知识讲解 | 1920×1080 | `#d6252b` | card | 9 | Noto Sans SC |
-| `44-color-geometry-koubo` | 色块几何 · 知识讲解 | 1920×1080 | `#c0271f` | card | 9 | Noto Sans SC |
-| `45-glowing-lightboard-koubo` | 发光灯板 · 知识讲解 | 1920×1080 | `#0b7f8c` | card | 8 | Noto Sans SC |
-| `46-growing-mind-map-koubo` | 生长导图 · 知识讲解 | 1920×1080 | `#2f7f95` | small | 9 | Noto Sans SC |
-| `47-museum-timeline-koubo` | 博物馆年表 · 知识讲解 | 1920×1080 | `#7a5a1c` | card | 9 | Noto Sans SC |
-| `48-two-color-risograph-koubo` | 双色孔版 · 知识讲解 | 1920×1080 | `#d92f85` | card | 9 | Noto Sans SC |
-| `49-isometric-systems-koubo` | 等距系统 · 知识讲解 | 1920×1080 | `#1f8f8f` | card | 9 | Noto Sans SC |
-| `50-layered-papercut-koubo` | 叠层剪纸 · 知识讲解 | 1920×1080 | `#1e5a6e` | card | 9 | Noto Sans SC |
-| `51-metro-network-koubo` | 地铁线网 · 知识讲解 | 1920×1080 | `#c8102e` | card | 8 | Noto Sans SC |
-| `52-clay-lab-koubo` | 黏土实验室 · 知识讲解 | 1920×1080 | `#a8601a` | small | 9 | Noto Sans SC |
-| `53-halftone-dots-koubo` | 半调网点 · 人像标题 | 1920×1080 | `#b84a24` | card | 8 | Noto Sans SC |
-| `54-geometric-collage-koubo` | 几何拼贴 · 动态海报 | 1920×1080 | `#d6362b` | small | 8 | Noto Sans SC |
-| `55-spatial-gallery-koubo` | 空间画廊 · 照片回忆 | 1920×1080 | `#7a5a2c` | card | 9 | Noto Sans SC |
-| `56-photo-mosaic-koubo` | 照片马赛克 · 画面揭晓 | 1920×1080 | `#c4541a` | card | 7 | Noto Sans SC |
-| `57-double-exposure-koubo` | 双重曝光 · 人像叠影 | 1920×1080 | `#3f6a52` | card | 9 | Noto Sans SC |
-| `58-brush-repainting-koubo` | 笔触重绘 · 艺术照片 | 1920×1080 | `#c2531a` | card | 9 | Noto Sans SC |
-| `59-signal-glitch-koubo` | 信号故障 · 照片转场 | 1920×1080 | `#d21f55` | card | 7 | Noto Sans SC |
-| `60-mirror-kaleidoscope-koubo` | 镜像万花筒 · 照片律动 | 1920×1080 | `#b53a26` | small | 9 | Noto Sans SC |
 
 ## 许可与来源
 

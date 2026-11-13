@@ -2,7 +2,8 @@
 """按「具体的人物」算人物框裁切：人脸检测 → 每种人物框（圆框 / 竖卡 / 分屏）各自的裁切矩形。
 
 用法（skill 根目录）：
-  python3 scripts/person_fit.py <口播视频> [--out presenter-fit.json]
+  python3 scripts/person_fit.py <口播视频> [--out presenter-fit.json] [--face cx,cy,w,h]
+  --face：手动给出「脸」的位置（归一化，左上原点），用于检测不到人脸的素材（卡通 / 虚拟主播 / 无五官人形）
 输出 presenter-fit.json：{source:{w,h}, face:{cx,cy,w,h,spread}, modes:{small|card|split:{x,y,w,h,faceRatio,note}}}
   - x/y/w/h 是源视频像素坐标里的裁切矩形，宽高比 = 该人物框的宽高比（来自 style.json#person.frame，唯一来源）
   - 镜头表 presenter.fit 与草稿 draft.json presenter.fit 都指向这个文件：预览与剪映里人物大小一致
@@ -125,7 +126,12 @@ def main():
         raise SystemExit(__doc__)
     video = pathlib.Path(sys.argv[1]).resolve()
     out = pathlib.Path(sys.argv[sys.argv.index("--out") + 1]) if "--out" in sys.argv else video.with_name("presenter-fit.json")
-    sw, sh, fs = faces(video)
+    if "--face" in sys.argv:
+        cx, cy, fw, fh = map(float, sys.argv[sys.argv.index("--face") + 1].split(","))
+        sw, sh, _ = probe(video)
+        fs = [{"cx": cx, "cy": cy, "w": fw, "h": fh}]
+    else:
+        sw, sh, fs = faces(video)
     face = spread = None
     if fs:
         med = lambda k: stt.median(f[k] for f in fs)

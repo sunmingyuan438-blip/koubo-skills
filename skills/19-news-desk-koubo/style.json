@@ -78,7 +78,7 @@
   "titleY": 0.15,
   "heroY": 0.3,
   "contentY": 0.36,
-  "safe": 0.823
+  "safe": 0.798
  },
  "look": {
   "titleStyle": "plain",
@@ -111,7 +111,7 @@
   "paper": "#f3eee6",
   "accent": "#d94a3d",
   "accentDark": "#f0685a",
-  "y": -0.8,
+  "y": -0.75,
   "x": 0.239,
   "maxLineWidth": 0.359
  },

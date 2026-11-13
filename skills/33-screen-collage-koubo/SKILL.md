@@ -34,6 +34,10 @@ python3 scripts/sync_draft.py <草稿目录> --root "$HOME/Movies/JianyingPro/Us
   --registry "$HOME/Movies/JianyingPro/User Data/Projects/com.lveditor.draft/root_meta_info.json"
 ```
 
+## 风格图与样板视频
+- `assets/preview.png`：风格图（本 skill 引擎真跑的 5–6 张示例帧拼版，人物位为灰色占位）。
+- `assets/sample.mp4`：样板视频（19.3s，段子「渣男测试」逐句排版：提问 → 怎么测 → 方法 → 结论 → 揭晓；人物位是程序绘制的无五官虚拟主播、声音是合成配音，不含任何真人）。只用来看效果，不是素材。
+
 ## 控件
 `opener`, `statement`, `steps`, `imageSlot`, `grid`, `compare`, `counter`, `reveal`, `outro`
 
