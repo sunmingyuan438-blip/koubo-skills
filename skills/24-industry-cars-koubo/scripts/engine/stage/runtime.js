@@ -10,6 +10,8 @@
   const span = (t, s, d) => clamp((t - s) / d);
   const out3 = p => 1 - Math.pow(1 - p, 3);
   const inout = p => (p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+  const back = p => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };   // 轻微过冲
+  let SFXP = null;   // 音效探针：sfxEvents() 采样时记录每次 show() 的元素与进度
   const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
   const hi = s => esc(s).replace(/\*([^*]+)\*/g, '<b>$1</b>');
   const pad2 = n => String(n).padStart(2, '0');
@@ -29,10 +31,11 @@
 
   // 字号基准
   // 竖屏在手机上按全宽观看：正文/标题/大字统一放大（仍受 fit() 按版心宽度约束）
-  const PS = PORTRAIT ? { body: 1.28, title: 1.15, hero: 1.25 } : { body: 1.1, title: 1.05, hero: 1.08 };
+  // v4：横屏正文 1.1→1.3、标题 1.05→1.12（原来列表只占左上一角，右下大片死空）；小标与 HUD 同步加大
+  const PS = PORTRAIT ? { body: 1.34, title: 1.18, hero: 1.25 } : { body: 1.3, title: 1.12, hero: 1.12 };
   const BS = R(TY.bodyPx ?? 0.03, MIN) * PS.body;   // 正文
-  const KS = Math.max(14, R(0.019, MIN));          // kicker
-  const HS = Math.max(13, R(0.0155, MIN));         // HUD / foot
+  const KS = Math.max(15, R(0.0215, MIN));          // kicker
+  const HS = Math.max(14, R(0.0175, MIN));         // HUD / foot
 
   // ---------- 主题感知配色 ----------
   const isDarkHex = c => {
@@ -46,6 +49,13 @@
   const lineOf = th => (th === 'dark' ? (TH.lineOnDark || 'rgba(255,255,255,.16)') : (TH.line || 'rgba(0,0,0,.14)'));
   const accOf = th => (th === 'dark' ? (TH.accentOnDark || TH.accent) : (TH.accentOnLight || TH.accent));
   const paperOf = th => (th === 'dark' ? 'rgba(255,255,255,.07)' : (isDarkHex(TH.paper) ? 'rgba(255,255,255,.88)' : (TH.paper || '#fbfbf6')));
+
+  // 强调色块上的文字色：按「当前主题的强调色」实算（原先一个 onAccent 管亮暗两套，暗字压深色块看不清）
+  const _lum = c => { const m = /^#([0-9a-f]{6})$/i.exec(String(c || '').trim()); if (!m) return 0.5; const n = parseInt(m[1], 16);
+    const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * f(n >> 16) + 0.7152 * f((n >> 8) & 255) + 0.0722 * f(n & 255); };
+  const _cr = (a, b) => { const x = _lum(a), y = _lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+  const onAcc = th => { const a = accOf(th); return _cr('#ffffff', a) >= 3 ? '#ffffff' : '#111111'; };
 
   // 文字宽度估计：CJK/全角 1em，其余 0.62em（mono 取 0.64）
   const units = (s, mono) => {
@@ -106,43 +116,321 @@
     if (!e) return;
     const k = ease(p);
     e.style.opacity = p <= 0 ? 0 : Math.min(1, k * 1.2);
+    e.style.setProperty('--hl', clamp((p - 0.62) / 0.38).toFixed(3));   // 关键词划线在元素落定后才画出
+    if (SFXP) SFXP.push({ e, p });
     const kind = MO.in || 'rise';
     const sx = dx || Math.abs(dy) * 1.6;
-    if (kind === 'flip') e.style.transform = `perspective(900px) rotateX(${(1 - k) * -22}deg) translateY(${(1 - k) * dy * .3}px)`;
-    else if (kind === 'pop') e.style.transform = `scale(${0.92 + 0.08 * k})`;
+    const fsz = parseFloat(e.style.fontSize) || 0;
+    if (e.classList.contains('title') && !dx && (MO.titleIn ?? 'mask') === 'mask' && kind !== 'flip' && kind !== 'wipe') {
+      // 标题从自身基线下方「顶」出来：位移 + 同步裁掉基线以下的部分（遮罩上浮）
+      const d = (1 - k) * Math.max(dy, fsz * 0.72);
+      e.style.opacity = p <= 0 ? 0 : 1;
+      e.style.transform = `translateY(${d.toFixed(2)}px)`;
+      e.style.clipPath = d > 0.05 ? `inset(-40% -12% ${d.toFixed(2)}px -12%)` : 'none';
+    }
+    else if (kind === 'flip') e.style.transform = `perspective(900px) rotateX(${(1 - k) * -22}deg) translateY(${(1 - k) * dy * .3}px)`;
+    else if (kind === 'pop') e.style.transform = `scale(${(0.86 + 0.14 * back(clamp(p))).toFixed(4)})`;
     else if (kind === 'wipe') { e.style.transform = `translateX(${(1 - k) * -sx}px)`; e.style.clipPath = `inset(0 ${((1 - k) * 100).toFixed(2)}% 0 0)`; }
     else if (kind === 'settle') e.style.transform = `translateY(${(1 - k) * dy}px) scale(${0.985 + 0.015 * k})`;
     else e.style.transform = `translate(${(1 - k) * dx}px, ${(1 - k) * dy}px)`;
   }
 
+  // ---------- 底纹扩展（v3，2026-11-10）：静态 SVG，只由 style 令牌与 theme 决定（纯函数；按 theme 缓存） ----------
+  // 颜色：c.ink / c.acc / c.d[0..3]（theme.deco，可缺省）；尺寸单位 u = 短边/1080。装饰只放在四角与边缘，版心留白
+  const U = MIN / 1080;
+  const rng = seed => () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const f1 = v => (Math.round(v * 10) / 10);
+  const DECO = {
+    blueprint: c => {
+      const s = 54 * U, m = s * 5; let o = `<defs><pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><path d='M${s} 0H0V${s}' fill='none' stroke='${c.ink}' stroke-opacity='.05'/></pattern>` +
+        `<pattern id='b' width='${m}' height='${m}' patternUnits='userSpaceOnUse'><path d='M${m} 0H0V${m}' fill='none' stroke='${c.ink}' stroke-opacity='.10'/></pattern></defs><rect width='${W}' height='${H}' fill='url(#a)'/><rect width='${W}' height='${H}' fill='url(#b)'/>`;
+      const k = 26 * U, e = 34 * U;
+      [[e, e], [W - e, e], [e, H - e], [W - e, H - e]].forEach(([x, y]) => { o += `<path d='M${x - k} ${y}H${x + k}M${x} ${y - k}V${y + k}' stroke='${c.acc}' stroke-opacity='.7' stroke-width='${1.5 * U}'/><circle cx='${x}' cy='${y}' r='${7 * U}' fill='none' stroke='${c.acc}' stroke-opacity='.7'/>`; });
+      for (let i = 0; i <= 24; i++) { const x = e + k * 2 + i * (W - 2 * e - 4 * k) / 24; o += `<path d='M${f1(x)} ${H - e}v${-(i % 6 ? 6 : 14) * U}' stroke='${c.ink}' stroke-opacity='.28'/>`; }
+      return o;
+    },
+    ruler: c => {
+      let o = `<defs><radialGradient id='g' cx='.5' cy='.42' r='.6'><stop offset='0' stop-color='${c.d[0] || c.acc}' stop-opacity='.20'/><stop offset='1' stop-color='${c.d[0] || c.acc}' stop-opacity='0'/></radialGradient></defs><rect width='${W}' height='${H}' fill='url(#g)'/>`;
+      const y = H - 30 * U; o += `<path d='M${40 * U} ${y}H${W - 40 * U}' stroke='${c.ink}' stroke-opacity='.22'/>`;
+      for (let i = 0; i <= 60; i++) { const x = 40 * U + i * (W - 80 * U) / 60; o += `<path d='M${f1(x)} ${y}v${-(i % 10 ? 5 : 13) * U}' stroke='${c.ink}' stroke-opacity='${i % 10 ? .16 : .4}'/>`; }
+      const r = rng(7); for (let i = 0; i < 22; i++) { const yy = r() * H, l = (20 + r() * 60) * U, left = r() < .5; o += `<path d='M${left ? 0 : W - l} ${f1(yy)}h${f1(l)}' stroke='${c.ink}' stroke-opacity='.10'/>`; }
+      return o;
+    },
+    chalk: c => {
+      const r = rng(11); let o = `<defs><filter id='s'><feGaussianBlur stdDeviation='${40 * U}'/></filter></defs><g filter='url(#s)'>`;
+      for (let i = 0; i < 9; i++) o += `<ellipse cx='${f1(r() * W)}' cy='${f1(r() * H)}' rx='${f1((180 + r() * 260) * U)}' ry='${f1((50 + r() * 90) * U)}' fill='#fff' fill-opacity='${f1(.3 + r() * .3) / 10}' transform='rotate(${f1(-12 + r() * 24)} ${W / 2} ${H / 2})'/>`;
+      o += `</g>`;
+      const b = 14 * U, wood = c.d[0] || '#8a6a45';
+      o += `<rect x='${b / 2}' y='${b / 2}' width='${W - b}' height='${H - b}' fill='none' stroke='${wood}' stroke-width='${b}'/><rect x='${b}' y='${b}' width='${W - 2 * b}' height='${H - 2 * b}' fill='none' stroke='#000' stroke-opacity='.35' stroke-width='${2 * U}'/>`;
+      [[.42, '#f4f1e6'], [.47, c.d[1] || '#e9c75a'], [.52, c.d[2] || '#8fc3dd']].forEach(([x, col]) => { o += `<rect x='${x * W}' y='${H - b * 1.25}' width='${44 * U}' height='${7 * U}' rx='${3 * U}' fill='${col}'/>`; });
+      return o;
+    },
+    pixel: c => {
+      const p = 6 * U, r = rng(23); let o = '';
+      for (let i = 0; i < 130; i++) { const x = Math.floor(r() * W / p) * p, y = Math.floor(r() * H * .62 / p) * p, k = r(); o += `<rect x='${f1(x)}' y='${f1(y)}' width='${f1(k > .9 ? p * 1.5 : p * .7)}' height='${f1(k > .9 ? p * 1.5 : p * .7)}' fill='${k > .8 ? (c.d[1] || c.acc) : c.ink}' fill-opacity='${f1(.12 + k * .3)}'/>`; }
+      const band = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc]; const bh = 22 * U;
+      band.forEach((col, i) => { o += `<rect x='0' y='${H - (3 - i) * bh}' width='${W}' height='${bh}' fill='${col}' fill-opacity='${.10 + i * .07}'/>`; });
+      let x = 0; while (x < W) { const w = (5 + Math.floor(r() * 9)) * p * 2, h = (4 + Math.floor(r() * 14)) * p * 2;
+        o += `<rect x='${f1(x)}' y='${f1(H - h)}' width='${f1(w - p)}' height='${f1(h)}' fill='${c.bg}'/><rect x='${f1(x)}' y='${f1(H - h)}' width='${f1(w - p)}' height='${f1(h)}' fill='${c.ink}' fill-opacity='.07'/>`;
+        for (let wy = H - h + p * 2; wy < H - p * 2; wy += p * 3) for (let wx = x + p * 1.5; wx < x + w - p * 3; wx += p * 3) if (r() < .32) o += `<rect x='${f1(wx)}' y='${f1(wy)}' width='${f1(p)}' height='${f1(p)}' fill='${c.d[1] || c.acc}' fill-opacity='.75'/>`;
+        x += w; }
+      return o;
+    },
+    halftone: c => {
+      const s = 30 * U, fx = W * .98, fy = H * 1.02, fx2 = -W * .02, fy2 = -H * .04, R1 = MIN * .78, R2 = MIN * .5; let o = '';
+      for (let j = 0, y = 0; y < H + s; y += s * .866, j++) for (let x = (j % 2) * s / 2; x < W + s; x += s) {
+        const d1 = Math.hypot(x - fx, y - fy) / R1, d2 = Math.hypot(x - fx2, y - fy2) / R2;
+        const k = Math.max(0, 1 - d1), k2 = Math.max(0, 1 - d2);
+        if (k > .04) o += `<circle cx='${f1(x)}' cy='${f1(y)}' r='${f1(s * .52 * Math.pow(k, .8))}' fill='${c.acc}' fill-opacity='.55'/>`;
+        else if (k2 > .04) o += `<circle cx='${f1(x)}' cy='${f1(y)}' r='${f1(s * .5 * Math.pow(k2, .8))}' fill='${c.d[0] || c.ink}' fill-opacity='.4'/>`;
+      }
+      return o;
+    },
+    scan: c => {
+      const r = rng(31), s = 5 * U; let o = `<defs><pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><rect width='${s}' height='${1.4 * U}' fill='${c.ink}' fill-opacity='.07'/></pattern>` +
+        `<radialGradient id='v' cx='.5' cy='.5' r='.75'><stop offset='.55' stop-color='#000' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='${c.dark ? .55 : .14}'/></radialGradient></defs>`;
+      for (let i = 0; i < 9; i++) { const y = r() * H, h = (4 + r() * 22) * U, x = r() < .5 ? 0 : W * (.55 + r() * .3), w = W * (.12 + r() * .3), dx = (6 + r() * 14) * U;
+        o += `<rect x='${f1(x - dx)}' y='${f1(y)}' width='${f1(w)}' height='${f1(h)}' fill='${c.d[0] || '#35e0ff'}' fill-opacity='.22'/><rect x='${f1(x + dx)}' y='${f1(y + 3 * U)}' width='${f1(w)}' height='${f1(h)}' fill='${c.d[1] || '#ff3d7f'}' fill-opacity='.20'/>`; }
+      o += `<rect width='${W}' height='${H}' fill='url(#a)'/><rect width='${W}' height='${H}' fill='url(#v)'/>`;
+      const e = 30 * U, k = 34 * U;
+      [[e, e, 1, 1], [W - e, e, -1, 1], [e, H - e, 1, -1], [W - e, H - e, -1, -1]].forEach(([x, y, sx, sy]) => { o += `<path d='M${x + sx * k} ${y}H${x}V${y + sy * k}' fill='none' stroke='${c.ink}' stroke-opacity='.55' stroke-width='${2 * U}'/>`; });
+      return o;
+    },
+    frame: c => {
+      const a = 20 * U, b = 30 * U; let o = `<rect x='${a}' y='${a}' width='${W - 2 * a}' height='${H - 2 * a}' fill='none' stroke='${c.acc}' stroke-opacity='.75' stroke-width='${1.6 * U}'/><rect x='${b}' y='${b}' width='${W - 2 * b}' height='${H - 2 * b}' fill='none' stroke='${c.ink}' stroke-opacity='.22'/>`;
+      [[b, b], [W - b, b], [b, H - b], [W - b, H - b]].forEach(([x, y], i) => { o += `<rect x='${x - 6 * U}' y='${y - 6 * U}' width='${12 * U}' height='${12 * U}' fill='${[c.acc, c.d[0] || c.acc, c.d[1] || c.acc, c.acc][i]}' transform='rotate(45 ${x} ${y})'/>`; });
+      o += `<circle cx='${W / 2}' cy='${H - a}' r='${4 * U}' fill='${c.acc}'/>`;
+      return o;
+    },
+    papercut: c => {
+      const cols = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc, c.d[3] || c.acc];
+      let o = `<defs><filter id='s' x='-20%' y='-20%' width='140%' height='140%'><feDropShadow dx='0' dy='${5 * U}' stdDeviation='${7 * U}' flood-color='#000' flood-opacity='.28'/></filter></defs>`;
+      cols.forEach((col, i) => { o += `<circle cx='0' cy='${H}' r='${(285 - i * 66) * U}' fill='${col}' filter='url(#s)'/>`; });
+      cols.slice().reverse().forEach((col, i) => { o += `<circle cx='${W}' cy='0' r='${(330 - i * 78) * U}' fill='${col}' filter='url(#s)'/>`; });
+      let d = `M${W * .42} ${H}`; for (let x = W * .42; x <= W + 60 * U; x += 60 * U) d += `Q${f1(x + 30 * U)} ${f1(H - 58 * U)} ${f1(x + 60 * U)} ${H}`;
+      o += `<path d='${d}Z' fill='${cols[1]}' fill-opacity='.9' filter='url(#s)'/>`;
+      return o;
+    },
+    iso: c => {
+      const s = 60 * U, h = s * Math.tan(Math.PI / 6); let o = `<defs><pattern id='a' width='${f1(s * 2)}' height='${f1(h * 2)}' patternUnits='userSpaceOnUse'><path d='M0 ${f1(h)}L${f1(s)} 0L${f1(s * 2)} ${f1(h)}L${f1(s)} ${f1(h * 2)}Z' fill='none' stroke='${c.ink}' stroke-opacity='.07'/></pattern></defs><rect width='${W}' height='${H}' fill='url(#a)'/>`;
+      const cube = (x, y, k, col) => { const a = s * k, b = h * k; return `<path d='M${f1(x)} ${f1(y)}l${f1(a)} ${f1(-b)}l${f1(a)} ${f1(b)}l${f1(-a)} ${f1(b)}Z' fill='${col}' fill-opacity='.55'/><path d='M${f1(x)} ${f1(y)}v${f1(a * 1.1)}l${f1(a)} ${f1(b)}v${f1(-a * 1.1)}Z' fill='${col}' fill-opacity='.85'/><path d='M${f1(x + 2 * a)} ${f1(y)}v${f1(a * 1.1)}l${f1(-a)} ${f1(b)}v${f1(-a * 1.1)}Z' fill='${col}'/>`; };
+      o += cube(30 * U, H - 250 * U, 1.5, c.d[0] || c.acc) + cube(190 * U, H - 150 * U, 1, c.d[1] || c.acc) + cube(W - 150 * U, 60 * U, .8, c.d[2] || c.acc);
+      return o;
+    },
+    metro: c => {
+      const cols = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc], w = 9 * U; let o = '';
+      cols.forEach((col, i) => { const y = H - (34 + i * 20) * U, k = (120 + i * 20) * U, x1 = W * (.20 + i * .05);
+        o += `<path d='M0 ${f1(y - k)}H${f1(x1)}l${f1(k)} ${f1(k)}H${W}' fill='none' stroke='${col}' stroke-width='${w}' stroke-linejoin='round'/>`;
+        [.06 + i * .04, .5 + i * .06, .84 - i * .05].forEach((t, j) => { const x = W * t, yy = x < x1 ? y - k : y; o += `<circle cx='${f1(x)}' cy='${f1(yy)}' r='${8 * U}' fill='${c.bg}' stroke='${j === 1 ? c.ink : col}' stroke-width='${3 * U}'/>`; }); });
+      o += `<path d='M${W - 300 * U} 0v${70 * U}l${70 * U} ${70 * U}H${W}' fill='none' stroke='${cols[0]}' stroke-width='${w}' stroke-linejoin='round' stroke-opacity='.9'/><circle cx='${W - 300 * U}' cy='${48 * U}' r='${8 * U}' fill='${c.bg}' stroke='${cols[0]}' stroke-width='${3 * U}'/>`;
+      return o;
+    },
+    wall: c => {
+      const gold = c.d[0] || c.acc, y = H - 44 * U;
+      let o = `<defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${f1(.9 / U) / 1}' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0'/></filter>` +
+        `<radialGradient id='v' cx='.5' cy='.4' r='.8'><stop offset='.4' stop-color='#000' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='.38'/></radialGradient></defs><rect width='${W}' height='${H}' filter='url(#n)'/><rect width='${W}' height='${H}' fill='url(#v)'/>`;
+      o += `<path d='M${40 * U} ${y}H${W - 40 * U}' stroke='${gold}' stroke-width='${2 * U}'/>`;
+      for (let i = 0; i < 7; i++) { const x = 40 * U + (i + .5) * (W - 80 * U) / 7; o += `<path d='M${f1(x)} ${y}v${-16 * U}' stroke='${gold}' stroke-width='${1.5 * U}'/><circle cx='${f1(x)}' cy='${y}' r='${4 * U}' fill='${gold}'/>`; }
+      o += `<path d='M${40 * U} ${38 * U}H${W - 40 * U}' stroke='${gold}' stroke-opacity='.5'/>`;
+      return o;
+    },
+    clay: c => {
+      const cols = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc]; let o = `<defs>`;
+      cols.forEach((col, i) => { o += `<radialGradient id='g${i}' cx='.35' cy='.3' r='.8'><stop offset='0' stop-color='#fff' stop-opacity='.9'/><stop offset='.35' stop-color='${col}'/><stop offset='1' stop-color='${col}'/></radialGradient>`; });
+      o += `<filter id='s' x='-30%' y='-30%' width='160%' height='180%'><feDropShadow dx='0' dy='${16 * U}' stdDeviation='${16 * U}' flood-color='#5a3a2a' flood-opacity='.22'/></filter></defs>`;
+      [[70, H / U - 90, 150, 0], [250, H / U - 40, 90, 1], [W / U - 120, 70, 110, 2], [W / U - 290, 20, 60, 0], [40, 90, 46, 1]].forEach(([x, y, r, i]) => { o += `<ellipse cx='${x * U}' cy='${y * U}' rx='${r * U}' ry='${r * .86 * U}' fill='url(#g${i})' filter='url(#s)'/>`; });
+      return o;
+    },
+    kaleido: c => {
+      const cx = W / 2, cy = H / 2, cols = [c.acc, c.d[0] || c.acc, c.d[1] || c.acc]; let o = '';
+      [[MIN * 1.25, 12, .07], [MIN * .95, 12, .08], [MIN * .62, 12, .09]].forEach(([r, n, op], k) => { for (let i = 0; i < n; i++) { const a = (i / n) * 360 + k * 15;
+        o += `<path d='M${cx} ${cy}Q${f1(cx + r * .22)} ${f1(cy - r * .5)} ${cx} ${f1(cy - r)}Q${f1(cx - r * .22)} ${f1(cy - r * .5)} ${cx} ${cy}Z' fill='${cols[k]}' fill-opacity='${op}' transform='rotate(${a} ${cx} ${cy})'/>`; } });
+      o += `<circle cx='${cx}' cy='${cy}' r='${MIN * .49}' fill='none' stroke='${c.ink}' stroke-opacity='.12'/><circle cx='${cx}' cy='${cy}' r='${MIN * .66}' fill='none' stroke='${c.ink}' stroke-opacity='.07'/>`;
+      return o;
+    },
+    mosaic: c => {
+      const s = 60 * U, r = rng(47), cols = [c.acc, c.d[0] || c.acc, c.d[1] || c.ink, c.ink]; let o = '';
+      for (let y = 0; y < H; y += s) for (let x = 0; x < W; x += s) { const k = r(), edge = Math.max(Math.abs(x + s / 2 - W / 2) / (W / 2), Math.abs(y + s / 2 - H / 2) / (H / 2));
+        if (k < .62) o += `<rect x='${f1(x + 2 * U)}' y='${f1(y + 2 * U)}' width='${f1(s - 4 * U)}' height='${f1(s - 4 * U)}' rx='${3 * U}' fill='${cols[Math.floor(r() * 4)]}' fill-opacity='${f1((.03 + k * .1) * (.35 + edge * edge * 1.6) * 10) / 10}'/>`; }
+      return o;
+    },
+    brush: c => {
+      const r = rng(59), cols = [c.acc, c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.ink, c.d[3] || c.ink]; let o = '';
+      const stroke = (x, y, a) => { const l = (30 + r() * 42) * U, t = (11 + r() * 8) * U; return `<rect x='${f1(x - l / 2)}' y='${f1(y - t / 2)}' width='${f1(l)}' height='${f1(t)}' rx='${f1(t / 2)}' fill='${cols[Math.floor(r() * cols.length)]}' transform='rotate(${f1(a)} ${f1(x)} ${f1(y)})'/>`; };
+      for (let i = 0; i < 260; i++) { const x = r() * W, y = r() * H * .085; if (r() > Math.pow(1 - x / W, 1.4) * 1.1) continue; o += stroke(x, y, 20 + (r() - .5) * 50); }
+      for (let i = 0; i < 260; i++) { const x = W * (.885 + r() * .13), y = H * (.80 + r() * .22); if (r() > Math.min(1, (x / W - .885) * 7) * Math.min(1, (y / H - .8) * 6)) continue; o += stroke(x, y, 210 + (r() - .5) * 50); }
+      return o;
+    },
+    collage: c => {
+      const A = c.acc, B = c.d[0] || c.acc, Y = c.d[1] || c.acc, K = c.d[2] || c.ink, u = U;
+      return `<path d='M${-30 * u} ${H}a${125 * u} ${125 * u} 0 0 1 ${250 * u} 0Z' fill='${B}'/><circle cx='${200 * u}' cy='${H - 150 * u}' r='${30 * u}' fill='${K}'/>` +
+        `<rect x='${12 * u}' y='${H - 230 * u}' width='${26 * u}' height='${110 * u}' rx='${13 * u}' fill='${Y}'/><path d='M${60 * u} ${H - 10 * u}L${235 * u} ${H - 190 * u}' stroke='${K}' stroke-width='${7 * u}'/>` +
+        `<path d='M${W - 250 * u} 0a${190 * u} ${190 * u} 0 0 0 ${190 * u} ${190 * u}V0Z' fill='${A}' transform='translate(${60 * u} 0)'/><circle cx='${W - 300 * u}' cy='${56 * u}' r='${40 * u}' fill='${Y}'/>` +
+        `<path d='M${40 * u} ${44 * u}h${56 * u}' stroke='${K}' stroke-width='${2 * u}'/>`;
+    },
+    scroll: c => {
+      const band = c.d[0] || '#3b4a4a', gold = c.d[1] || '#b9a26a', bh = 30 * U, r = rng(71);
+      let o = `<defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${.006 / U}' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 .4  0 0 0 0 .33  0 0 0 0 .2  0 0 0 .55 -.16'/></filter></defs><rect width='${W}' height='${H}' filter='url(#n)'/>`;
+      o += `<rect width='${W}' height='${bh}' fill='${band}'/><rect y='${H - bh}' width='${W}' height='${bh}' fill='${band}'/><path d='M0 ${bh}H${W}M0 ${H - bh}H${W}' stroke='${gold}' stroke-width='${2.5 * U}'/>`;
+      let y = H - bh - 46 * U, d = `M${W * .05} ${f1(y - 150 * U)}C${W * .07} ${f1(y - 10 * U)} ${W * .12} ${f1(y)} ${W * .2} ${f1(y)}`;
+      for (let x = W * .2; x < W * .98; x += W * .06) { y += (r() - .5) * 8 * U; d += `S${f1(x + W * .03)} ${f1(y + (r() - .5) * 10 * U)} ${f1(x + W * .06)} ${f1(y)}`; }
+      o += `<path d='${d}' fill='none' stroke='${c.ink}' stroke-opacity='.8' stroke-width='${2.2 * U}' stroke-linecap='round'/>`;
+      return o;
+    },
+    gallery: c => {
+      const hy = H * .6; let o = `<defs><linearGradient id='f' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fff' stop-opacity='.07'/><stop offset='1' stop-color='#fff' stop-opacity='0'/></linearGradient>` +
+        `<radialGradient id='l' cx='.5' cy='.2' r='.7'><stop offset='0' stop-color='#fff' stop-opacity='.09'/><stop offset='1' stop-color='#fff' stop-opacity='0'/></radialGradient></defs><rect width='${W}' height='${hy}' fill='url(#l)'/><rect y='${hy}' width='${W}' height='${H - hy}' fill='url(#f)'/>`;
+      for (let i = -8; i <= 8; i++) o += `<path d='M${W / 2 + i * 40 * U} ${hy}L${f1(W / 2 + i * 330 * U)} ${H}' stroke='${c.ink}' stroke-opacity='.06'/>`;
+      [.0, .12, .3, .58].forEach(k => { o += `<path d='M0 ${f1(hy + (H - hy) * k)}H${W}' stroke='${c.ink}' stroke-opacity='.06'/>`; });
+      o += `<path d='M${W * .4} ${40 * U}H${W * .6}' stroke='${c.ink}' stroke-opacity='.4' stroke-width='${3 * U}' stroke-linecap='round'/>`;
+      return o;
+    },
+    riso: c => {
+      const A = c.acc, B = c.d[0] || c.ink, s = 13 * U; let o = `<defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${1.1 / U}' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 .3  0 0 0 0 .25  0 0 0 0 .2  0 0 0 .16 0'/></filter>` +
+        `<pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><circle cx='${s / 2}' cy='${s / 2}' r='${s * .32}' fill='${A}'/></pattern><pattern id='b' width='${s}' height='${s}' patternUnits='userSpaceOnUse' patternTransform='rotate(30)'><circle cx='${s / 2}' cy='${s / 2}' r='${s * .3}' fill='${B}'/></pattern></defs>`;
+      o += `<circle cx='${W - 60 * U}' cy='${H - 40 * U}' r='${210 * U}' fill='url(#a)'/><circle cx='${W - 250 * U}' cy='${H + 10 * U}' r='${150 * U}' fill='url(#b)'/><circle cx='${10 * U}' cy='${0}' r='${92 * U}' fill='url(#b)'/><circle cx='${120 * U}' cy='${-14 * U}' r='${54 * U}' fill='url(#a)'/>`;
+      const e = 26 * U, k = 16 * U;
+      [[e, H - e], [W - e, e]].forEach(([x, y]) => { o += `<path d='M${x - k} ${y}H${x + k}M${x} ${y - k}V${y + k}' stroke='${B}' stroke-width='${1.5 * U}'/><circle cx='${x}' cy='${y}' r='${6 * U}' fill='none' stroke='${A}' stroke-width='${1.5 * U}'/>`; });
+      return o + `<rect width='${W}' height='${H}' filter='url(#n)'/>`;
+    },
+    notes: c => {
+      const s = 34 * U, tape = c.d[0] || c.acc, hl = c.d[1] || c.acc;
+      let o = `<defs><pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><circle cx='${s / 2}' cy='${s / 2}' r='${1.6 * U}' fill='${c.ink}' fill-opacity='.2'/></pattern><pattern id='t' width='${14 * U}' height='${14 * U}' patternUnits='userSpaceOnUse' patternTransform='rotate(45)'><rect width='${7 * U}' height='${14 * U}' fill='#fff' fill-opacity='.35'/></pattern></defs><rect width='${W}' height='${H}' fill='url(#a)'/>`;
+      o += `<g transform='rotate(-7 ${60 * U} ${40 * U})'><rect x='${-30 * U}' y='${26 * U}' width='${190 * U}' height='${34 * U}' fill='${tape}' fill-opacity='.85'/><rect x='${-30 * U}' y='${26 * U}' width='${190 * U}' height='${34 * U}' fill='url(#t)'/></g>`;
+      o += `<g transform='rotate(5 ${W - 100 * U} ${H - 50 * U})'><rect x='${W - 210 * U}' y='${H - 62 * U}' width='${230 * U}' height='${30 * U}' fill='${hl}' fill-opacity='.8'/><rect x='${W - 210 * U}' y='${H - 62 * U}' width='${230 * U}' height='${30 * U}' fill='url(#t)'/></g>`;
+      o += `<path d='M${40 * U} ${H - 120 * U}c${40 * U} ${-50 * U} ${90 * U} ${-40 * U} ${80 * U} ${10 * U}s${-70 * U} ${30 * U} ${-20 * U} ${-20 * U}s${110 * U} ${-20 * U} ${150 * U} ${40 * U}' fill='none' stroke='${c.ink}' stroke-opacity='.55' stroke-width='${2.4 * U}' stroke-linecap='round'/><path d='M${236 * U} ${H - 106 * U}l${16 * U} ${18 * U}l${-22 * U} ${4 * U}' fill='none' stroke='${c.ink}' stroke-opacity='.55' stroke-width='${2.4 * U}' stroke-linecap='round' stroke-linejoin='round'/>`;
+      return o;
+    },
+    mindmap: c => {
+      const A = c.acc, B = c.d[0] || c.acc, G = c.d[1] || c.acc; let o = '';
+      const br = (x0, y0, x1, y1, col, w) => `<path d='M${f1(x0)} ${f1(y0)}C${f1(x0 + (x1 - x0) * .5)} ${f1(y0)} ${f1(x0 + (x1 - x0) * .5)} ${f1(y1)} ${f1(x1)} ${f1(y1)}' fill='none' stroke='${col}' stroke-opacity='.55' stroke-width='${w * U}' stroke-linecap='round'/><circle cx='${f1(x1)}' cy='${f1(y1)}' r='${(w + 5) * U}' fill='${col}' fill-opacity='.8'/>`;
+      const ox = 50 * U, oy = H - 60 * U;
+      o += br(ox, oy, ox + 250 * U, oy - 150 * U, A, 7) + br(ox, oy, ox + 330 * U, oy + 10 * U, B, 6) + br(ox + 250 * U, oy - 150 * U, ox + 430 * U, oy - 220 * U, A, 4) + br(ox + 250 * U, oy - 150 * U, ox + 450 * U, oy - 110 * U, G, 4) + br(ox + 330 * U, oy + 10 * U, ox + 520 * U, oy - 30 * U, B, 3.5);
+      o += `<circle cx='${ox}' cy='${oy}' r='${22 * U}' fill='${A}'/>`;
+      const tx = W - 40 * U, ty = 50 * U;
+      o += br(tx, ty, tx - 220 * U, ty + 70 * U, G, 6) + br(tx, ty, tx - 300 * U, ty - 6 * U, B, 5) + br(tx - 220 * U, ty + 70 * U, tx - 380 * U, ty + 110 * U, G, 3.5) + `<circle cx='${tx}' cy='${ty}' r='${16 * U}' fill='${G}'/>`;
+      return o;
+    },
+    neon: c => {
+      const cols = [c.d[0] || c.acc, c.d[1] || c.acc, c.d[2] || c.acc]; let o = `<defs><filter id='g' x='-10%' y='-200%' width='120%' height='500%'><feGaussianBlur stdDeviation='${7 * U}' result='b'/><feMerge><feMergeNode in='b'/><feMergeNode in='b'/><feMergeNode in='SourceGraphic'/></feMerge></filter>` +
+        `<radialGradient id='v' cx='.5' cy='.45' r='.8'><stop offset='0' stop-color='${cols[0]}' stop-opacity='.10'/><stop offset='1' stop-color='#000' stop-opacity='.35'/></radialGradient></defs><rect width='${W}' height='${H}' fill='url(#v)'/>`;
+      cols.forEach((col, i) => { const y = H - (62 - i * 18) * U, amp = (16 - i * 3) * U, wl = (230 + i * 70) * U; let d = `M0 ${f1(y)}`;
+        for (let x = 0; x < W; x += wl) d += `q${f1(wl / 4)} ${f1(-amp * 2)} ${f1(wl / 2)} 0t${f1(wl / 2)} 0`;
+        o += `<path d='${d}' fill='none' stroke='${col}' stroke-width='${2.6 * U}' stroke-opacity='.9' filter='url(#g)'/>`; });
+      o += `<path d='M${40 * U} ${46 * U}H${260 * U}' stroke='${cols[0]}' stroke-width='${2.4 * U}' filter='url(#g)'/><path d='M${W - 260 * U} ${46 * U}H${W - 40 * U}' stroke='${cols[1]}' stroke-width='${2.4 * U}' filter='url(#g)'/>`;
+      return o;
+    },
+    cards: c => {
+      const r = rng(83); let o = `<defs><filter id='s' x='-30%' y='-30%' width='160%' height='170%'><feDropShadow dx='0' dy='${8 * U}' stdDeviation='${10 * U}' flood-color='#000' flood-opacity='.16'/></filter></defs>`;
+      [[-30, H / U - 150, 210, 124, -9, 0], [150, H / U - 70, 170, 100, 6, 1], [W / U - 200, -30, 220, 130, 8, 1], [W / U - 370, 24, 130, 78, -6, 0], [20, 30, 120, 72, 5, 1]].forEach(([x, y, w, h, a, k]) => {
+        const col = k ? (c.dark ? '#1c1f27' : '#ffffff') : (c.d[0] || '#16171c');
+        o += `<g transform='rotate(${a} ${(x + w / 2) * U} ${(y + h / 2) * U})' filter='url(#s)'><rect x='${x * U}' y='${y * U}' width='${w * U}' height='${h * U}' rx='${8 * U}' fill='${col}'/><rect x='${(x + 12) * U}' y='${(y + 14) * U}' width='${w * .45 * U}' height='${7 * U}' rx='${3 * U}' fill='${c.acc}'/><rect x='${(x + 12) * U}' y='${(y + 30) * U}' width='${w * .7 * U}' height='${5 * U}' rx='${2 * U}' fill='${k ? c.ink : '#fff'}' fill-opacity='.22'/><rect x='${(x + 12) * U}' y='${(y + 42) * U}' width='${w * .55 * U}' height='${5 * U}' rx='${2 * U}' fill='${k ? c.ink : '#fff'}' fill-opacity='.14'/></g>`; });
+      return o;
+    },
+    swiss: c => {
+      const m = 70 * U, n = 12, g = (W - 2 * m) / n; let o = '';
+      for (let i = 0; i <= n; i++) o += `<path d='M${f1(m + i * g)} 0V${H}' stroke='${c.ink}' stroke-opacity='.045'/>`;
+      o += `<path d='M${m} ${62 * U}H${W - m}' stroke='${c.ink}' stroke-width='${5 * U}'/><path d='M${m} ${H - 52 * U}H${W - m}' stroke='${c.ink}' stroke-opacity='.5' stroke-width='${1.2 * U}'/><rect x='${m}' y='${H - 52 * U}' width='${g * 2}' height='${8 * U}' fill='${c.acc}'/>`;
+      return o;
+    },
+    blocks: c => {
+      const A = c.acc, B = c.d[0] || c.acc;
+      return `<rect x='0' y='${H - 16 * U}' width='${W * .34}' height='${16 * U}' fill='${A}'/><rect x='${W * .34}' y='${H - 16 * U}' width='${W * .12}' height='${16 * U}' fill='${B}'/><rect x='${W - 26 * U}' y='0' width='${26 * U}' height='${H * .3}' fill='${A}'/><circle cx='${60 * U}' cy='${60 * U}' r='${9 * U}' fill='${B}'/><path d='M${84 * U} ${60 * U}h${90 * U}' stroke='${c.ink}' stroke-opacity='.35' stroke-width='${2 * U}'/>`;
+    },
+    canvasui: c => {
+      // 在线画布界面：点阵底 + 顶栏（徽标 / 协作头像 / 缩放 / 主按钮）+ 左侧工具栏 + 底部播放条（波形）；全部贴边，版心留空
+      const s = 30 * U, card = c.dark ? '#1c1d22' : '#ffffff', ln = c.dark ? 'rgba(255,255,255,.10)' : 'rgba(20,22,30,.10)', gray = c.dark ? '#4a4d57' : '#c9ccd3';
+      const red = c.d[0] || '#e5483a', blue = c.acc;
+      let o = `<defs><pattern id='a' width='${s}' height='${s}' patternUnits='userSpaceOnUse'><circle cx='${s / 2}' cy='${s / 2}' r='${1.3 * U}' fill='${c.ink}' fill-opacity='.13'/></pattern>` +
+        `<filter id='sh' x='-20%' y='-40%' width='140%' height='180%'><feDropShadow dx='0' dy='${3 * U}' stdDeviation='${6 * U}' flood-color='#000' flood-opacity='${c.dark ? .45 : .10}'/></filter></defs><rect width='${W}' height='${H}' fill='url(#a)'/>`;
+      const tb = 58 * U;
+      o += `<rect width='${W}' height='${tb}' fill='${card}'/><path d='M0 ${tb}H${W}' stroke='${ln}'/>`;
+      o += `<rect x='${18 * U}' y='${15 * U}' width='${28 * U}' height='${28 * U}' rx='${7 * U}' fill='${red}'/><rect x='${54 * U}' y='${20 * U}' width='${70 * U}' height='${8 * U}' rx='${4 * U}' fill='${c.ink}' fill-opacity='.75'/><rect x='${54 * U}' y='${33 * U}' width='${46 * U}' height='${6 * U}' rx='${3 * U}' fill='${c.ink}' fill-opacity='.3'/>`;
+      ['#f0a23c', '#5aa0dd', '#4fae69', '#e5483a', '#8f7bff'].forEach((col, i) => { o += `<circle cx='${W - 250 * U + i * 20 * U}' cy='${29 * U}' r='${12 * U}' fill='${col}' stroke='${card}' stroke-width='${2.5 * U}'/>`; });
+      o += `<rect x='${W - 136 * U}' y='${18 * U}' width='${46 * U}' height='${22 * U}' rx='${11 * U}' fill='${gray}' fill-opacity='.5'/><rect x='${W - 82 * U}' y='${16 * U}' width='${64 * U}' height='${26 * U}' rx='${13 * U}' fill='${blue}'/>`;
+      const tx = 10 * U, ty = H * .2, th = 9 * 38 * U + 16 * U;
+      o += `<rect x='${tx}' y='${ty}' width='${42 * U}' height='${th}' rx='${12 * U}' fill='${card}' filter='url(#sh)'/>`;
+      for (let i = 0; i < 9; i++) { const y = ty + 14 * U + i * 38 * U, x = tx + 11 * U;
+        o += i === 3 ? `<rect x='${x - 3 * U}' y='${y - 3 * U}' width='${26 * U}' height='${26 * U}' rx='${6 * U}' fill='${blue}'/><path d='M${x + 5 * U} ${y + 6 * U}l${10 * U} ${4 * U}l-${4 * U} ${2 * U}l-${2 * U} ${5 * U}z' fill='#fff'/>`
+          : (i % 3 === 0 ? `<rect x='${x + 2 * U}' y='${y + 2 * U}' width='${16 * U}' height='${16 * U}' rx='${3 * U}' fill='none' stroke='${gray}' stroke-width='${2 * U}'/>`
+          : i % 3 === 1 ? `<circle cx='${x + 10 * U}' cy='${y + 10 * U}' r='${8 * U}' fill='none' stroke='${gray}' stroke-width='${2 * U}'/>`
+          : `<path d='M${x + 2 * U} ${y + 17 * U}L${x + 17 * U} ${y + 3 * U}' stroke='${gray}' stroke-width='${2.4 * U}' stroke-linecap='round'/>`); }
+      const pb = 54 * U, py = H - pb - 16 * U, px0 = 26 * U, pw = W - 52 * U;
+      o += `<rect x='${px0}' y='${py}' width='${pw}' height='${pb}' rx='${12 * U}' fill='${card}' filter='url(#sh)'/><circle cx='${px0 + 28 * U}' cy='${py + pb / 2}' r='${14 * U}' fill='${blue}'/><path d='M${px0 + 23 * U} ${py + pb / 2 - 7 * U}v${14 * U}l${12 * U}-${7 * U}z' fill='#fff'/>`;
+      const r = rng(97), x0 = px0 + 60 * U, x1 = px0 + pw - 90 * U, n = Math.floor((x1 - x0) / (6 * U)), played = Math.floor(n * .42);
+      for (let i = 0; i < n; i++) { const h = (5 + Math.pow(r(), 1.6) * 30) * U; o += `<rect x='${f1(x0 + i * 6 * U)}' y='${f1(py + pb / 2 - h / 2)}' width='${f1(3.2 * U)}' height='${f1(h)}' rx='${1.5 * U}' fill='${i < played ? blue : gray}'/>`; }
+      o += `<rect x='${x1 + 18 * U}' y='${py + 18 * U}' width='${56 * U}' height='${7 * U}' rx='${3 * U}' fill='${c.ink}' fill-opacity='.35'/><rect x='${x1 + 18 * U}' y='${py + 31 * U}' width='${38 * U}' height='${6 * U}' rx='${3 * U}' fill='${c.ink}' fill-opacity='.2'/>`;
+      return o;
+    },
+    fieldnotes: c => {
+      // 旅行手记：宽银幕黑边（上窄下宽，字幕落在下黑边里）+ 胶片颗粒 + 暗角 + 取景器角标 + 红点（不放中心准星：会压到标题与列表）
+      const top = H * .07, bot = H * .155, k = 26 * U, red = c.d[0] || '#e0402e';
+      let o = `<defs><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='${.85 / U}' numOctaves='2' seed='11'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .06 0'/></filter>` +
+        `<radialGradient id='v' cx='.5' cy='.48' r='.75'><stop offset='.5' stop-color='#000' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='.45'/></radialGradient></defs>` +
+        `<rect width='${W}' height='${H}' filter='url(#n)'/><rect width='${W}' height='${H}' fill='url(#v)'/>`;
+      o += `<rect width='${W}' height='${top}' fill='#060606'/><rect y='${H - bot}' width='${W}' height='${bot}' fill='#060606'/>` +
+        `<path d='M0 ${top}H${W}M0 ${H - bot}H${W}' stroke='#fff' stroke-opacity='.12'/>`;
+      const e1 = top + 26 * U, e2 = H - bot - 26 * U, l = 40 * U, r0 = W - 40 * U;
+      [[l, e1, 1, 1], [r0, e1, -1, 1], [l, e2, 1, -1], [r0, e2, -1, -1]].forEach(([x, y, sx, sy]) => { o += `<path d='M${x + sx * k} ${y}H${x}V${y + sy * k}' fill='none' stroke='#fff' stroke-opacity='.55' stroke-width='${1.6 * U}'/>`; });
+      o += `<circle cx='${l + 2 * U}' cy='${top / 2}' r='${5 * U}' fill='${red}'/>`;
+      return o;
+    },
+  };
+  const _decoCache = {};
+  const decoUrl = (g, c) => {
+    const key = g + '|' + c.theme;
+    if (!_decoCache[key]) _decoCache[key] = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='${W}' height='${H}' viewBox='0 0 ${W} ${H}'>${DECO[g](c)}</svg>`)}")`;
+    return _decoCache[key];
+  };
+
   // ---------- 背景 ----------
-  function background(root, theme) {
+  const DRIFT = new Set(['halftone', 'kaleido', 'mosaic', 'brush', 'papercut', 'clay', 'neon', 'riso', 'mindmap', 'iso', 'collage']);
+  const NOBAND = new Set(['canvasui', 'fieldnotes', 'frame', 'swiss', 'blueprint', 'ruler', 'gallery', 'scan']);
+  function background(root, theme, t = 0) {
     const dark = theme === 'dark';
     const bg = dark ? (TH.bgAlt || TH.bg) : TH.bg;
     const ink = inkOf(theme), line = lineOf(theme);
-    root.style.background = bg;
+    const box = el(root, 'abs bgbox', { left: '0', top: '0', width: '100%', height: '100%' });
+    box.style.background = bg;
     root.style.color = ink;
     const g = CH.grid;
     if (g === 'hairline') {
       const step = R(0.045, MIN);
-      root.style.backgroundImage =
+      box.style.backgroundImage =
         `linear-gradient(to right, ${line} 1px, transparent 1px),linear-gradient(to bottom, ${line} 1px, transparent 1px)`;
-      root.style.backgroundSize = `${step}px ${step}px`;
-      root.style.backgroundPosition = `${L % step}px 0`;
+      box.style.backgroundSize = `${step}px ${step}px`;
+      box.style.backgroundPosition = `${L % step}px 0`;
     } else if (g === 'dot') {
       const step = R(0.035, MIN);
-      root.style.backgroundImage = `radial-gradient(${line} 1.4px, transparent 1.6px)`;
-      root.style.backgroundSize = `${step}px ${step}px`;
+      box.style.backgroundImage = `radial-gradient(${line} 1.4px, transparent 1.6px)`;
+      box.style.backgroundSize = `${step}px ${step}px`;
     } else if (g === 'paper') {
-      root.style.backgroundImage = dark
+      box.style.backgroundImage = dark
         ? `repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px ${R(0.006, MIN)}px)`
         : `radial-gradient(120% 80% at 20% 0%, rgba(255,255,255,.5), transparent 60%),` +
           `repeating-linear-gradient(0deg, rgba(0,0,0,.028) 0 1px, transparent 1px ${R(0.006, MIN)}px)`;
     } else if (g === 'gradient') {
       const glow = dark ? (TH.bg2 || 'rgba(255,255,255,.07)') : (TH.tagBg || 'rgba(0,0,0,.04)');
-      root.style.backgroundImage = `radial-gradient(120% 70% at 50% 0%, ${glow} 0%, transparent 65%)`;
+      box.style.backgroundImage = `radial-gradient(120% 70% at 50% 0%, ${glow} 0%, transparent 65%)`;
+    } else if (DECO[g]) {
+      box.style.backgroundImage = decoUrl(g, { theme, dark, bg, ink, acc: accOf(theme), d: (dark ? TH.decoOnDark : TH.deco) || TH.deco || [] });
+      box.style.backgroundSize = `${W}px ${H}px`;
+      box.style.backgroundRepeat = 'no-repeat';
+      if (DRIFT.has(g) && MO.drift !== false) {   // 有机底纹缓慢漂移（放大 4% 后小幅平移，不露边；只由 t 决定）
+        const a = t * 0.33;
+        box.style.backgroundSize = `${(W * 1.04).toFixed(1)}px ${(H * 1.04).toFixed(1)}px`;
+        box.style.backgroundPosition = `${(-W * 0.02 + Math.sin(a) * W * 0.006).toFixed(2)}px ${(-H * 0.02 + Math.cos(a * 0.8) * H * 0.006).toFixed(2)}px`;
+      }
+      if (CH.capBand !== false && !NOBAND.has(g)) {   // 字幕带净空：底纹在字幕后面淡出成底色，字幕不再被线条/网点穿过
+        const cap = S.caption || {}, cx = cap.x ?? .5;
+        const lw = (cap.maxLineWidth ?? (cx === .5 ? 0.73 : 2 * Math.min(cx - 0.06, 0.94 - cx))) * W;
+        const cyy = (1 - (cap.y ?? -0.79)) / 2 * H, hh = R(TY.captionPx ?? 0.048, MIN) * 4.6;
+        const clear = /^#[0-9a-f]{6}$/i.test(bg) ? bg + '00' : 'transparent';
+        el(box, 'abs capband', { left: px(cx * W - lw * 0.62), top: px(cyy - hh / 2), width: px(lw * 1.24), height: px(hh),
+          background: `radial-gradient(closest-side, ${bg} 58%, ${clear} 100%)` });
+      }
     }
-    return ink;
+    return box;
   }
 
   // ---------- HUD ----------
@@ -197,7 +485,7 @@
     if (st === 'tagged' || st === 'boxed') {
       css.background = theme === 'dark' ? 'rgba(255,255,255,.09)' : (TH.tagBg || 'rgba(0,0,0,.055)');
       css.padding = `${px(KS * 0.28)} ${px(KS * 0.6)}`;
-      if (st === 'boxed') { css.background = accOf(theme); css.color = TH.onAccent || '#fff'; }
+      if (st === 'boxed') { css.background = accOf(theme); css.color = onAcc(theme); }
     }
     return css;
   }
@@ -227,6 +515,17 @@
       css.background = dark ? 'rgba(10,14,20,.82)' : paperOf(theme);
       css.border = `1px solid ${line}`;
       css.boxShadow = `0 ${px(R(0.01, MIN))} ${px(R(0.03, MIN))} rgba(0,0,0,${dark ? .5 : .12})`;
+    } else if (st === 'neon') {
+      css.background = dark ? 'rgba(0,0,0,.28)' : 'rgba(255,255,255,.7)';
+      css.border = `${px(Math.max(2, R(0.002, MIN)))} solid ${accOf(theme)}`;
+      css.boxShadow = `0 0 ${px(R(0.018, MIN))} ${accOf(theme)}88, inset 0 0 ${px(R(0.012, MIN))} ${accOf(theme)}33`;
+    } else if (st === 'hard') {
+      css.background = dark ? (TH.panelDark || '#1b1b1f') : paperOf(theme);
+      css.border = `${px(Math.max(2, R(0.0028, MIN)))} solid ${inkOf(theme)}`;
+      css.boxShadow = `${px(R(0.008, MIN))} ${px(R(0.008, MIN))} 0 ${accOf(theme)}`;
+    } else if (st === 'sticker') {
+      css.background = dark ? (TH.panelDark || 'rgba(255,255,255,.08)') : (TH.panel || '#fff6c9');
+      css.boxShadow = `0 ${px(R(0.006, MIN))} ${px(R(0.014, MIN))} rgba(0,0,0,${dark ? .4 : .14})`;
     } else if (st === 'glass') {
       css.background = dark ? 'rgba(255,255,255,.07)' : 'rgba(255,255,255,.6)';
       css.border = `1px solid ${line}`;
@@ -234,6 +533,7 @@
     }
     const p = el(root, 'abs panel', css);
     p.hdr = 0;
+    if (st === 'sticker') el(p, 'abs', { left: '50%', top: px(-R(0.011, MIN)), width: px(R(0.085, MIN)), height: px(R(0.022, MIN)), marginLeft: px(-R(0.0425, MIN)), background: accOf(theme), opacity: 0.55 });
     if (st === 'window') {
       const hh = R(0.03, MIN);
       p.hdr = hh;
@@ -316,7 +616,7 @@
       if (PERSON.label) {
         el(frame, 'abs mono plabel', {
           left: '0', top: '0', width: '100%', height: px(Math.max(HS * 1.8, g.h * 0.061)),
-          background: acc, color: TH.onAccent || '#fff',
+          background: acc, color: onAcc(theme),
           fontSize: px(HS), letterSpacing: px(R(0.002, MIN)),
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }, esc(PERSON.label));
@@ -331,7 +631,7 @@
       if (st === 'glow') frame.style.boxShadow = `0 0 ${px(R(0.03, MIN))} ${acc}55`;
       el(root, 'abs mono plabel', {
         left: px(g.x + R(0.018, MIN)), top: px(g.y + R(0.018, MIN)), padding: `${px(HS * 0.3)} ${px(HS * 0.7)}`,
-        background: acc, color: TH.onAccent || '#fff', fontSize: px(HS), letterSpacing: px(R(0.002, MIN)), whiteSpace: 'nowrap',
+        background: acc, color: onAcc(theme), fontSize: px(HS), letterSpacing: px(R(0.002, MIN)), whiteSpace: 'nowrap',
       }, esc(PERSON.label || 'LIVE'));
     } else if (mode === 'small') {
       const ring = el(root, 'abs', { left: px(g.x), top: px(g.y), width: px(g.w), height: px(g.h), borderRadius: '50%', overflow: 'hidden',
@@ -463,7 +763,8 @@
       const x = L + i * (w + gap), y = top0 + i * drop;
       const c = el(root, 'abs', { left: px(x), top: px(y), width: px(w), height: px(h), background: last ? accOf(th) : solid,
         borderRadius: px(R(LK.radius ?? 0.006, MIN)), boxShadow: `0 ${px(R(0.01, MIN))} ${px(R(0.025, MIN))} rgba(0,0,0,${th === 'dark' ? .5 : .18})` });
-      const pad = w * 0.1, fg = last ? (TH.onAccent || '#fff') : '#f4f4f2';
+      if (last) c.classList.add('onacc');
+      const pad = w * 0.1, fg = last ? (onAcc(th)) : '#f4f4f2';
       el(c, 'abs mono', { left: px(pad), top: px(pad * 0.9), fontSize: px(Math.max(KS, w * 0.075)), color: fg, opacity: 0.75 }, pad2(i + 1));
       const fs = fit(Math.min(BS * 1.15, w * 0.17), w - pad * 2, units(it), 2);
       el(c, 'abs', { left: px(pad), top: px(pad * 0.9 + w * 0.13), width: px(w - pad * 2), fontSize: px(fs), fontWeight: 800, lineHeight: 1.25, color: fg }, hi(it));
@@ -740,7 +1041,7 @@
     const row = el(root, 'abs', { left: px(L), top: px(top0), display: 'flex', gap: px(tsz * 0.6) });
     const solid = th === 'dark' ? '#1d1f24' : '#ffffff';
     const pills = tags.map((t, i) => el(row, '', { position: 'relative', padding: `${px(tsz * 0.45)} ${px(tsz * 1.0)}`, fontSize: px(tsz), fontWeight: 800,
-      background: i === tags.length - 1 ? accOf(th) : solid, color: i === tags.length - 1 ? (TH.onAccent || '#fff') : inkOf(th),
+      background: i === tags.length - 1 ? accOf(th) : solid, color: i === tags.length - 1 ? (onAcc(th)) : inkOf(th),
       borderRadius: px(R(0.006, MIN)), boxShadow: `0 ${px(R(0.006, MIN))} ${px(R(0.016, MIN))} rgba(0,0,0,${th === 'dark' ? .45 : .12})`, whiteSpace: 'nowrap' }, hi(t)));
     const by = top0 + tsz * 2.6 + R(0.04, MIN), bw = r - L;
     const lsz = fit(BS * 1.25, bw * 0.8, units(P.label || ''));
@@ -748,7 +1049,8 @@
     const bh = lsz * 1.4 + msz * 1.6 + R(0.05, MIN);
     const ban = el(root, 'abs', { left: px(L), top: px(by), width: px(bw), height: px(bh), background: accOf(th), borderRadius: px(R(0.008, MIN)),
       boxShadow: `0 ${px(R(0.014, MIN))} ${px(R(0.04, MIN))} ${accOf(th)}55`, transformOrigin: '0 50%' });
-    const fg = TH.onAccent || '#fff';
+    ban.classList.add('onacc');
+    const fg = onAcc(th);
     const bl = el(ban, 'abs', { left: px(R(0.03, MIN)), top: px(R(0.022, MIN)), fontSize: px(lsz), fontWeight: 900, color: fg, lineHeight: 1.3 }, hi(P.label || ''));
     const bm = el(ban, 'abs', { left: px(R(0.03, MIN)), top: px(R(0.022, MIN) + lsz * 1.5), width: px(bw - R(0.06, MIN)), fontSize: px(msz), fontWeight: 700, color: fg, opacity: 0.95, lineHeight: 1.4 }, hi(P.line || ''));
     const F = foot(root, P, ctx);
@@ -774,23 +1076,25 @@
     const cy = top + qsz * (P.q2 ? 2.24 : 1.12) + R(0.05, MIN);
     // 巨字与答案卡按可用宽度一起缩：巨字始终在卡片右侧，最多压住卡片 1/4
     const rw = inPersonArea(ctx.mode, cy, cy + R(0.22, MIN));
-    const wsz = fit(R(TY.heroPx ?? 0.1, MIN) * PS.hero * 1.15, (rw - L) * 0.5, units(P.word || ''));
+    // v4：巨字与答案卡并排、互不遮挡（原先巨字压住卡片右侧 1/4）
+    const wsz = fit(R(TY.heroPx ?? 0.1, MIN) * PS.hero * 1.15, (rw - L) * 0.42, units(P.word || ''));
     const wW = wsz * units(P.word || '');
-    const cw = Math.min((rw - L) * 0.74, (rw - L) - wW * 0.75), csz = BS;
+    const cw = (rw - L) - wW - R(0.035, MIN), csz = Math.min(BS, cw / 9);
     const card = el(root, 'abs', { left: px(L), top: px(cy), width: px(cw), padding: `${px(csz * 0.8)} ${px(csz * 1.0)}`, background: th === 'dark' ? '#1d1f24' : '#ffffff',
       borderRadius: px(R(0.006, MIN)), boxShadow: `0 ${px(R(0.01, MIN))} ${px(R(0.03, MIN))} rgba(0,0,0,${th === 'dark' ? .5 : .14})` });
     el(card, 'mono', { position: 'relative', fontSize: px(KS * 0.9), color: mutedOf(th), marginBottom: px(csz * 0.3) }, esc(P.label || '答案'));
-    el(card, '', { position: 'relative', fontSize: px(fit(csz * 1.15, cw - csz * 2 - wW * 0.3, units(P.line || ''))), fontWeight: 900, color: inkOf(th) }, hi(P.line || ''));
+    el(card, '', { position: 'relative', fontSize: px(fit(csz * 1.15, cw - csz * 2, units(P.line || ''))), fontWeight: 900, color: inkOf(th) }, hi(P.line || ''));
     if (P.sub) el(card, '', { position: 'relative', fontSize: px(KS), fontWeight: 700, color: accOf(th), marginTop: px(csz * 0.3) }, hi(P.sub));
     const word = el(root, 'abs title', { right: px(W - rw), top: px(cy + csz * 1.6), fontSize: px(wsz), fontWeight: 900, color: accOf(th), lineHeight: 1, whiteSpace: 'nowrap',
       textShadow: `0 ${px(R(0.008, MIN))} ${px(R(0.02, MIN))} rgba(0,0,0,${th === 'dark' ? .6 : .18})` }, hi(P.word || ''));
+    word.style.top = px(cy + (card.offsetHeight - wsz) / 2);   // 巨字与卡片垂直居中对齐
     const F = foot(root, P, ctx);
     return u => {
       show(q1, out3(span(u, 0, .3)), 24);
       show(q2, out3(span(u, .08, .3)), 24);
       show(card, out3(span(u, .25, .3)), 20);
       const k = out3(span(u, .45, .3));
-      word.style.opacity = Math.min(1, k * 1.5); word.style.transform = `scale(${1.25 - 0.25 * k})`; word.style.transformOrigin = '100% 50%';
+      word.style.opacity = Math.min(1, k * 1.5); word.style.transform = `scale(${(1.3 - 0.3 * back(clamp(span(u, .45, .34)))).toFixed(4)})`; word.style.transformOrigin = '100% 50%';
       F(u);
     };
   };
@@ -957,7 +1261,7 @@
     root.querySelectorAll('.hud').forEach(h => { const b = h.getBoundingClientRect(); if (b.width > 0.5 && b.height > 0.5) obs.push({ l: b.left - sr.left, t: b.top - sr.top, r: b.right - sr.left, b: b.bottom - sr.top }); });
     obs = obs.filter(o => !rects.some(q => hit(q, o)));   // 原样就相交的（控件自己安排的贴靠）不算障碍
     const K = LY.composeY ?? 0.42;
-    const smax = Math.max(1, Math.min(LY.compose === 'center' ? 1 : (LY.composeMax ?? 1.22), (RT - B.l) / bw, room * 0.9 / bh));
+    const smax = Math.max(1, Math.min(LY.compose === 'center' ? 1 : (LY.composeMax ?? 1.3), (RT - B.l) / bw, room * 0.9 / bh));
     for (let s = smax; s >= 1 - 1e-6; s = s > 1 ? Math.max(1, s - 0.05) : 0) {
       const slack = room - bh * s;
       for (const ty of [slack * K, slack * K * 0.5, 0]) {
@@ -974,6 +1278,8 @@
   // ---------- 装配 ----------
   // 入场时长：镜头的 72%，且不超过 2.4s（长镜头不再把入场拖满整镜）
   const ENTER_MAX = MO.enterMax ?? 2.4;
+  const CUT_D = 0.32;
+  const CUT = MO.cut ?? ({ wipe: 'wipe', pop: 'iris', flip: 'up', rise: 'up', settle: 'fade' })[MO.in || 'rise'] ?? 'up';
 
   window.renderAt = function (t) {
     const stage = $('stage');
@@ -992,7 +1298,19 @@
     if (TY.bodyFamily) root.style.setProperty('--kb-body', `'${TY.bodyFamily}'`);
     if (TY.monoFamily) root.style.setProperty('--kb-mono', `'${TY.monoFamily}'`);
     root.style.fontFamily = "var(--kb-body, 'KB Sans'), 'KB Sans', sans-serif";
-    background(root, theme);
+    root.dataset.hl = LK.highlight || 'underline';
+    // 转场：亮暗切换的镜头，新底色在 0.32s 内按风格擦入（旧底留在下面）；同底色的镜头只换内容，不闪黑
+    const prev = idx > 0 ? shots[idx - 1] : null, pTheme = prev ? (prev.theme || S.theme.default || 'dark') : theme;
+    const cutK = clamp((t - sh.t0) / CUT_D);
+    if (prev && pTheme !== theme && cutK < 1 && CUT !== 'cut') background(root, pTheme, t);
+    const bgbox = background(root, theme, t);
+    if (prev && pTheme !== theme && cutK < 1 && CUT !== 'cut') {
+      const k = inout(cutK), q = ((1 - k) * 100).toFixed(2);
+      if (CUT === 'wipe') bgbox.style.clipPath = `inset(0 ${q}% 0 0)`;
+      else if (CUT === 'iris') bgbox.style.clipPath = `circle(${(k * 125).toFixed(2)}% at 50% 50%)`;
+      else if (CUT === 'fade') bgbox.style.opacity = k.toFixed(3);
+      else bgbox.style.clipPath = `inset(${q}% 0 0 0)`;
+    }
     personFrame(root, sh.presenter || 'none', theme);
     window.__shot = { control: sh.control, mode: sh.presenter || 'none' };
     SAFE = safeFor(sh.presenter || 'none');
@@ -1008,13 +1326,50 @@
     const content = el(root, 'abs content', { left: '0', top: '0', width: '100%', height: '100%' });
     const draw = ctrl(content, sh.props || {}, ctx);
     if (draw) {
+      const keep = SFXP; SFXP = null;
       if ((LY.compose ?? 'fill') !== 'off' && sh.control !== 'split') { draw(1); compose(content, root, sh.presenter || 'none'); }
+      SFXP = keep;
       draw(ue);
     }
-    // 收尾淡出（最后 0.18s）
-    if (dur - local < 0.18) root.style.opacity = clamp((dur - local) / 0.18);
+    // 退场：只有内容在最后 0.2s 淡出，底色与人物不动（原先整层淡出，每次切镜都闪一下黑）
+    if (idx < shots.length - 1 && dur - local < 0.2) content.style.opacity = clamp((dur - local) / 0.2).toFixed(3);
     void u;
   };
+  const baseRender = window.renderAt;
+  window.sfxEvents = function () {
+    const shots = D.shots || [], fps = D.fps || 30, out = [];
+    const heroPx = R(TY.heroPx ?? 0.098, MIN) * 0.9, titlePx = R(TY.titlePx ?? 0.07, MIN) * 0.9;
+    shots.forEach((sh, k) => {
+      const dur = sh.t1 - sh.t0, enter = Math.min(dur * 0.72, ENTER_MAX);
+      const th = sh.theme || S.theme.default, pth = k ? (shots[k - 1].theme || S.theme.default) : th;
+      out.push({ t: +sh.t0.toFixed(3), kind: k === 0 ? 'intro' : 'cut', flip: th !== pth });
+      const first = new Map(), meta = new Map();
+      for (let f = 1; f <= Math.ceil(enter * fps) + 2; f++) {
+        const t = sh.t0 + f / fps; if (t >= sh.t1 - 0.05) break;
+        SFXP = []; baseRender(t); const list = SFXP; SFXP = null;
+        list.forEach((x, i) => {
+          if (!meta.has(i)) { const e = x.e, c = e.classList;
+            const skip = c.contains('kicker') || c.contains('foot') || c.contains('hud') || c.contains('mark') || c.contains('plabel');
+            const fs = parseFloat(e.style.fontSize) || 0, boxed = c.contains('panel') || !!e.style.background || !!e.style.backgroundColor || !!e.style.boxShadow;
+            meta.set(i, skip ? null : (fs >= heroPx ? 'hit' : c.contains('title') ? null : boxed ? 'pop' : fs >= titlePx ? 'hit' : fs > 0 ? 'tick' : null)); }
+          if (meta.get(i) && !first.has(i) && x.p >= 0.3) first.set(i, t);
+        });
+      }
+      let ev = [...first.entries()].map(([i, t]) => ({ t, kind: meta.get(i) }));
+      const at = a => sh.t0 + enter * a;
+      if (sh.control === 'counter') ev = ev.filter(e => e.kind !== 'hit').concat([{ t: at(.12), kind: 'roll', d: +(enter * .5).toFixed(3) }, { t: at(.62), kind: 'hit' }]);
+      if (sh.control === 'reveal') ev.push({ t: at(.5), kind: 'hit' });
+      if (sh.control === 'banner') ev.push({ t: at(.2), kind: 'pop' });
+      ev.sort((a, b) => a.t - b.t);
+      let last = sh.t0 + (k === 0 ? 0.1 : 0.22), n = 0;   // 不和切镜声叠在一起；同一镜头里间隔不足 0.1s 的并成一个，最多 7 个
+      for (const e of ev) {
+        if (e.kind !== 'roll' && (e.t < last + 0.1 || n >= 7)) { if (e.kind === 'hit' && e.t >= last) { /* 重音不丢 */ } else continue; }
+        out.push({ ...e, t: +e.t.toFixed(3) }); if (e.kind !== 'roll') { last = e.t; n++; }
+      }
+    });
+    return out.sort((a, b) => a.t - b.t);
+  };
+
   // ---------- 全量预览（只在 --full 下生效）：人物画面 + 字幕 ----------
   function presenterLayer(root, mode, t) {
     if (!D.full || !D.presenterFrames || !D.presenterFrames.count) return;
@@ -1037,6 +1392,21 @@
     });
     root.appendChild(img);
   }
+  // 一行放不下、两行放得下时：在最靠近中点的标点后断行；没有合适标点就交给自动换行。*重点* 记号内部不拆
+  function capBreak(text, per) {
+    const plain = [...String(text).replace(/\*/g, '')];
+    if (plain.length <= per || plain.length > per * 2) return text;
+    const chars = [...String(text)]; let best = -1, bd = 1e9, n = 0, inB = false;
+    chars.forEach((ch, i) => {
+      if (ch === '*') { inB = !inB; return; }
+      n++;
+      const N = plain.length, ok = !inB && n < N && n <= per && N - n <= per;
+      // 标点处优先（短的一行不少于全句 35%）；没有合适标点就取最靠近中点的位置，避免末行只剩一两个字
+      const punct = /[，。？！、；：,.?!;:]/.test(ch) && Math.min(n, N - n) >= N * 0.35;
+      if (ok) { const dd = Math.abs(n - N / 2) + (punct ? 0 : 100); if (dd < bd && !/[，。？！、；：,.?!;:]/.test(chars[i + 1] || '')) { bd = dd; best = i; } }
+    });
+    return best < 0 ? text : chars.slice(0, best + 1).join('') + '\n' + chars.slice(best + 1).join('');
+  }
   function captionLayer(root, t, theme) {
     if (!D.full || !D.captions) return;
     const c = D.captions.find(x => t >= x.s && t < x.e);
@@ -1053,9 +1423,10 @@
       fontSize: px(size), fontWeight: 700, lineHeight: 1.35,
       color: dark ? (TH.captionOnDark || TH.inkAlt || '#fff') : (TH.captionOn || TH.ink),
       textShadow: dark ? '0 2px 10px rgba(0,0,0,.55)' : '0 2px 10px rgba(255,255,255,.6)',
-    }, hi(c.text));
+    }, hi(capBreak(c.text, Math.floor(lw / size))).replace(/\n/g, '<br>'));
     const p = clamp((t - c.s) / 0.16);
     box.style.opacity = p;
+    box.style.transform = `translateY(-50%) translateY(${((1 - out3(p)) * size * 0.25).toFixed(2)}px)`;
   }
 
   const _renderAt = window.renderAt;

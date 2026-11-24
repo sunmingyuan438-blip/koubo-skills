@@ -28,3 +28,9 @@ b { color: var(--accent, currentColor); font-weight: inherit; }
 .kicker, .hud, .mark, .foot { text-transform: none; }
 .mark { display: flex; align-items: center; justify-content: center; }
 .panel { overflow: hidden; }
+/* v4：*重点* 的划线 / 马克笔底。进度由 runtime 逐帧写入 --hl（0→1），这里没有任何过渡 */
+.layer[data-hl="underline"] b { background: linear-gradient(currentColor, currentColor) no-repeat 0 97% / calc(var(--hl, 1) * 100%) 0.065em; }
+.layer[data-hl="marker"] b { background: linear-gradient(color-mix(in srgb, var(--accent) 26%, transparent), color-mix(in srgb, var(--accent) 26%, transparent)) no-repeat 0 82% / calc(var(--hl, 1) * 100%) 0.42em; }
+.caption b, .onacc b { background: none !important; }
+.onacc b { color: inherit; text-decoration: underline; text-underline-offset: 0.16em; text-decoration-thickness: 0.07em; }
+.bgbox, .capband { pointer-events: none; }

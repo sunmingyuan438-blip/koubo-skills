@@ -88,7 +88,8 @@
   "radius": 0.004,
   "underline": false,
   "stepsStyle": "tiles",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "pop",
@@ -120,5 +121,10 @@
   "dominant": "card",
   "caption_cy": 0.74,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "poster",
+  "volume": 1
  }
 }

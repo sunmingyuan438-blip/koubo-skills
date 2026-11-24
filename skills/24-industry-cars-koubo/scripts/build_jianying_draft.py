@@ -250,10 +250,33 @@ def main():
         return th
 
     highlights, hl_theme = {}, {}
+    mlw = cs.get("maxLineWidth", 0.73 if cs.get("x", .5) == .5 else round(2 * min(cs.get("x", .5) - 0.06, 0.94 - cs.get("x", .5)), 3))
+    per_line = int(mlw / (cs.get("size", 8) * 0.006))   # 一行能放的全角字数（0.006 = 剪映字号 → 画布宽比例，与 runtime 同源）
+
+    def cap_break(text, words):
+        """一行放不下、两行放得下：在最靠近中点的标点后断行（与 runtime.js 的 capBreak 同一规则）；高亮词内部不拆。"""
+        n = len(text)
+        if n <= per_line or n > per_line * 2:
+            return text
+        inside = set()
+        for w in words or []:
+            p0 = 0
+            while (k := text.find(w, p0)) >= 0:
+                inside.update(range(k + 1, k + len(w))); p0 = k + len(w)
+        best, bd, P_ = -1, 1e9, "，。？！、；：,.?!;:"
+        for i, ch in enumerate(text):
+            k = i + 1
+            if k < n and k <= per_line and n - k <= per_line and k not in inside and text[k] not in P_:
+                # 标点处优先（短的一行不少于全句 35%）；没有合适标点就取最靠近中点的位置
+                dd = abs(k - n / 2) + (0 if (ch in P_ and min(k, n - k) >= n * 0.35) else 100)
+                if dd < bd:
+                    best, bd = k, dd
+        return text if best < 0 else text[:best] + "\n" + text[best:]
+
     for c in cues:
         th = "dark" if theme_at((c["s"] + c["e"]) / 2) == "dark" else "light"
         th = th if th in ACCENT else "light"
-        seg = d.TextSegment(c["text"], rng(c["s"], c["e"]), font=font,
+        seg = d.TextSegment(cap_break(c["text"], c.get("highlight")), rng(c["s"], c["e"]), font=font,
                             style=d.TextStyle(size=cs.get("size", 8), bold=True, color=paper if th == "dark" else ink, align=1,
                                               auto_wrapping=True,
                                               # 横屏人物在侧边时字幕移到空白区：行宽收到该区宽度（与 runtime 同源）
