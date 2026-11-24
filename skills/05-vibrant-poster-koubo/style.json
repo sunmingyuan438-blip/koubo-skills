@@ -87,7 +87,8 @@
   "radius": 0.006,
   "underline": false,
   "stepsStyle": "tiles",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "marker"
  },
  "motion": {
   "in": "pop",
@@ -118,5 +119,10 @@
   "dominant": "small",
   "caption_cy": 0.8,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "poster",
+  "volume": 1
  }
 }

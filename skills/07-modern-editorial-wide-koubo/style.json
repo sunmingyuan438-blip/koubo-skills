@@ -85,7 +85,8 @@
   "radius": 0.004,
   "underline": true,
   "stepsStyle": "tiles",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "rise",
@@ -116,5 +117,10 @@
   "dominant": "small",
   "caption_cy": null,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "paper",
+  "volume": 1
  }
 }
