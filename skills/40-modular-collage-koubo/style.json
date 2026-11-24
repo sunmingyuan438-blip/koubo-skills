@@ -93,7 +93,8 @@
   "radius": 0.018,
   "underline": false,
   "stepsStyle": "tiles",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "marker"
  },
  "motion": {
   "in": "pop",
@@ -117,5 +118,10 @@
   "paper": "#f2f1ee",
   "accent": "#5b3df0",
   "accentDark": "#8f7bff"
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "soft",
+  "volume": 1
  }
 }
