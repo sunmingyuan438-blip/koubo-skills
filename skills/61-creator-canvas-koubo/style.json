@@ -1,0 +1,123 @@
+{
+ "id": "61-creator-canvas-koubo",
+ "title": "自由画布 · 协作叙事",
+ "canvas": [
+  1080,
+  1920
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "light",
+  "variants": [
+   "light",
+   "dark"
+  ],
+  "bg": "#f6f6f4",
+  "bgAlt": "#121317",
+  "ink": "#16171b",
+  "inkAlt": "#f1f2f5",
+  "accent": "#2e67e9",
+  "accentOnDark": "#6b95ff",
+  "muted": "#747576",
+  "mutedAlt": "#9c9da1",
+  "line": "rgba(22,23,27,0.16)",
+  "lineOnDark": "rgba(241,242,245,0.16)",
+  "panel": "rgba(22,23,27,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#fbfbfa",
+  "tagBg": "rgba(46,103,233,0.12)",
+  "onAccent": "#16171b",
+  "deco": [
+   "#e5483a"
+  ],
+  "decoOnDark": [
+   "#ff6a5c"
+  ]
+ },
+ "type": {
+  "titlePx": 0.075,
+  "heroPx": 0.104,
+  "statementPx": 0.086,
+  "bodyPx": 0.036,
+  "quotePx": 0.05,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "none",
+  "grid": "canvasui",
+  "progress": false,
+  "timeStyle": "clock",
+  "label": "自由画布",
+  "tag": ""
+ },
+ "person": {
+  "mode": "small",
+  "style": "solid",
+  "label": "LIVE",
+  "ring": "accent",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.73,
+    "cy": 0.7,
+    "w": 0.44,
+    "h": 0.5,
+    "r": 0.03
+   },
+   "small": {
+    "cx": 0.79,
+    "cy": 0.135,
+    "w": 0.27,
+    "h": 0.27,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.068,
+  "titleY": 0.14,
+  "heroY": 0.25,
+  "contentY": 0.3,
+  "safe": 0.82
+ },
+ "look": {
+  "titleStyle": "tagged",
+  "panelStyle": "paper",
+  "bullet": "check",
+  "radius": 0.02,
+  "underline": false,
+  "stepsStyle": "tiles",
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "pop",
+  "ease": "out3",
+  "stagger": 0.12
+ },
+ "controls": [
+  "opener",
+  "statement",
+  "list",
+  "imageSlot",
+  "steps",
+  "quote",
+  "compare",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 8.0,
+  "ink": "#16171b",
+  "paper": "#f1f2f5",
+  "accent": "#d93b2b",
+  "accentDark": "#ff6a5c"
+ }
+}

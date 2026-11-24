@@ -1,0 +1,121 @@
+{
+ "id": "62-september-field-notes-koubo",
+ "title": "九月 · 旅行手记",
+ "canvas": [
+  1920,
+  1080
+ ],
+ "fps": 30,
+ "theme": {
+  "default": "dark",
+  "variants": [
+   "dark"
+  ],
+  "bg": "#efe9dc",
+  "bgAlt": "#15140f",
+  "ink": "#1a1813",
+  "inkAlt": "#efe9dc",
+  "accent": "#b8432d",
+  "accentOnDark": "#ef5a3f",
+  "muted": "#737067",
+  "mutedAlt": "#9c988e",
+  "line": "rgba(26,24,19,0.16)",
+  "lineOnDark": "rgba(239,233,220,0.16)",
+  "panel": "rgba(26,24,19,0.05)",
+  "panelDark": "rgba(255,255,255,.06)",
+  "paper": "#f8f5ef",
+  "tagBg": "rgba(184,67,45,0.12)",
+  "onAccent": "#1a1813",
+  "deco": [
+   "#e0402e"
+  ],
+  "decoOnDark": [
+   "#e0402e"
+  ]
+ },
+ "type": {
+  "titlePx": 0.078,
+  "heroPx": 0.106,
+  "statementPx": 0.088,
+  "bodyPx": 0.036,
+  "quotePx": 0.052,
+  "captionPx": 0.048,
+  "weight": 900,
+  "tracking": -0.02,
+  "heroLh": 1.12
+ },
+ "chrome": {
+  "kind": "corner",
+  "grid": "fieldnotes",
+  "progress": false,
+  "timeStyle": "frames",
+  "label": "FIELD NOTES · Nº 01",
+  "tag": ""
+ },
+ "person": {
+  "mode": "card",
+  "style": "solid",
+  "label": "",
+  "modes": [
+   "card",
+   "small",
+   "none"
+  ],
+  "frame": {
+   "card": {
+    "cx": 0.795,
+    "cy": 0.455,
+    "w": 0.4,
+    "h": 0.62,
+    "r": 0.006
+   },
+   "small": {
+    "cx": 0.875,
+    "cy": 0.27,
+    "w": 0.22,
+    "h": 0.22,
+    "r": 0.5
+   }
+  }
+ },
+ "layout": {
+  "margin": 0.062,
+  "titleY": 0.17,
+  "heroY": 0.22,
+  "contentY": 0.34,
+  "safe": 0.82
+ },
+ "look": {
+  "titleStyle": "plain",
+  "panelStyle": "outline",
+  "bullet": "dash",
+  "radius": 0.004,
+  "underline": false,
+  "barWidth": 0.005
+ },
+ "motion": {
+  "in": "settle",
+  "ease": "inout",
+  "stagger": 0.24
+ },
+ "controls": [
+  "opener",
+  "chapter",
+  "statement",
+  "imageSlot",
+  "list",
+  "quote",
+  "steps",
+  "banner",
+  "reveal",
+  "outro"
+ ],
+ "caption": {
+  "size": 4.5,
+  "ink": "#1a1813",
+  "paper": "#efe9dc",
+  "accent": "#b8432d",
+  "accentDark": "#ef5a3f",
+  "y": -0.85
+ }
+}
