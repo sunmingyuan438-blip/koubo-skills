@@ -92,7 +92,8 @@
   "bullet": "number",
   "radius": 0.02,
   "underline": true,
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "rise",
@@ -125,5 +126,10 @@
   "dominant": "card",
   "caption_cy": null,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "paper",
+  "volume": 1
  }
 }

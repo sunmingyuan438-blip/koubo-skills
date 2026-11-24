@@ -87,7 +87,8 @@
   "radius": 0.03,
   "underline": true,
   "stepsStyle": "tiles",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "marker"
  },
  "motion": {
   "in": "pop",
@@ -121,5 +122,10 @@
   "alt": [
    "参考片左右交替（左 14 / 右 15）"
   ]
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "soft",
+  "volume": 1
  }
 }

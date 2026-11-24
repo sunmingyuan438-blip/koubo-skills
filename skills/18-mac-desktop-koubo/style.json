@@ -59,9 +59,9 @@
   "frame": {
    "card": {
     "cx": 0.7771,
-    "cy": 0.593,
+    "cy": 0.47,
     "w": 0.4306,
-    "h": 0.7639,
+    "h": 0.62,
     "r": 0.012
    },
    "small": {
@@ -87,7 +87,8 @@
   "radius": 0.01,
   "underline": false,
   "counterStyle": "ring",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "wipe",
@@ -112,12 +113,18 @@
   "accent": "#6f8ad6",
   "accentDark": "#95aef0",
   "y": -0.76,
-  "x": 0.321
+  "x": 0.5,
+  "maxLineWidth": 0.73
  },
  "measured": {
   "source": "measure/18.json",
   "dominant": "card",
   "caption_cy": 0.88,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "soft",
+  "volume": 1
  }
 }

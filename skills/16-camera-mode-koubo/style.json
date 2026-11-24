@@ -87,7 +87,8 @@
   "radius": 0.008,
   "underline": false,
   "counterStyle": "ring",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "wipe",
@@ -117,5 +118,10 @@
   "dominant": "card",
   "caption_cy": 0.84,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "film",
+  "volume": 1
  }
 }

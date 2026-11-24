@@ -93,7 +93,8 @@
   "bullet": "check",
   "radius": 0.02,
   "underline": false,
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "flip",
@@ -127,5 +128,10 @@
   "dominant": "small",
   "caption_cy": null,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "poster",
+  "volume": 1
  }
 }

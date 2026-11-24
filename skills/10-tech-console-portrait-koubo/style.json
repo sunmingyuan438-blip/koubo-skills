@@ -85,7 +85,8 @@
   "radius": 0.008,
   "underline": false,
   "counterStyle": "ring",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "none"
  },
  "motion": {
   "in": "wipe",
@@ -115,5 +116,10 @@
   "dominant": "small",
   "caption_cy": 0.8,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "tech",
+  "volume": 1
  }
 }
