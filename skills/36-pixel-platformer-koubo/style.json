@@ -97,12 +97,14 @@
   "radius": 0,
   "underline": false,
   "counterStyle": "ring",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "none"
  },
  "motion": {
   "in": "pop",
   "ease": "linear",
-  "stagger": 0.1
+  "stagger": 0.1,
+  "cut": "cut"
  },
  "controls": [
   "opener",
@@ -120,5 +122,10 @@
   "paper": "#f3edff",
   "accent": "#b3246f",
   "accentDark": "#ff6aae"
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "game",
+  "volume": 1
  }
 }

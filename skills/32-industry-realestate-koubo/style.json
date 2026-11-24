@@ -88,7 +88,8 @@
   "radius": 0.02,
   "underline": true,
   "counterStyle": "ring",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "flip",
@@ -120,5 +121,10 @@
   "dominant": "small",
   "caption_cy": 0.74,
   "alt": []
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "film",
+  "volume": 1
  }
 }

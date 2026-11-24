@@ -93,12 +93,14 @@
   "radius": 0.014,
   "underline": false,
   "stepsStyle": "tiles",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "wipe",
   "ease": "out3",
-  "stagger": 0.1
+  "stagger": 0.1,
+  "cut": "cut"
  },
  "controls": [
   "opener",
@@ -117,5 +119,10 @@
   "paper": "#f5f3ff",
   "accent": "#5a3cf0",
   "accentDark": "#f472b6"
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "poster",
+  "volume": 1
  }
 }
