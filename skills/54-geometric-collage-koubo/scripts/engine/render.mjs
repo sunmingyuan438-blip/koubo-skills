@@ -3,7 +3,8 @@
 //   node render.mjs build   <shots.json> <实例目录> [--full]
 //   node render.mjs preview <实例目录> <out.png> --time 3
 //   node render.mjs render  <实例目录> <out.mp4>
-// 不带 --full 时只出「动效层」：不含人物画面、不含字幕、无声，给剪映草稿用。
+// 不带 --full 时只出「动效层」：不含人物画面、不含字幕；音轨只有动作音效（style.json#sfx，可关），草稿生成器会把它放进「音效」轨。
+//   node render.mjs sfx     <实例目录> <out.wav>     只导出音效（事件表写到实例目录 sfx.json）
 import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
@@ -12,6 +13,7 @@ import { once } from 'node:events';
 import { spawn, execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { synth, SFX_KITS } from './sfx.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const STYLE_FILE = path.resolve(HERE, '..', '..', 'style.json');
@@ -192,29 +194,47 @@ async function page(inst, fn) {
   } finally { await browser.close(); server.close(); }
 }
 
+// 动作音效：页面按入场时刻给出事件表，sfx.mjs 现场合成（不带任何音频素材）。style.json#sfx.enabled=false 时不出声
+async function sfxTrack(inst, p, duration) {
+  const cfg = STYLE.sfx || {};
+  if (cfg.enabled === false) return null;
+  const events = await p.evaluate(() => window.sfxEvents());
+  const kit = SFX_KITS.includes(cfg.kit) ? cfg.kit : 'paper';
+  const wav = path.join(inst, 'sfx.wav');
+  fs.writeFileSync(wav, synth(events, duration, kit, cfg.volume ?? 1));
+  fs.writeFileSync(path.join(inst, 'sfx.json'), JSON.stringify({ kit, volume: cfg.volume ?? 1, events }, null, 1));
+  return wav;
+}
+
 async function render(inst, out) {
   if (fs.existsSync(out)) fail('输出已存在：' + out);
   const tl = JSON.parse(fs.readFileSync(path.join(inst, 'timeline.json'), 'utf8'));
   const n = Math.round(tl.duration * FPS);
   const hasAudio = fs.existsSync(path.join(inst, 'audio.wav'));
-  const args = ['-v', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', 'pipe:0'];
-  if (hasAudio) args.push('-i', path.join(inst, 'audio.wav'), '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '192k');
-  args.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p',
-    '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709',
-    '-frames:v', String(n), '-movflags', '+faststart', out);
-  const enc = spawn('ffmpeg', args, { stdio: ['pipe', 'ignore', 'inherit'] });
-  const done = once(enc, 'exit');
+  let sfx = null;
   await page(inst, async (p, step) => {
+    sfx = await sfxTrack(inst, p, tl.duration);
+    const args = ['-v', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', 'pipe:0'];
+    if (hasAudio) args.push('-i', path.join(inst, 'audio.wav'));
+    if (sfx) args.push('-i', sfx);
+    if (hasAudio && sfx) args.push('-filter_complex', '[1:a][2:a]amix=inputs=2:normalize=0:duration=first[a]', '-map', '0:v', '-map', '[a]');
+    else if (hasAudio || sfx) args.push('-map', '0:v', '-map', '1:a');
+    if (hasAudio || sfx) args.push('-c:a', 'aac', '-b:a', '192k');
+    args.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p',
+      '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709',
+      '-frames:v', String(n), '-movflags', '+faststart', out);
+    const enc = spawn('ffmpeg', args, { stdio: ['pipe', 'ignore', 'inherit'] });
+    const done = once(enc, 'exit');
     for (let f = 0; f < n; f++) {
       await step(f / FPS);
       const jpg = await p.screenshot({ type: 'jpeg', quality: 92 });
       if (!enc.stdin.write(jpg)) await once(enc.stdin, 'drain');
       if (f % (FPS * 10) === 0) console.error(`渲染 ${(f / FPS).toFixed(0)}s / ${tl.duration}s`);
     }
+    enc.stdin.end();
+    if ((await done)[0] !== 0) fail('ffmpeg 编码失败');
   });
-  enc.stdin.end();
-  if ((await done)[0] !== 0) fail('ffmpeg 编码失败');
-  console.log(JSON.stringify({ video: out, frames: n, fps: FPS, duration: tl.duration, audio: hasAudio }));
+  console.log(JSON.stringify({ video: out, frames: n, fps: FPS, duration: tl.duration, audio: hasAudio, sfx: !!sfx }));
 }
 
 if (process.argv[1] && fs.realpathSync(process.argv[1]) === fs.realpathSync(fileURLToPath(import.meta.url))) {
@@ -225,6 +245,11 @@ if (process.argv[1] && fs.realpathSync(process.argv[1]) === fs.realpathSync(file
     if (fs.existsSync(b)) fail('输出已存在：' + b);
     await page(a, async (p, step) => { await step(Number(opt('--time') ?? 2)); await p.screenshot({ path: path.resolve(b) }); });
   } else if (cmd === 'render' && a && b) await render(a, path.resolve(b));
+  else if (cmd === 'sfx' && a && b) {
+    const tl = JSON.parse(fs.readFileSync(path.join(a, 'timeline.json'), 'utf8'));
+    await page(a, async p => { const w = await sfxTrack(a, p, tl.duration); if (!w) fail('本风格已关闭音效（style.json#sfx.enabled=false）'); fs.copyFileSync(w, path.resolve(b)); });
+    console.log(fs.readFileSync(path.join(a, 'sfx.json'), 'utf8'));
+  }
   else if (cmd === 'audit' && a) {
     // W7：按像素判定版面。每个镜头取入场结束后的一帧，量出每个文字元素的实际渲染框；任一违规 exit 1
     const tl = JSON.parse(fs.readFileSync(path.join(a, 'timeline.json'), 'utf8'));

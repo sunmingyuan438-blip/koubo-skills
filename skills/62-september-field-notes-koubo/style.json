@@ -91,12 +91,14 @@
   "bullet": "dash",
   "radius": 0.004,
   "underline": false,
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "settle",
   "ease": "inout",
-  "stagger": 0.24
+  "stagger": 0.24,
+  "cut": "fade"
  },
  "controls": [
   "opener",
@@ -117,5 +119,10 @@
   "accent": "#b8432d",
   "accentDark": "#ef5a3f",
   "y": -0.85
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "film",
+  "volume": 1
  }
 }

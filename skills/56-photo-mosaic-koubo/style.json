@@ -91,7 +91,8 @@
   "radius": 0.008,
   "underline": false,
   "counterStyle": "ring",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "pop",
@@ -113,5 +114,10 @@
   "paper": "#eef5ff",
   "accent": "#c4541a",
   "accentDark": "#ff9a52"
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "tech",
+  "volume": 1
  }
 }

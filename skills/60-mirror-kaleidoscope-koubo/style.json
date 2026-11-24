@@ -94,7 +94,8 @@
   "bullet": "dot",
   "radius": 0.03,
   "underline": false,
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "flip",
@@ -118,5 +119,10 @@
   "paper": "#f4f1ea",
   "accent": "#b53a26",
   "accentDark": "#ff8a5c"
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "soft",
+  "volume": 1
  }
 }

@@ -95,12 +95,14 @@
   "radius": 0,
   "underline": true,
   "stepsStyle": "tiles",
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "rise",
   "ease": "inout",
-  "stagger": 0.24
+  "stagger": 0.24,
+  "cut": "fade"
  },
  "controls": [
   "opener",
@@ -121,5 +123,10 @@
   "accentDark": "#9cc7ae",
   "x": 0.39,
   "maxLineWidth": 0.659
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "film",
+  "volume": 1
  }
 }

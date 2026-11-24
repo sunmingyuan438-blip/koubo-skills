@@ -91,7 +91,8 @@
   "bullet": "dot",
   "radius": 0.04,
   "underline": false,
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "marker"
  },
  "motion": {
   "in": "pop",
@@ -115,5 +116,10 @@
   "paper": "#f9e6da",
   "accent": "#a8601a",
   "accentDark": "#f0b25a"
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "soft",
+  "volume": 1
  }
 }

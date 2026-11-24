@@ -92,7 +92,8 @@
   "bullet": "dash",
   "radius": 0,
   "underline": false,
-  "barWidth": 0.005
+  "barWidth": 0.005,
+  "highlight": "underline"
  },
  "motion": {
   "in": "rise",
@@ -115,5 +116,10 @@
   "paper": "#f6efe6",
   "accent": "#b84a24",
   "accentDark": "#f3c58a"
+ },
+ "sfx": {
+  "enabled": true,
+  "kit": "poster",
+  "volume": 1
  }
 }

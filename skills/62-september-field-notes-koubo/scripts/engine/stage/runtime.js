@@ -10,6 +10,8 @@
   const span = (t, s, d) => clamp((t - s) / d);
   const out3 = p => 1 - Math.pow(1 - p, 3);
   const inout = p => (p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+  const back = p => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };   // 轻微过冲
+  let SFXP = null;   // 音效探针：sfxEvents() 采样时记录每次 show() 的元素与进度
   const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
   const hi = s => esc(s).replace(/\*([^*]+)\*/g, '<b>$1</b>');
   const pad2 = n => String(n).padStart(2, '0');
@@ -29,10 +31,11 @@
 
   // 字号基准
   // 竖屏在手机上按全宽观看：正文/标题/大字统一放大（仍受 fit() 按版心宽度约束）
-  const PS = PORTRAIT ? { body: 1.28, title: 1.15, hero: 1.25 } : { body: 1.1, title: 1.05, hero: 1.08 };
+  // v4：横屏正文 1.1→1.3、标题 1.05→1.12（原来列表只占左上一角，右下大片死空）；小标与 HUD 同步加大
+  const PS = PORTRAIT ? { body: 1.34, title: 1.18, hero: 1.25 } : { body: 1.3, title: 1.12, hero: 1.12 };
   const BS = R(TY.bodyPx ?? 0.03, MIN) * PS.body;   // 正文
-  const KS = Math.max(14, R(0.019, MIN));          // kicker
-  const HS = Math.max(13, R(0.0155, MIN));         // HUD / foot
+  const KS = Math.max(15, R(0.0215, MIN));          // kicker
+  const HS = Math.max(14, R(0.0175, MIN));         // HUD / foot
 
   // ---------- 主题感知配色 ----------
   const isDarkHex = c => {
@@ -46,6 +49,13 @@
   const lineOf = th => (th === 'dark' ? (TH.lineOnDark || 'rgba(255,255,255,.16)') : (TH.line || 'rgba(0,0,0,.14)'));
   const accOf = th => (th === 'dark' ? (TH.accentOnDark || TH.accent) : (TH.accentOnLight || TH.accent));
   const paperOf = th => (th === 'dark' ? 'rgba(255,255,255,.07)' : (isDarkHex(TH.paper) ? 'rgba(255,255,255,.88)' : (TH.paper || '#fbfbf6')));
+
+  // 强调色块上的文字色：按「当前主题的强调色」实算（原先一个 onAccent 管亮暗两套，暗字压深色块看不清）
+  const _lum = c => { const m = /^#([0-9a-f]{6})$/i.exec(String(c || '').trim()); if (!m) return 0.5; const n = parseInt(m[1], 16);
+    const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * f(n >> 16) + 0.7152 * f((n >> 8) & 255) + 0.0722 * f(n & 255); };
+  const _cr = (a, b) => { const x = _lum(a), y = _lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+  const onAcc = th => { const a = accOf(th); return _cr('#ffffff', a) >= 3 ? '#ffffff' : '#111111'; };
 
   // 文字宽度估计：CJK/全角 1em，其余 0.62em（mono 取 0.64）
   const units = (s, mono) => {
@@ -106,10 +116,20 @@
     if (!e) return;
     const k = ease(p);
     e.style.opacity = p <= 0 ? 0 : Math.min(1, k * 1.2);
+    e.style.setProperty('--hl', clamp((p - 0.62) / 0.38).toFixed(3));   // 关键词划线在元素落定后才画出
+    if (SFXP) SFXP.push({ e, p });
     const kind = MO.in || 'rise';
     const sx = dx || Math.abs(dy) * 1.6;
-    if (kind === 'flip') e.style.transform = `perspective(900px) rotateX(${(1 - k) * -22}deg) translateY(${(1 - k) * dy * .3}px)`;
-    else if (kind === 'pop') e.style.transform = `scale(${0.92 + 0.08 * k})`;
+    const fsz = parseFloat(e.style.fontSize) || 0;
+    if (e.classList.contains('title') && !dx && (MO.titleIn ?? 'mask') === 'mask' && kind !== 'flip' && kind !== 'wipe') {
+      // 标题从自身基线下方「顶」出来：位移 + 同步裁掉基线以下的部分（遮罩上浮）
+      const d = (1 - k) * Math.max(dy, fsz * 0.72);
+      e.style.opacity = p <= 0 ? 0 : 1;
+      e.style.transform = `translateY(${d.toFixed(2)}px)`;
+      e.style.clipPath = d > 0.05 ? `inset(-40% -12% ${d.toFixed(2)}px -12%)` : 'none';
+    }
+    else if (kind === 'flip') e.style.transform = `perspective(900px) rotateX(${(1 - k) * -22}deg) translateY(${(1 - k) * dy * .3}px)`;
+    else if (kind === 'pop') e.style.transform = `scale(${(0.86 + 0.14 * back(clamp(p))).toFixed(4)})`;
     else if (kind === 'wipe') { e.style.transform = `translateX(${(1 - k) * -sx}px)`; e.style.clipPath = `inset(0 ${((1 - k) * 100).toFixed(2)}% 0 0)`; }
     else if (kind === 'settle') e.style.transform = `translateY(${(1 - k) * dy}px) scale(${0.985 + 0.015 * k})`;
     else e.style.transform = `translate(${(1 - k) * dx}px, ${(1 - k) * dy}px)`;
@@ -364,37 +384,53 @@
   };
 
   // ---------- 背景 ----------
-  function background(root, theme) {
+  const DRIFT = new Set(['halftone', 'kaleido', 'mosaic', 'brush', 'papercut', 'clay', 'neon', 'riso', 'mindmap', 'iso', 'collage']);
+  const NOBAND = new Set(['canvasui', 'fieldnotes', 'frame', 'swiss', 'blueprint', 'ruler', 'gallery', 'scan']);
+  function background(root, theme, t = 0) {
     const dark = theme === 'dark';
     const bg = dark ? (TH.bgAlt || TH.bg) : TH.bg;
     const ink = inkOf(theme), line = lineOf(theme);
-    root.style.background = bg;
+    const box = el(root, 'abs bgbox', { left: '0', top: '0', width: '100%', height: '100%' });
+    box.style.background = bg;
     root.style.color = ink;
     const g = CH.grid;
     if (g === 'hairline') {
       const step = R(0.045, MIN);
-      root.style.backgroundImage =
+      box.style.backgroundImage =
         `linear-gradient(to right, ${line} 1px, transparent 1px),linear-gradient(to bottom, ${line} 1px, transparent 1px)`;
-      root.style.backgroundSize = `${step}px ${step}px`;
-      root.style.backgroundPosition = `${L % step}px 0`;
+      box.style.backgroundSize = `${step}px ${step}px`;
+      box.style.backgroundPosition = `${L % step}px 0`;
     } else if (g === 'dot') {
       const step = R(0.035, MIN);
-      root.style.backgroundImage = `radial-gradient(${line} 1.4px, transparent 1.6px)`;
-      root.style.backgroundSize = `${step}px ${step}px`;
+      box.style.backgroundImage = `radial-gradient(${line} 1.4px, transparent 1.6px)`;
+      box.style.backgroundSize = `${step}px ${step}px`;
     } else if (g === 'paper') {
-      root.style.backgroundImage = dark
+      box.style.backgroundImage = dark
         ? `repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px ${R(0.006, MIN)}px)`
         : `radial-gradient(120% 80% at 20% 0%, rgba(255,255,255,.5), transparent 60%),` +
           `repeating-linear-gradient(0deg, rgba(0,0,0,.028) 0 1px, transparent 1px ${R(0.006, MIN)}px)`;
     } else if (g === 'gradient') {
       const glow = dark ? (TH.bg2 || 'rgba(255,255,255,.07)') : (TH.tagBg || 'rgba(0,0,0,.04)');
-      root.style.backgroundImage = `radial-gradient(120% 70% at 50% 0%, ${glow} 0%, transparent 65%)`;
+      box.style.backgroundImage = `radial-gradient(120% 70% at 50% 0%, ${glow} 0%, transparent 65%)`;
     } else if (DECO[g]) {
-      root.style.backgroundImage = decoUrl(g, { theme, dark, bg, ink, acc: accOf(theme), d: (dark ? TH.decoOnDark : TH.deco) || TH.deco || [] });
-      root.style.backgroundSize = `${W}px ${H}px`;
-      root.style.backgroundRepeat = 'no-repeat';
+      box.style.backgroundImage = decoUrl(g, { theme, dark, bg, ink, acc: accOf(theme), d: (dark ? TH.decoOnDark : TH.deco) || TH.deco || [] });
+      box.style.backgroundSize = `${W}px ${H}px`;
+      box.style.backgroundRepeat = 'no-repeat';
+      if (DRIFT.has(g) && MO.drift !== false) {   // 有机底纹缓慢漂移（放大 4% 后小幅平移，不露边；只由 t 决定）
+        const a = t * 0.33;
+        box.style.backgroundSize = `${(W * 1.04).toFixed(1)}px ${(H * 1.04).toFixed(1)}px`;
+        box.style.backgroundPosition = `${(-W * 0.02 + Math.sin(a) * W * 0.006).toFixed(2)}px ${(-H * 0.02 + Math.cos(a * 0.8) * H * 0.006).toFixed(2)}px`;
+      }
+      if (CH.capBand !== false && !NOBAND.has(g)) {   // 字幕带净空：底纹在字幕后面淡出成底色，字幕不再被线条/网点穿过
+        const cap = S.caption || {}, cx = cap.x ?? .5;
+        const lw = (cap.maxLineWidth ?? (cx === .5 ? 0.73 : 2 * Math.min(cx - 0.06, 0.94 - cx))) * W;
+        const cyy = (1 - (cap.y ?? -0.79)) / 2 * H, hh = R(TY.captionPx ?? 0.048, MIN) * 4.6;
+        const clear = /^#[0-9a-f]{6}$/i.test(bg) ? bg + '00' : 'transparent';
+        el(box, 'abs capband', { left: px(cx * W - lw * 0.62), top: px(cyy - hh / 2), width: px(lw * 1.24), height: px(hh),
+          background: `radial-gradient(closest-side, ${bg} 58%, ${clear} 100%)` });
+      }
     }
-    return ink;
+    return box;
   }
 
   // ---------- HUD ----------
@@ -449,7 +485,7 @@
     if (st === 'tagged' || st === 'boxed') {
       css.background = theme === 'dark' ? 'rgba(255,255,255,.09)' : (TH.tagBg || 'rgba(0,0,0,.055)');
       css.padding = `${px(KS * 0.28)} ${px(KS * 0.6)}`;
-      if (st === 'boxed') { css.background = accOf(theme); css.color = TH.onAccent || '#fff'; }
+      if (st === 'boxed') { css.background = accOf(theme); css.color = onAcc(theme); }
     }
     return css;
   }
@@ -580,7 +616,7 @@
       if (PERSON.label) {
         el(frame, 'abs mono plabel', {
           left: '0', top: '0', width: '100%', height: px(Math.max(HS * 1.8, g.h * 0.061)),
-          background: acc, color: TH.onAccent || '#fff',
+          background: acc, color: onAcc(theme),
           fontSize: px(HS), letterSpacing: px(R(0.002, MIN)),
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }, esc(PERSON.label));
@@ -595,7 +631,7 @@
       if (st === 'glow') frame.style.boxShadow = `0 0 ${px(R(0.03, MIN))} ${acc}55`;
       el(root, 'abs mono plabel', {
         left: px(g.x + R(0.018, MIN)), top: px(g.y + R(0.018, MIN)), padding: `${px(HS * 0.3)} ${px(HS * 0.7)}`,
-        background: acc, color: TH.onAccent || '#fff', fontSize: px(HS), letterSpacing: px(R(0.002, MIN)), whiteSpace: 'nowrap',
+        background: acc, color: onAcc(theme), fontSize: px(HS), letterSpacing: px(R(0.002, MIN)), whiteSpace: 'nowrap',
       }, esc(PERSON.label || 'LIVE'));
     } else if (mode === 'small') {
       const ring = el(root, 'abs', { left: px(g.x), top: px(g.y), width: px(g.w), height: px(g.h), borderRadius: '50%', overflow: 'hidden',
@@ -727,7 +763,8 @@
       const x = L + i * (w + gap), y = top0 + i * drop;
       const c = el(root, 'abs', { left: px(x), top: px(y), width: px(w), height: px(h), background: last ? accOf(th) : solid,
         borderRadius: px(R(LK.radius ?? 0.006, MIN)), boxShadow: `0 ${px(R(0.01, MIN))} ${px(R(0.025, MIN))} rgba(0,0,0,${th === 'dark' ? .5 : .18})` });
-      const pad = w * 0.1, fg = last ? (TH.onAccent || '#fff') : '#f4f4f2';
+      if (last) c.classList.add('onacc');
+      const pad = w * 0.1, fg = last ? (onAcc(th)) : '#f4f4f2';
       el(c, 'abs mono', { left: px(pad), top: px(pad * 0.9), fontSize: px(Math.max(KS, w * 0.075)), color: fg, opacity: 0.75 }, pad2(i + 1));
       const fs = fit(Math.min(BS * 1.15, w * 0.17), w - pad * 2, units(it), 2);
       el(c, 'abs', { left: px(pad), top: px(pad * 0.9 + w * 0.13), width: px(w - pad * 2), fontSize: px(fs), fontWeight: 800, lineHeight: 1.25, color: fg }, hi(it));
@@ -1004,7 +1041,7 @@
     const row = el(root, 'abs', { left: px(L), top: px(top0), display: 'flex', gap: px(tsz * 0.6) });
     const solid = th === 'dark' ? '#1d1f24' : '#ffffff';
     const pills = tags.map((t, i) => el(row, '', { position: 'relative', padding: `${px(tsz * 0.45)} ${px(tsz * 1.0)}`, fontSize: px(tsz), fontWeight: 800,
-      background: i === tags.length - 1 ? accOf(th) : solid, color: i === tags.length - 1 ? (TH.onAccent || '#fff') : inkOf(th),
+      background: i === tags.length - 1 ? accOf(th) : solid, color: i === tags.length - 1 ? (onAcc(th)) : inkOf(th),
       borderRadius: px(R(0.006, MIN)), boxShadow: `0 ${px(R(0.006, MIN))} ${px(R(0.016, MIN))} rgba(0,0,0,${th === 'dark' ? .45 : .12})`, whiteSpace: 'nowrap' }, hi(t)));
     const by = top0 + tsz * 2.6 + R(0.04, MIN), bw = r - L;
     const lsz = fit(BS * 1.25, bw * 0.8, units(P.label || ''));
@@ -1012,7 +1049,8 @@
     const bh = lsz * 1.4 + msz * 1.6 + R(0.05, MIN);
     const ban = el(root, 'abs', { left: px(L), top: px(by), width: px(bw), height: px(bh), background: accOf(th), borderRadius: px(R(0.008, MIN)),
       boxShadow: `0 ${px(R(0.014, MIN))} ${px(R(0.04, MIN))} ${accOf(th)}55`, transformOrigin: '0 50%' });
-    const fg = TH.onAccent || '#fff';
+    ban.classList.add('onacc');
+    const fg = onAcc(th);
     const bl = el(ban, 'abs', { left: px(R(0.03, MIN)), top: px(R(0.022, MIN)), fontSize: px(lsz), fontWeight: 900, color: fg, lineHeight: 1.3 }, hi(P.label || ''));
     const bm = el(ban, 'abs', { left: px(R(0.03, MIN)), top: px(R(0.022, MIN) + lsz * 1.5), width: px(bw - R(0.06, MIN)), fontSize: px(msz), fontWeight: 700, color: fg, opacity: 0.95, lineHeight: 1.4 }, hi(P.line || ''));
     const F = foot(root, P, ctx);
@@ -1038,23 +1076,25 @@
     const cy = top + qsz * (P.q2 ? 2.24 : 1.12) + R(0.05, MIN);
     // 巨字与答案卡按可用宽度一起缩：巨字始终在卡片右侧，最多压住卡片 1/4
     const rw = inPersonArea(ctx.mode, cy, cy + R(0.22, MIN));
-    const wsz = fit(R(TY.heroPx ?? 0.1, MIN) * PS.hero * 1.15, (rw - L) * 0.5, units(P.word || ''));
+    // v4：巨字与答案卡并排、互不遮挡（原先巨字压住卡片右侧 1/4）
+    const wsz = fit(R(TY.heroPx ?? 0.1, MIN) * PS.hero * 1.15, (rw - L) * 0.42, units(P.word || ''));
     const wW = wsz * units(P.word || '');
-    const cw = Math.min((rw - L) * 0.74, (rw - L) - wW * 0.75), csz = BS;
+    const cw = (rw - L) - wW - R(0.035, MIN), csz = Math.min(BS, cw / 9);
     const card = el(root, 'abs', { left: px(L), top: px(cy), width: px(cw), padding: `${px(csz * 0.8)} ${px(csz * 1.0)}`, background: th === 'dark' ? '#1d1f24' : '#ffffff',
       borderRadius: px(R(0.006, MIN)), boxShadow: `0 ${px(R(0.01, MIN))} ${px(R(0.03, MIN))} rgba(0,0,0,${th === 'dark' ? .5 : .14})` });
     el(card, 'mono', { position: 'relative', fontSize: px(KS * 0.9), color: mutedOf(th), marginBottom: px(csz * 0.3) }, esc(P.label || '答案'));
-    el(card, '', { position: 'relative', fontSize: px(fit(csz * 1.15, cw - csz * 2 - wW * 0.3, units(P.line || ''))), fontWeight: 900, color: inkOf(th) }, hi(P.line || ''));
+    el(card, '', { position: 'relative', fontSize: px(fit(csz * 1.15, cw - csz * 2, units(P.line || ''))), fontWeight: 900, color: inkOf(th) }, hi(P.line || ''));
     if (P.sub) el(card, '', { position: 'relative', fontSize: px(KS), fontWeight: 700, color: accOf(th), marginTop: px(csz * 0.3) }, hi(P.sub));
     const word = el(root, 'abs title', { right: px(W - rw), top: px(cy + csz * 1.6), fontSize: px(wsz), fontWeight: 900, color: accOf(th), lineHeight: 1, whiteSpace: 'nowrap',
       textShadow: `0 ${px(R(0.008, MIN))} ${px(R(0.02, MIN))} rgba(0,0,0,${th === 'dark' ? .6 : .18})` }, hi(P.word || ''));
+    word.style.top = px(cy + (card.offsetHeight - wsz) / 2);   // 巨字与卡片垂直居中对齐
     const F = foot(root, P, ctx);
     return u => {
       show(q1, out3(span(u, 0, .3)), 24);
       show(q2, out3(span(u, .08, .3)), 24);
       show(card, out3(span(u, .25, .3)), 20);
       const k = out3(span(u, .45, .3));
-      word.style.opacity = Math.min(1, k * 1.5); word.style.transform = `scale(${1.25 - 0.25 * k})`; word.style.transformOrigin = '100% 50%';
+      word.style.opacity = Math.min(1, k * 1.5); word.style.transform = `scale(${(1.3 - 0.3 * back(clamp(span(u, .45, .34)))).toFixed(4)})`; word.style.transformOrigin = '100% 50%';
       F(u);
     };
   };
@@ -1221,7 +1261,7 @@
     root.querySelectorAll('.hud').forEach(h => { const b = h.getBoundingClientRect(); if (b.width > 0.5 && b.height > 0.5) obs.push({ l: b.left - sr.left, t: b.top - sr.top, r: b.right - sr.left, b: b.bottom - sr.top }); });
     obs = obs.filter(o => !rects.some(q => hit(q, o)));   // 原样就相交的（控件自己安排的贴靠）不算障碍
     const K = LY.composeY ?? 0.42;
-    const smax = Math.max(1, Math.min(LY.compose === 'center' ? 1 : (LY.composeMax ?? 1.22), (RT - B.l) / bw, room * 0.9 / bh));
+    const smax = Math.max(1, Math.min(LY.compose === 'center' ? 1 : (LY.composeMax ?? 1.3), (RT - B.l) / bw, room * 0.9 / bh));
     for (let s = smax; s >= 1 - 1e-6; s = s > 1 ? Math.max(1, s - 0.05) : 0) {
       const slack = room - bh * s;
       for (const ty of [slack * K, slack * K * 0.5, 0]) {
@@ -1238,6 +1278,8 @@
   // ---------- 装配 ----------
   // 入场时长：镜头的 72%，且不超过 2.4s（长镜头不再把入场拖满整镜）
   const ENTER_MAX = MO.enterMax ?? 2.4;
+  const CUT_D = 0.32;
+  const CUT = MO.cut ?? ({ wipe: 'wipe', pop: 'iris', flip: 'up', rise: 'up', settle: 'fade' })[MO.in || 'rise'] ?? 'up';
 
   window.renderAt = function (t) {
     const stage = $('stage');
@@ -1256,7 +1298,19 @@
     if (TY.bodyFamily) root.style.setProperty('--kb-body', `'${TY.bodyFamily}'`);
     if (TY.monoFamily) root.style.setProperty('--kb-mono', `'${TY.monoFamily}'`);
     root.style.fontFamily = "var(--kb-body, 'KB Sans'), 'KB Sans', sans-serif";
-    background(root, theme);
+    root.dataset.hl = LK.highlight || 'underline';
+    // 转场：亮暗切换的镜头，新底色在 0.32s 内按风格擦入（旧底留在下面）；同底色的镜头只换内容，不闪黑
+    const prev = idx > 0 ? shots[idx - 1] : null, pTheme = prev ? (prev.theme || S.theme.default || 'dark') : theme;
+    const cutK = clamp((t - sh.t0) / CUT_D);
+    if (prev && pTheme !== theme && cutK < 1 && CUT !== 'cut') background(root, pTheme, t);
+    const bgbox = background(root, theme, t);
+    if (prev && pTheme !== theme && cutK < 1 && CUT !== 'cut') {
+      const k = inout(cutK), q = ((1 - k) * 100).toFixed(2);
+      if (CUT === 'wipe') bgbox.style.clipPath = `inset(0 ${q}% 0 0)`;
+      else if (CUT === 'iris') bgbox.style.clipPath = `circle(${(k * 125).toFixed(2)}% at 50% 50%)`;
+      else if (CUT === 'fade') bgbox.style.opacity = k.toFixed(3);
+      else bgbox.style.clipPath = `inset(${q}% 0 0 0)`;
+    }
     personFrame(root, sh.presenter || 'none', theme);
     window.__shot = { control: sh.control, mode: sh.presenter || 'none' };
     SAFE = safeFor(sh.presenter || 'none');
@@ -1272,13 +1326,50 @@
     const content = el(root, 'abs content', { left: '0', top: '0', width: '100%', height: '100%' });
     const draw = ctrl(content, sh.props || {}, ctx);
     if (draw) {
+      const keep = SFXP; SFXP = null;
       if ((LY.compose ?? 'fill') !== 'off' && sh.control !== 'split') { draw(1); compose(content, root, sh.presenter || 'none'); }
+      SFXP = keep;
       draw(ue);
     }
-    // 收尾淡出（最后 0.18s）
-    if (dur - local < 0.18) root.style.opacity = clamp((dur - local) / 0.18);
+    // 退场：只有内容在最后 0.2s 淡出，底色与人物不动（原先整层淡出，每次切镜都闪一下黑）
+    if (idx < shots.length - 1 && dur - local < 0.2) content.style.opacity = clamp((dur - local) / 0.2).toFixed(3);
     void u;
   };
+  const baseRender = window.renderAt;
+  window.sfxEvents = function () {
+    const shots = D.shots || [], fps = D.fps || 30, out = [];
+    const heroPx = R(TY.heroPx ?? 0.098, MIN) * 0.9, titlePx = R(TY.titlePx ?? 0.07, MIN) * 0.9;
+    shots.forEach((sh, k) => {
+      const dur = sh.t1 - sh.t0, enter = Math.min(dur * 0.72, ENTER_MAX);
+      const th = sh.theme || S.theme.default, pth = k ? (shots[k - 1].theme || S.theme.default) : th;
+      out.push({ t: +sh.t0.toFixed(3), kind: k === 0 ? 'intro' : 'cut', flip: th !== pth });
+      const first = new Map(), meta = new Map();
+      for (let f = 1; f <= Math.ceil(enter * fps) + 2; f++) {
+        const t = sh.t0 + f / fps; if (t >= sh.t1 - 0.05) break;
+        SFXP = []; baseRender(t); const list = SFXP; SFXP = null;
+        list.forEach((x, i) => {
+          if (!meta.has(i)) { const e = x.e, c = e.classList;
+            const skip = c.contains('kicker') || c.contains('foot') || c.contains('hud') || c.contains('mark') || c.contains('plabel');
+            const fs = parseFloat(e.style.fontSize) || 0, boxed = c.contains('panel') || !!e.style.background || !!e.style.backgroundColor || !!e.style.boxShadow;
+            meta.set(i, skip ? null : (fs >= heroPx ? 'hit' : c.contains('title') ? null : boxed ? 'pop' : fs >= titlePx ? 'hit' : fs > 0 ? 'tick' : null)); }
+          if (meta.get(i) && !first.has(i) && x.p >= 0.3) first.set(i, t);
+        });
+      }
+      let ev = [...first.entries()].map(([i, t]) => ({ t, kind: meta.get(i) }));
+      const at = a => sh.t0 + enter * a;
+      if (sh.control === 'counter') ev = ev.filter(e => e.kind !== 'hit').concat([{ t: at(.12), kind: 'roll', d: +(enter * .5).toFixed(3) }, { t: at(.62), kind: 'hit' }]);
+      if (sh.control === 'reveal') ev.push({ t: at(.5), kind: 'hit' });
+      if (sh.control === 'banner') ev.push({ t: at(.2), kind: 'pop' });
+      ev.sort((a, b) => a.t - b.t);
+      let last = sh.t0 + (k === 0 ? 0.1 : 0.22), n = 0;   // 不和切镜声叠在一起；同一镜头里间隔不足 0.1s 的并成一个，最多 7 个
+      for (const e of ev) {
+        if (e.kind !== 'roll' && (e.t < last + 0.1 || n >= 7)) { if (e.kind === 'hit' && e.t >= last) { /* 重音不丢 */ } else continue; }
+        out.push({ ...e, t: +e.t.toFixed(3) }); if (e.kind !== 'roll') { last = e.t; n++; }
+      }
+    });
+    return out.sort((a, b) => a.t - b.t);
+  };
+
   // ---------- 全量预览（只在 --full 下生效）：人物画面 + 字幕 ----------
   function presenterLayer(root, mode, t) {
     if (!D.full || !D.presenterFrames || !D.presenterFrames.count) return;
@@ -1301,6 +1392,21 @@
     });
     root.appendChild(img);
   }
+  // 一行放不下、两行放得下时：在最靠近中点的标点后断行；没有合适标点就交给自动换行。*重点* 记号内部不拆
+  function capBreak(text, per) {
+    const plain = [...String(text).replace(/\*/g, '')];
+    if (plain.length <= per || plain.length > per * 2) return text;
+    const chars = [...String(text)]; let best = -1, bd = 1e9, n = 0, inB = false;
+    chars.forEach((ch, i) => {
+      if (ch === '*') { inB = !inB; return; }
+      n++;
+      const N = plain.length, ok = !inB && n < N && n <= per && N - n <= per;
+      // 标点处优先（短的一行不少于全句 35%）；没有合适标点就取最靠近中点的位置，避免末行只剩一两个字
+      const punct = /[，。？！、；：,.?!;:]/.test(ch) && Math.min(n, N - n) >= N * 0.35;
+      if (ok) { const dd = Math.abs(n - N / 2) + (punct ? 0 : 100); if (dd < bd && !/[，。？！、；：,.?!;:]/.test(chars[i + 1] || '')) { bd = dd; best = i; } }
+    });
+    return best < 0 ? text : chars.slice(0, best + 1).join('') + '\n' + chars.slice(best + 1).join('');
+  }
   function captionLayer(root, t, theme) {
     if (!D.full || !D.captions) return;
     const c = D.captions.find(x => t >= x.s && t < x.e);
@@ -1317,9 +1423,10 @@
       fontSize: px(size), fontWeight: 700, lineHeight: 1.35,
       color: dark ? (TH.captionOnDark || TH.inkAlt || '#fff') : (TH.captionOn || TH.ink),
       textShadow: dark ? '0 2px 10px rgba(0,0,0,.55)' : '0 2px 10px rgba(255,255,255,.6)',
-    }, hi(c.text));
+    }, hi(capBreak(c.text, Math.floor(lw / size))).replace(/\n/g, '<br>'));
     const p = clamp((t - c.s) / 0.16);
     box.style.opacity = p;
+    box.style.transform = `translateY(-50%) translateY(${((1 - out3(p)) * size * 0.25).toFixed(2)}px)`;
   }
 
   const _renderAt = window.renderAt;
