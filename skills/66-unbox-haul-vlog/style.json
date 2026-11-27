@@ -1,0 +1,211 @@
+{
+ "id": "unbox-haul",
+ "title": "开箱快闪",
+ "canvas": "portrait",
+ "fit": "cover",
+ "grade": {
+  "vf": "eq=brightness=0.025:contrast=1.02:saturation=1.04:gamma=1.05,colorbalance=bs=0.02:bh=0.02",
+  "hdr_vf": "eq=saturation=1.02:gamma=1.02"
+ },
+ "transition": {
+  "default": "cut",
+  "dur": 0.25
+ },
+ "pace": {
+  "auto": true,
+  "snap": 1,
+  "base": 1.5,
+  "pattern": [
+   1.0,
+   0.55,
+   1.5,
+   0.7,
+   2.0,
+   0.6
+  ],
+  "breath": 2.6,
+  "hook": 0.55,
+  "min": 0.45,
+  "max": 3.2,
+  "text_min": 0.9
+ },
+ "music_preset": "pop",
+ "audio": {
+  "clip": 0.9,
+  "music": 0.45,
+  "vo": 1.0,
+  "duck": true,
+  "lufs": -14
+ },
+ "clip_text": {
+  "caption": {
+   "needs": "text"
+  },
+  "tag": {
+   "needs": "no,name",
+   "anim": {
+    "kind": "pop",
+    "dur": 0.32
+   },
+   "delay": 0.2
+  }
+ },
+ "templates": {
+  "opener": {
+   "layers": [
+    {
+     "text": "{text}",
+     "font": "noto:Bold",
+     "size": 0.045,
+     "y": 0.5,
+     "color": "#ffffff",
+     "box": {
+      "color": "#a98ff0",
+      "alpha": 0.95,
+      "pad": [
+       0.6,
+       0.35
+      ],
+      "radius": 0.5,
+      "shadow": 0.08,
+      "shadow_color": "#5a3fb0"
+     }
+    },
+    {
+     "text": "{sub}",
+     "font": "noto:Medium",
+     "size": 0.028,
+     "y": 0.565,
+     "shadow": 0.6,
+     "when": "sub"
+    }
+   ],
+   "anim": {
+    "kind": "pop",
+    "dur": 0.35
+   }
+  },
+  "caption": [
+   {
+    "text": "{text}",
+    "font": "noto:Medium",
+    "size": 0.03,
+    "y": 0.79,
+    "color": "#ffffff",
+    "maxw": 0.8,
+    "box": {
+     "color": "#a98ff0",
+     "alpha": 0.9,
+     "pad": [
+      0.55,
+      0.3
+     ],
+     "radius": 0.5
+    }
+   }
+  ],
+  "tag": [
+   {
+    "shape": "rect",
+    "rect": [
+     0.07,
+     0.11,
+     0.46,
+     0.125
+    ],
+    "color": "#ffffff",
+    "alpha": 0.96,
+    "radius": 0.035
+   },
+   {
+    "shape": "circle",
+    "circle": [
+     0.145,
+     0.1725,
+     0.045
+    ],
+    "color": "#a98ff0"
+   },
+   {
+    "text": "{no}",
+    "font": "din",
+    "size": 0.058,
+    "x": 0.145,
+    "y": 0.175,
+    "color": "#ffffff"
+   },
+   {
+    "text": "{name}",
+    "font": "noto:Black",
+    "size": 0.05,
+    "x": 0.215,
+    "y": 0.152,
+    "anchor": "left",
+    "color": "#1f1a2e",
+    "maxw": 0.3,
+    "nowrap": true
+   },
+   {
+    "text": "{price}",
+    "font": "din",
+    "size": 0.045,
+    "x": 0.215,
+    "y": 0.2,
+    "anchor": "left",
+    "color": "#7a5ae0",
+    "when": "price"
+   }
+  ],
+  "end": {
+   "layers": [
+    {
+     "text": "{text}",
+     "font": "noto:Black",
+     "size": 0.05,
+     "y": 0.8,
+     "color": "#ffffff",
+     "box": {
+      "color": "#a98ff0",
+      "alpha": 0.95,
+      "pad": [
+       0.55,
+       0.32
+      ],
+      "radius": 0.5
+     }
+    },
+    {
+     "text": "{sub}",
+     "font": "noto:Medium",
+     "size": 0.03,
+     "y": 0.865,
+     "shadow": 0.7,
+     "when": "sub"
+    }
+   ],
+   "anim": {
+    "kind": "pop",
+    "dur": 0.35
+   }
+  }
+ },
+ "jianying": {
+  "filter": [
+   "清透感",
+   50
+  ],
+  "text": {
+   "font": "SourceHanSansCN_Medium",
+   "templates": {
+    "caption": {
+     "text": "{text}",
+     "size": 5.0,
+     "y": 0.79,
+     "bg": "#a98ff0",
+     "bg_alpha": 0.9,
+     "bg_round": 0.6
+    }
+   }
+  }
+ }
+}

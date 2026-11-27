@@ -8,3 +8,4 @@ __pycache__/
 *.mov
 *.mp4
 !**/assets/sample.mp4
+**/scripts/fonts/NotoSansSC.ttf

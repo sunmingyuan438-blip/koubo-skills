@@ -1,0 +1,133 @@
+{
+ "name": "样板_氛围mini片",
+ "badge_vals": {
+  "date": "2026.11 / CITY WALK"
+ },
+ "clips": [
+  {
+   "src": "素材/L01_coffee.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "word": "slow morning"
+  },
+  {
+   "src": "素材/L03_street.mp4",
+   "in": 0.3,
+   "out": 0.9
+  },
+  {
+   "src": "素材/L03_street.mp4",
+   "in": 1.6,
+   "out": 2.1
+  },
+  {
+   "src": "素材/L05_flowers.mp4",
+   "in": 0.3,
+   "out": 0.9
+  },
+  {
+   "src": "素材/L02_bookstore.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "inset": true,
+   "tilt": -2
+  },
+  {
+   "src": "素材/L06_bakery.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "word": "warm"
+  },
+  {
+   "src": "素材/L06_bakery.mp4",
+   "in": 1.6,
+   "out": 2.1
+  },
+  {
+   "src": "素材/L09_tram.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "inset": true,
+   "tilt": -2
+  },
+  {
+   "src": "素材/L04_metro_window.mp4",
+   "in": 0.3,
+   "out": 0.9
+  },
+  {
+   "src": "素材/L11_ice_cream.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "word": "sweet"
+  },
+  {
+   "src": "素材/L11_ice_cream.mp4",
+   "in": 1.6,
+   "out": 2.1
+  },
+  {
+   "src": "素材/L14_alley_bike.mp4",
+   "in": 0.3,
+   "out": 0.9
+  },
+  {
+   "src": "素材/L10_vinyl_shop.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "inset": true,
+   "tilt": -2
+  },
+  {
+   "src": "素材/L12_window_seat.mp4",
+   "in": 0.3,
+   "out": 0.9
+  },
+  {
+   "src": "素材/L12_window_seat.mp4",
+   "in": 1.6,
+   "out": 2.1
+  },
+  {
+   "src": "素材/L15_park_bench.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "word": "golden"
+  },
+  {
+   "src": "素材/L07_river_sunset.mp4",
+   "in": 0.3,
+   "out": 0.9
+  },
+  {
+   "src": "素材/L13_rooftop.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "inset": true,
+   "tilt": -2
+  },
+  {
+   "src": "素材/L13_rooftop.mp4",
+   "in": 1.6,
+   "out": 2.1
+  },
+  {
+   "src": "素材/L08_night_lights.mp4",
+   "in": 0.3,
+   "out": 0.9,
+   "word": "city lights"
+  },
+  {
+   "src": "素材/L16_neon_cafe.mp4",
+   "in": 0.3,
+   "out": 2.6
+  }
+ ],
+ "end": {
+  "text": "see you next weekend",
+  "dur": 1.6,
+  "tail": 0.1
+ },
+ "style": "../style.json",
+ "_说明": "样板剪辑单（assets/sample.mp4 就是它出的片，当时还没有自动节奏）。素材是 AI 生成的无人物空镜片段，不随包分发；用自己的素材时把 src 换成自己的路径，in/out 写可用区间即可。"
+}

@@ -1,0 +1,108 @@
+{
+ "name": "样板_开箱快闪",
+ "clips": [
+  {
+   "src": "素材/u03_lamp.mp4",
+   "in": 1.0,
+   "out": 1.55
+  },
+  {
+   "src": "素材/u04_mug.mp4",
+   "in": 1.0,
+   "out": 1.55
+  },
+  {
+   "src": "素材/u05_keyboard.mp4",
+   "in": 1.0,
+   "out": 1.55
+  },
+  {
+   "src": "素材/u06_speaker.mp4",
+   "in": 1.0,
+   "out": 1.55
+  },
+  {
+   "src": "素材/u01_box.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "text": "快递终于到了"
+  },
+  {
+   "src": "素材/u02_open.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "text": "拆开看看"
+  },
+  {
+   "src": "素材/u03_lamp.mp4",
+   "in": 2.0,
+   "out": 4.6,
+   "no": 1,
+   "name": "极简台灯",
+   "price": "¥129",
+   "text": "三档色温 晚上看书不刺眼"
+  },
+  {
+   "src": "素材/u04_mug.mp4",
+   "in": 2.0,
+   "out": 4.4,
+   "no": 2,
+   "name": "奶油马克杯",
+   "price": "¥39",
+   "text": "手感很厚实 颜色超温柔"
+  },
+  {
+   "src": "素材/u05_keyboard.mp4",
+   "in": 2.0,
+   "out": 4.6,
+   "no": 3,
+   "name": "复古键盘",
+   "price": "¥259",
+   "text": "米白配浅绿 打字声很脆"
+  },
+  {
+   "src": "素材/u06_speaker.mp4",
+   "in": 2.0,
+   "out": 4.4,
+   "no": 4,
+   "name": "小音箱",
+   "price": "¥99",
+   "text": "放书架上刚刚好"
+  },
+  {
+   "src": "素材/u07_desk_before.mp4",
+   "in": 0.4,
+   "out": 2.2,
+   "text": "原来的桌面……"
+  },
+  {
+   "src": "素材/u08_desk_after.mp4",
+   "in": 0.4,
+   "out": 2.6,
+   "text": "换完之后",
+   "transition": "white",
+   "transition_dur": 0.2
+  },
+  {
+   "src": "素材/u09_flatlay.mp4",
+   "in": 0.4,
+   "out": 3.6
+  }
+ ],
+ "overlays": [
+  {
+   "template": "opener",
+   "text": "桌面好物开箱",
+   "sub": "这次只买了 4 件",
+   "at": 0.05,
+   "dur": 2.15
+  }
+ ],
+ "end": {
+  "text": "本期 4 件 · 共 ¥526",
+  "sub": "你最想要哪一件？",
+  "dur": 2.6
+ },
+ "style": "../style.json",
+ "_说明": "样板剪辑单（assets/sample.mp4 就是它出的片，当时还没有自动节奏）。素材是 AI 生成的无人物空镜片段，不随包分发；用自己的素材时把 src 换成自己的路径，in/out 写可用区间即可。"
+}
