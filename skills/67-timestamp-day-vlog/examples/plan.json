@@ -1,0 +1,109 @@
+{
+ "name": "样板_一天时间线",
+ "badge_vals": {
+  "date": "2026.11.26"
+ },
+ "clips": [
+  {
+   "src": "素材/w08_window_dusk.mp4",
+   "in": 1.0,
+   "out": 1.6
+  },
+  {
+   "src": "素材/w05_coffee.mp4",
+   "in": 1.0,
+   "out": 1.6
+  },
+  {
+   "src": "素材/w02_subway.mp4",
+   "in": 1.0,
+   "out": 1.6
+  },
+  {
+   "src": "素材/w09_night_desk.mp4",
+   "in": 1.0,
+   "out": 1.6
+  },
+  {
+   "src": "素材/w01_alarm.mp4",
+   "in": 0.5,
+   "out": 2.6,
+   "stamp": "07:30",
+   "text": "闹钟响到第三遍才起"
+  },
+  {
+   "src": "素材/w02_subway.mp4",
+   "in": 2.0,
+   "out": 4.2,
+   "stamp": "08:15",
+   "text": "赶在早高峰前挤上地铁"
+  },
+  {
+   "src": "素材/w03_crosswalk.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "stamp": "08:52",
+   "text": "离打卡还有八分钟"
+  },
+  {
+   "src": "素材/w04_office.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "stamp": "09:00",
+   "text": "开工"
+  },
+  {
+   "src": "素材/w05_coffee.mp4",
+   "in": 2.0,
+   "out": 4.0,
+   "stamp": "10:30",
+   "text": "续命的第一杯"
+  },
+  {
+   "src": "素材/w07_lunch.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "stamp": "12:10",
+   "text": "自己带的便当"
+  },
+  {
+   "src": "素材/w06_notes.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "stamp": "15:00",
+   "text": "下午的会记了满满一页"
+  },
+  {
+   "src": "素材/w08_window_dusk.mp4",
+   "in": 2.0,
+   "out": 4.2,
+   "stamp": "18:40",
+   "text": "今天准点下班"
+  },
+  {
+   "src": "素材/w10_checklist.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "stamp": "21:30",
+   "text": "清单划掉了四件"
+  },
+  {
+   "src": "素材/w09_night_desk.mp4",
+   "in": 2.0,
+   "out": 4.6,
+   "stamp": "23:00",
+   "text": "下个 vlog 见"
+  }
+ ],
+ "overlays": [
+  {
+   "template": "opener",
+   "text": "24H",
+   "sub": "打工人的一天",
+   "at": 0.1,
+   "dur": 2.2
+  }
+ ],
+ "style": "../style.json",
+ "_说明": "样板剪辑单（assets/sample.mp4 就是它出的片，当时还没有自动节奏）。素材是 AI 生成的无人物空镜片段，不随包分发；用自己的素材时把 src 换成自己的路径，in/out 写可用区间即可。"
+}

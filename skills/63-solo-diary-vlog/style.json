@@ -1,0 +1,97 @@
+{
+ "id": "solo-diary",
+ "title": "独居日记",
+ "canvas": "portrait",
+ "fit": "cover",
+ "grade": {
+  "vf": "eq=contrast=0.92:saturation=0.82:gamma=1.03,colorbalance=rs=0.03:gs=0.01:bs=-0.03:rh=0.02:bh=-0.02,curves=all='0/0.04 1/0.96'",
+  "hdr_vf": "eq=contrast=0.96:saturation=0.88",
+  "grain": 4
+ },
+ "transition": {
+  "default": "cut",
+  "dur": 0.3
+ },
+ "pace": {
+  "auto": true,
+  "snap": 1,
+  "base": 1.75,
+  "pattern": [
+   1.0,
+   0.55,
+   1.35,
+   0.6,
+   0.5,
+   1.9,
+   0.9,
+   0.55
+  ],
+  "breath": 3.0,
+  "hook": 1.0,
+  "min": 0.45,
+  "max": 3.4,
+  "text_min": 0.75
+ },
+ "music_preset": "lofi",
+ "audio": {
+  "clip": 0.25,
+  "music": 0.8,
+  "lufs": -15
+ },
+ "text_fade": 0.15,
+ "clip_text": {
+  "stamp_caption": {
+   "needs": "stamp,text"
+  },
+  "caption": {
+   "needs": "text",
+   "unless": "stamp"
+  }
+ },
+ "templates": {
+  "caption": [
+   {
+    "text": "{text}",
+    "font": "noto:Medium",
+    "size": 0.032,
+    "y": 0.53,
+    "shadow": 0.55,
+    "maxw": 0.8
+   }
+  ],
+  "stamp_caption": [
+   {
+    "text": "{stamp}\n{text}",
+    "font": "noto:Medium",
+    "size": 0.032,
+    "y": 0.52,
+    "lh": 1.35,
+    "shadow": 0.55,
+    "maxw": 0.8
+   }
+  ]
+ },
+ "jianying": {
+  "filter": [
+   "日系奶油",
+   45
+  ],
+  "text": {
+   "font": "SourceHanSansCN_Medium",
+   "templates": {
+    "caption": {
+     "text": "{text}",
+     "size": 5.33,
+     "y": 0.53,
+     "shadow": 0.6
+    },
+    "stamp_caption": {
+     "text": "{stamp}\n{text}",
+     "size": 5.33,
+     "y": 0.52,
+     "shadow": 0.6
+    }
+   }
+  }
+ }
+}

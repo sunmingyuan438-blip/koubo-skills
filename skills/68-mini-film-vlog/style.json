@@ -1,0 +1,125 @@
+{
+ "id": "mini-film",
+ "title": "氛围 mini 片",
+ "canvas": "landscape",
+ "fit": "cover",
+ "grade": {
+  "vf": "eq=contrast=1.04:saturation=0.9:gamma=1.02,colorbalance=rs=0.03:bs=-0.02:rh=0.03:bm=0.02,curves=all='0/0.05 0.5/0.5 1/0.95'",
+  "hdr_vf": "eq=contrast=1.02:saturation=0.92",
+  "grain": 9,
+  "vignette": "PI/5"
+ },
+ "transition": {
+  "default": "cut",
+  "dur": 0.2
+ },
+ "pace": {
+  "auto": true,
+  "snap": 0.5,
+  "base": 0.5,
+  "pattern": [
+   1.0,
+   1.0,
+   0.5,
+   1.0,
+   1.5,
+   0.5,
+   1.0,
+   2.0
+  ],
+  "breath": 1.5,
+  "hook": 0.5,
+  "min": 0.24,
+  "max": 2.0,
+  "split_max": 2
+ },
+ "music_preset": "bright",
+ "audio": {
+  "clip": 0.0,
+  "music": 1.0,
+  "lufs": -14
+ },
+ "fade_out": 0.6,
+ "fade_in": 0.15,
+ "inset": {
+  "scale": 0.66,
+  "border": 0.012,
+  "bg": "#efe9df",
+  "border_color": "#ffffff"
+ },
+ "persistent": [
+  {
+   "id": "badge",
+   "template": "badge",
+   "from": 0,
+   "tail": 0
+  }
+ ],
+ "clip_text": {
+  "word": {
+   "needs": "word",
+   "anim": {
+    "kind": "rise",
+    "dur": 0.25
+   }
+  }
+ },
+ "templates": {
+  "badge": [
+   {
+    "text": "MINI VLOG.",
+    "font": "didot",
+    "size": 0.022,
+    "x": 0.05,
+    "y": 0.075,
+    "anchor": "left",
+    "tracking": 0.12,
+    "shadow": 0.45
+   },
+   {
+    "text": "— {date} —",
+    "font": "baskerville",
+    "size": 0.012,
+    "y": 0.94,
+    "tracking": 0.2,
+    "shadow": 0.45,
+    "when": "date"
+   }
+  ],
+  "word": [
+   {
+    "text": "{word}",
+    "font": "didot-italic",
+    "font_fallback": "songti",
+    "size": 0.03,
+    "x": 0.95,
+    "y": 0.86,
+    "anchor": "right",
+    "shadow": 0.5
+   }
+  ],
+  "end": {
+   "layers": [
+    {
+     "text": "{text}",
+     "font": "didot-italic",
+     "font_fallback": "songti",
+     "size": 0.05,
+     "y": 0.5,
+     "shadow": 0.5
+    }
+   ],
+   "fade": 0.3
+  }
+ },
+ "jianying": {
+  "filter": [
+   "胶片电影",
+   50
+  ],
+  "text": {
+   "font": "SourceHanSerifCN_Regular",
+   "templates": {}
+  }
+ }
+}

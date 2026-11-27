@@ -1,8 +1,8 @@
-# 口播剪辑 Skill 合集（62 套）
+# 口播 + Vlog 剪辑 Skill 合集（68 套）
 
 把真人口播包装成不同视觉风格的短视频：每个 skill 自带渲染引擎、字体与控件，产出**可编辑的剪映草稿**（动效层、人物、口播、字幕分轨），也可直接导出 MP4。适用于 Claude Code / Codex 等支持 `SKILL.md` 的宿主。
 
-下面每张动图都是该 skill 用同一段 19.3 秒样板口播真跑出来的（点图看完整视频）。样板里的主播是程序绘制的无五官人形、声音是合成配音，不含任何真人。
+下面每张动图都是该 skill 真跑出来的样板（点图看完整视频）。口播类（01–62）用同一段 19.3 秒样板口播，主播是程序绘制的无五官人形、声音是合成配音；Vlog 类（63–68）的画面是 AI 生成的无人物空镜、配乐和环境声为程序合成、旁白为公共合成音色。所有样板都不含任何真人。
 
 ## 分类目录
 
@@ -15,12 +15,12 @@
 | **产品宣传**（8） | 产品发布、品牌故事、功能演示 | [品牌故事](#产品宣传-品牌故事)（2） · [发布演示](#产品宣传-发布演示)（2） · [教程拆解](#产品宣传-教程拆解)（2） · [趣味创意](#产品宣传-趣味创意)（2） |
 | **知识讲解**（12） | 动效讲解，把一个知识点拆成几步讲清楚 | [手写板书](#知识讲解-手写板书)（2） · [数据几何](#知识讲解-数据几何)（3） · [结构图解](#知识讲解-结构图解)（3） · [质感场景](#知识讲解-质感场景)（4） |
 | **视觉艺术**（8） | 照片与人像的情绪片、标题片 | [人像](#视觉艺术-人像)（2） · [照片叙事](#视觉艺术-照片叙事)（2） · [画面特效](#视觉艺术-画面特效)（3） · [动态海报](#视觉艺术-动态海报)（1） |
-| **生活 Vlog**（1） | 旅行、日常记录 | [旅行手记](#生活-Vlog-旅行手记)（1） |
+| **生活 Vlog**（7） | 旅行、日常记录；63–68 直接剪 iPhone 原始素材（按抖音高赞 vlog 的剪法调研） | [旅行手记](#生活-Vlog-旅行手记)（1） · [素材剪辑](#生活-Vlog-素材剪辑)（6） |
 
 按画幅找：
 
-- **竖屏**（20）：[08 纸面观点](skills/08-paper-perspective-portrait-koubo) · [03 现代编辑](skills/03-modern-editorial-koubo) · [10 控制台](skills/10-tech-console-portrait-koubo) · [04 动态技术](skills/04-kinetic-tech-koubo) · [09 深空多维舞台](skills/09-dark-dimensional-stage-koubo) · [05 鲜活海报](skills/05-vibrant-poster-koubo) · [06 鲜活角色](skills/06-vivid-characters-koubo) · [61 自由画布](skills/61-creator-canvas-koubo) · [21 关系](skills/21-industry-relationships-koubo) · [25 吃喝](skills/25-industry-food-koubo) · [26 护肤](skills/26-industry-skincare-koubo) · [27 购物](skills/27-industry-shopping-koubo) · [22 工作](skills/22-industry-work-koubo) · [28 教培](skills/28-industry-education-koubo) · [29 健康](skills/29-industry-health-koubo) · [30 法律](skills/30-industry-law-koubo) · [31 金融](skills/31-industry-finance-koubo) · [23 科技](skills/23-industry-tech-koubo) · [24 汽车](skills/24-industry-cars-koubo) · [32 房产](skills/32-industry-realestate-koubo)
-- **横屏**（38）：[01 纸面观点](skills/01-paper-perspective-koubo) · [14 手绘卡通](skills/14-hand-drawn-cartoon-koubo) · [07 现代编辑](skills/07-modern-editorial-wide-koubo) · [02 控制台](skills/02-tech-console-koubo) · [13 深空多维舞台](skills/13-dark-dimensional-stage-wide-koubo) · [11 鲜活海报](skills/11-vibrant-poster-wide-koubo) · [12 鲜活角色](skills/12-vivid-characters-wide-koubo) · [15 卡牌桌](skills/15-card-table-shuffle-koubo) · [20 角色剧场](skills/20-character-theater-koubo) · [33 屏幕拼贴](skills/33-screen-collage-koubo) · [34 长卷](skills/34-paper-scroll-koubo) · [35 明暗切](skills/35-light-dark-cuts-koubo) · [39 发布会舞台](skills/39-keynote-stage-koubo) · [37 流程演示](skills/37-workflow-demo-koubo) · [38 工程蓝图](skills/38-engineering-blueprint-koubo) · [36 像素闯关](skills/36-pixel-platformer-koubo) · [40 模块拼贴](skills/40-modular-collage-koubo) · [41 点阵笔记](skills/41-dot-grid-notes-koubo) · [42 黑板](skills/42-chalkboard-koubo) · [43 瑞士网格](skills/43-swiss-grid-koubo) · [44 色块几何](skills/44-color-geometry-koubo) · [48 双色孔版](skills/48-two-color-risograph-koubo) · [46 生长导图](skills/46-growing-mind-map-koubo) · [49 等距系统](skills/49-isometric-systems-koubo) · [51 地铁线网](skills/51-metro-network-koubo) · [45 发光灯板](skills/45-glowing-lightboard-koubo) · [47 博物馆年表](skills/47-museum-timeline-koubo) · [50 叠层剪纸](skills/50-layered-papercut-koubo) · [52 黏土实验室](skills/52-clay-lab-koubo) · [53 半调网点](skills/53-halftone-dots-koubo) · [57 双重曝光](skills/57-double-exposure-koubo) · [55 空间画廊](skills/55-spatial-gallery-koubo) · [56 照片马赛克](skills/56-photo-mosaic-koubo) · [58 笔触重绘](skills/58-brush-repainting-koubo) · [59 信号故障](skills/59-signal-glitch-koubo) · [60 镜像万花筒](skills/60-mirror-kaleidoscope-koubo) · [54 几何拼贴](skills/54-geometric-collage-koubo) · [62 九月](skills/62-september-field-notes-koubo)
+- **竖屏**（25）：[08 纸面观点](skills/08-paper-perspective-portrait-koubo) · [03 现代编辑](skills/03-modern-editorial-koubo) · [10 控制台](skills/10-tech-console-portrait-koubo) · [04 动态技术](skills/04-kinetic-tech-koubo) · [09 深空多维舞台](skills/09-dark-dimensional-stage-koubo) · [05 鲜活海报](skills/05-vibrant-poster-koubo) · [06 鲜活角色](skills/06-vivid-characters-koubo) · [61 自由画布](skills/61-creator-canvas-koubo) · [21 关系](skills/21-industry-relationships-koubo) · [25 吃喝](skills/25-industry-food-koubo) · [26 护肤](skills/26-industry-skincare-koubo) · [27 购物](skills/27-industry-shopping-koubo) · [22 工作](skills/22-industry-work-koubo) · [28 教培](skills/28-industry-education-koubo) · [29 健康](skills/29-industry-health-koubo) · [30 法律](skills/30-industry-law-koubo) · [31 金融](skills/31-industry-finance-koubo) · [23 科技](skills/23-industry-tech-koubo) · [24 汽车](skills/24-industry-cars-koubo) · [32 房产](skills/32-industry-realestate-koubo) · [63 独居日记](skills/63-solo-diary-vlog) · [64 一口一镜](skills/64-food-bite-vlog) · [65 旅行大字](skills/65-travel-poster-vlog) · [66 开箱快闪](skills/66-unbox-haul-vlog) · [67 一天时间线](skills/67-timestamp-day-vlog)
+- **横屏**（39）：[01 纸面观点](skills/01-paper-perspective-koubo) · [14 手绘卡通](skills/14-hand-drawn-cartoon-koubo) · [07 现代编辑](skills/07-modern-editorial-wide-koubo) · [02 控制台](skills/02-tech-console-koubo) · [13 深空多维舞台](skills/13-dark-dimensional-stage-wide-koubo) · [11 鲜活海报](skills/11-vibrant-poster-wide-koubo) · [12 鲜活角色](skills/12-vivid-characters-wide-koubo) · [15 卡牌桌](skills/15-card-table-shuffle-koubo) · [20 角色剧场](skills/20-character-theater-koubo) · [33 屏幕拼贴](skills/33-screen-collage-koubo) · [34 长卷](skills/34-paper-scroll-koubo) · [35 明暗切](skills/35-light-dark-cuts-koubo) · [39 发布会舞台](skills/39-keynote-stage-koubo) · [37 流程演示](skills/37-workflow-demo-koubo) · [38 工程蓝图](skills/38-engineering-blueprint-koubo) · [36 像素闯关](skills/36-pixel-platformer-koubo) · [40 模块拼贴](skills/40-modular-collage-koubo) · [41 点阵笔记](skills/41-dot-grid-notes-koubo) · [42 黑板](skills/42-chalkboard-koubo) · [43 瑞士网格](skills/43-swiss-grid-koubo) · [44 色块几何](skills/44-color-geometry-koubo) · [48 双色孔版](skills/48-two-color-risograph-koubo) · [46 生长导图](skills/46-growing-mind-map-koubo) · [49 等距系统](skills/49-isometric-systems-koubo) · [51 地铁线网](skills/51-metro-network-koubo) · [45 发光灯板](skills/45-glowing-lightboard-koubo) · [47 博物馆年表](skills/47-museum-timeline-koubo) · [50 叠层剪纸](skills/50-layered-papercut-koubo) · [52 黏土实验室](skills/52-clay-lab-koubo) · [53 半调网点](skills/53-halftone-dots-koubo) · [57 双重曝光](skills/57-double-exposure-koubo) · [55 空间画廊](skills/55-spatial-gallery-koubo) · [56 照片马赛克](skills/56-photo-mosaic-koubo) · [58 笔触重绘](skills/58-brush-repainting-koubo) · [59 信号故障](skills/59-signal-glitch-koubo) · [60 镜像万花筒](skills/60-mirror-kaleidoscope-koubo) · [54 几何拼贴](skills/54-geometric-collage-koubo) · [62 九月](skills/62-september-field-notes-koubo) · [68 氛围 mini 片](skills/68-mini-film-vlog)
 - **4:3 / 3:4**（4）：[17 越界](skills/17-beyond-the-frame-koubo) · [16 取景器](skills/16-camera-mode-koubo) · [18 桌面](skills/18-mac-desktop-koubo) · [19 新闻台](skills/19-news-desk-koubo)
 
 ## 口播讲解
@@ -270,6 +270,18 @@
 <tr><td align="center" valign="top" width="33%"><a href="skills/62-september-field-notes-koubo/assets/sample.mp4"><img src="skills/62-september-field-notes-koubo/assets/sample.gif" width="260"></a><br><b>62 · 九月 · 旅行手记</b><br><sub>1920×1080 · 暗底 · <a href="skills/62-september-field-notes-koubo">skill</a> · <a href="skills/62-september-field-notes-koubo/assets/sample.mp4">▶ 视频</a></sub></td></tr>
 </table>
 
+
+<a id="生活-Vlog-素材剪辑"></a>
+
+### 生活 Vlog · 素材剪辑
+
+直接剪 iPhone 原始素材：输入一组视频（可带口播或旁白），输出不降画质的成片（4K60 HLG 素材就出 4K60 HLG）或可编辑的剪映草稿。剪法来自抖音高赞 vlog 调研（78 条搜索、20 条逐镜头拆解，出处见各 skill 的 `references/调研出处.md`），自动节奏：长短交替、剪在动作上、避开说话、长素材拆跳切、全部卡拍。
+
+<table>
+<tr><td align="center" valign="top" width="33%"><a href="skills/63-solo-diary-vlog/assets/sample.mp4"><img src="skills/63-solo-diary-vlog/assets/sample.gif" width="150"></a><br><b>63 · 独居日记 · 日常 · 独居记录</b><br><sub>1080×1920 · 跟素材同规格出片 · <a href="skills/63-solo-diary-vlog">skill</a> · <a href="skills/63-solo-diary-vlog/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/64-food-bite-vlog/assets/sample.mp4"><img src="skills/64-food-bite-vlog/assets/sample.gif" width="150"></a><br><b>64 · 一口一镜 · 美食 · 探店</b><br><sub>1080×1920 · 跟素材同规格出片 · <a href="skills/64-food-bite-vlog">skill</a> · <a href="skills/64-food-bite-vlog/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/65-travel-poster-vlog/assets/sample.mp4"><img src="skills/65-travel-poster-vlog/assets/sample.gif" width="150"></a><br><b>65 · 旅行大字 · 旅行 · 城市漫游</b><br><sub>1080×1920 · 跟素材同规格出片 · <a href="skills/65-travel-poster-vlog">skill</a> · <a href="skills/65-travel-poster-vlog/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+<tr><td align="center" valign="top" width="33%"><a href="skills/66-unbox-haul-vlog/assets/sample.mp4"><img src="skills/66-unbox-haul-vlog/assets/sample.gif" width="150"></a><br><b>66 · 开箱快闪 · 开箱 · 好物</b><br><sub>1080×1920 · 跟素材同规格出片 · <a href="skills/66-unbox-haul-vlog">skill</a> · <a href="skills/66-unbox-haul-vlog/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/67-timestamp-day-vlog/assets/sample.mp4"><img src="skills/67-timestamp-day-vlog/assets/sample.gif" width="150"></a><br><b>67 · 一天时间线 · 上班 · 学习</b><br><sub>1080×1920 · 跟素材同规格出片 · <a href="skills/67-timestamp-day-vlog">skill</a> · <a href="skills/67-timestamp-day-vlog/assets/sample.mp4">▶ 视频</a></sub></td><td align="center" valign="top" width="33%"><a href="skills/68-mini-film-vlog/assets/sample.mp4"><img src="skills/68-mini-film-vlog/assets/sample.gif" width="260"></a><br><b>68 · 氛围 mini 片 · 氛围感 · mini vlog</b><br><sub>1920×1080 · 跟素材同规格出片 · <a href="skills/68-mini-film-vlog">skill</a> · <a href="skills/68-mini-film-vlog/assets/sample.mp4">▶ 视频</a></sub></td></tr>
+</table>
+
 ## 安装（每个 skill 独立）
 
 ```sh
@@ -282,6 +294,8 @@ cd ../.. && node scripts/setup_light.mjs
 
 需要：macOS（人物适配用 Vision 人脸检测）、Node 18+、Python 3.10+、ffmpeg。
 
+**Vlog 类（63–68）** 不需要 Node：装 `pip install pillow numpy scipy pymediainfo`，补字体 `python3 scripts/setup_fonts.py`（同一份 Noto Sans SC，固定提交下载并校验 sha256）。旁白合成可选 Fish Audio 公共音色（环境变量 `FISH_AUDIO_API_KEY`）。
+
 ## 工作流（每个 skill 的 SKILL.md 有详细说明）
 
 1. 转写口播并人工核对字幕 → `cues.json`
@@ -290,12 +304,15 @@ cd ../.. && node scripts/setup_light.mjs
 4. `node scripts/engine/render.mjs build …` → `audit`（像素级版面审计：越界/压字/压人物/字号过小即报错）→ `render`
 5. `python3 scripts/build_jianying_draft.py draft.json <新草稿目录>` → 登记进剪映（先退出剪映）
 
+**Vlog 类（63–68）工作流**：`scan.py 素材目录` 盘点 → 写剪辑单 `plan.json`（每段给可用区间和字幕）→ `vlog_engine.py plan.json --preview` 看节奏 → `--export --draft` 出成片和剪映草稿 → `sync_draft.py` 登记进剪映。
+
 ## 许可与来源
 
 - 字体：Noto Sans SC、Geist Mono、站酷快乐体、Anton，均为 SIL OFL 1.1（许可文本在各 skill 的 `scripts/engine/stage/fonts/`）。
 - `scripts/vendor/pyJianYingDraft`：Apache License 2.0（见 `scripts/vendor/LICENSE-pyJianYingDraft`）。
 - 各风格的结构、比例、配色、节奏参考了公开的口播模板样片；本仓库**不包含**任何样片画面、人物、音乐、文案或品牌标识，渲染引擎与控件为原创实现。
 - 示例口播文案为测试用段子，仅用于演示排版。
+- Vlog 类的剪法参考公开的抖音高赞 vlog（只学结构与节奏，不含任何样片画面、音乐或文案）；样板画面由 AI 生成（无人物）、配乐为程序合成，仅用于演示。
 
 ## 已知限制
 

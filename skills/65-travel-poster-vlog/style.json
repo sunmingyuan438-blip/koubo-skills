@@ -1,0 +1,212 @@
+{
+ "id": "travel-poster",
+ "title": "旅行大字",
+ "canvas": "portrait",
+ "fit": "cover",
+ "grade": {
+  "vf": "eq=contrast=1.08:saturation=1.12:gamma=0.99,colorbalance=rs=-0.04:gs=-0.01:bs=0.05:rh=0.05:gh=0.01:bh=-0.05",
+  "hdr_vf": "eq=contrast=1.04:saturation=1.06,colorbalance=rh=0.03:bh=-0.03",
+  "vignette": "PI/6"
+ },
+ "transition": {
+  "default": "cut",
+  "dur": 0.25
+ },
+ "pace": {
+  "auto": true,
+  "snap": 1,
+  "base": 1.3,
+  "pattern": [
+   1.0,
+   0.6,
+   1.4,
+   0.6,
+   0.6,
+   2.0,
+   0.8
+  ],
+  "breath": 2.6,
+  "hook": 1.3,
+  "min": 0.4,
+  "max": 3.2,
+  "text_min": 0.9
+ },
+ "music_preset": "cinematic",
+ "audio": {
+  "clip": 0.15,
+  "music": 0.85,
+  "vo": 1.0,
+  "duck": true,
+  "lufs": -14
+ },
+ "voice": "温柔叙事女声",
+ "clip_text": {
+  "caption_en": {
+   "needs": "text,en",
+   "anim": {
+    "kind": "rise",
+    "dur": 0.3
+   }
+  },
+  "caption": {
+   "needs": "text",
+   "unless": "en",
+   "anim": {
+    "kind": "rise",
+    "dur": 0.3
+   }
+  },
+  "kw": {
+   "needs": "hl",
+   "anim": {
+    "kind": "pop",
+    "dur": 0.28
+   }
+  }
+ },
+ "templates": {
+  "place": {
+   "layers": [
+    {
+     "shape": "rect",
+     "rect": [
+      0.07,
+      0.205,
+      0.012,
+      0.19
+     ],
+     "color": "#ff6a2b"
+    },
+    {
+     "text": "{text}",
+     "font": "songti-black",
+     "size": 0.17,
+     "x": 0.11,
+     "y": 0.2,
+     "anchor": "topleft",
+     "nowrap": true,
+     "shadow": 0.6
+    },
+    {
+     "text": "{en}",
+     "font": "didot-italic",
+     "size": 0.055,
+     "x": 0.11,
+     "y": 0.325,
+     "anchor": "topleft",
+     "color": "#ffb36b",
+     "shadow": 0.5,
+     "when": "en"
+    },
+    {
+     "text": "{sub}",
+     "font": "din",
+     "size": 0.03,
+     "x": 0.11,
+     "y": 0.37,
+     "anchor": "topleft",
+     "tracking": 0.15,
+     "shadow": 0.5,
+     "when": "sub"
+    }
+   ],
+   "fade": 0.25,
+   "anim": {
+    "kind": "rise",
+    "dur": 0.45
+   }
+  },
+  "caption": [
+   {
+    "text": "{text}",
+    "font": "songti-bold",
+    "size": 0.046,
+    "y": 0.7,
+    "shadow": 0.75,
+    "maxw": 0.84
+   }
+  ],
+  "caption_en": [
+   {
+    "text": "{text}",
+    "font": "songti-bold",
+    "size": 0.046,
+    "y": 0.7,
+    "shadow": 0.75,
+    "maxw": 0.84
+   },
+   {
+    "text": "{en}",
+    "font": "baskerville-italic",
+    "size": 0.028,
+    "y": 0.738,
+    "shadow": 0.7,
+    "color": "#f4efe6",
+    "maxw": 0.84
+   }
+  ],
+  "kw": [
+   {
+    "text": "{hl}",
+    "font": "songti-black",
+    "size": 0.075,
+    "y": 0.635,
+    "color": "#1d140c",
+    "box": {
+     "color": "#ffb02e",
+     "alpha": 1,
+     "pad": [
+      0.28,
+      0.12
+     ]
+    }
+   }
+  ],
+  "end": {
+   "layers": [
+    {
+     "text": "{text}",
+     "font": "songti-black",
+     "size": 0.1,
+     "y": 0.42,
+     "shadow": 0.7
+    },
+    {
+     "text": "{en}",
+     "font": "didot-italic",
+     "size": 0.04,
+     "y": 0.49,
+     "color": "#ffb36b",
+     "shadow": 0.6,
+     "when": "en"
+    }
+   ],
+   "fade": 0.4
+  }
+ },
+ "jianying": {
+  "filter": [
+   "青橙",
+   55
+  ],
+  "text": {
+   "font": "SourceHanSerifCN_Bold",
+   "templates": {
+    "caption": {
+     "text": "{text}",
+     "size": 7.67,
+     "y": 0.7,
+     "shadow": 0.7,
+     "intro": "向上滑动"
+    },
+    "caption_en": {
+     "text": "{text}\n{en}",
+     "size": 6.67,
+     "y": 0.715,
+     "shadow": 0.7,
+     "intro": "向上滑动"
+    }
+   }
+  }
+ }
+}

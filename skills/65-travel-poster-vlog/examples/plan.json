@@ -1,0 +1,104 @@
+{
+ "name": "样板_旅行大字",
+ "clips": [
+  {
+   "src": "素材/t03_sea_dawn.mp4",
+   "in": 0.3,
+   "out": 3.6
+  },
+  {
+   "src": "素材/t01_train.mp4",
+   "in": 0.4,
+   "out": 1.8,
+   "text": "坐了三个小时的高铁",
+   "en": "Three hours on the train"
+  },
+  {
+   "src": "素材/t02_oldstreet.mp4",
+   "in": 0.4,
+   "out": 1.8,
+   "text": "老街还没睡醒",
+   "en": "The old street is still asleep"
+  },
+  {
+   "src": "素材/t07_alley_cat.mp4",
+   "in": 0.4,
+   "out": 1.8,
+   "hl": "猫比人多",
+   "text": "在这里",
+   "en": "More cats than people here"
+  },
+  {
+   "src": "素材/t05_market.mp4",
+   "in": 0.4,
+   "out": 1.8,
+   "text": "早市的海鲜还在冒泡",
+   "en": "The morning market"
+  },
+  {
+   "src": "素材/t06_cafe.mp4",
+   "in": 0.4,
+   "out": 2.4,
+   "text": "找个看得见海的位置",
+   "en": "A seat facing the sea"
+  },
+  {
+   "src": "素材/t04_lighthouse.mp4",
+   "in": 0.3,
+   "out": 1.8,
+   "hl": "风很大",
+   "text": "灯塔底下",
+   "en": "Windy by the lighthouse",
+   "transition": "white",
+   "transition_dur": 0.25
+  },
+  {
+   "src": "素材/t10_ferry.mp4",
+   "in": 0.4,
+   "out": 1.8,
+   "text": "坐轮渡去对面的小岛",
+   "en": "Ferry to the island"
+  },
+  {
+   "src": "素材/t08_beach_sunset.mp4",
+   "in": 0.4,
+   "out": 2.6,
+   "text": "然后，等一场日落",
+   "en": "Then, wait for the sunset"
+  },
+  {
+   "src": "素材/t09_harbor_night.mp4",
+   "in": 0.4,
+   "out": 3.6
+  }
+ ],
+ "title": {
+  "template": "place",
+  "text": "海边小城",
+  "en": "Seaside Town",
+  "sub": "DAY 1 · 2026.11",
+  "at": 0.25,
+  "dur": 3.0
+ },
+ "end": {
+  "text": "下一站 见",
+  "en": "See you at the next stop",
+  "dur": 2.4
+ },
+ "vo": [
+  {
+   "clip": 0,
+   "offset": 0.8,
+   "text": "这次想慢一点，把一座小城走完。",
+   "no_caption": true
+  },
+  {
+   "clip": 5,
+   "offset": 0.3,
+   "text": "找个看得见海的位置，坐一下午。",
+   "no_caption": true
+  }
+ ],
+ "style": "../style.json",
+ "_说明": "样板剪辑单（assets/sample.mp4 就是它出的片，当时还没有自动节奏）。素材是 AI 生成的无人物空镜片段，不随包分发；用自己的素材时把 src 换成自己的路径，in/out 写可用区间即可。"
+}

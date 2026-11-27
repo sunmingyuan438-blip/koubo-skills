@@ -1,0 +1,161 @@
+{
+ "id": "food-bite",
+ "title": "一口一镜",
+ "canvas": "portrait",
+ "fit": "cover",
+ "grade": {
+  "vf": "eq=saturation=1.18:contrast=1.05:gamma=0.98,colorbalance=rm=0.04:bm=-0.04:rh=0.03:bh=-0.02,unsharp=5:5:0.35",
+  "hdr_vf": "eq=saturation=1.1:contrast=1.03"
+ },
+ "transition": {
+  "default": "cut",
+  "dur": 0.3
+ },
+ "pace": {
+  "auto": true,
+  "snap": 1,
+  "base": 1.4,
+  "pattern": [
+   1.0,
+   0.5,
+   1.2,
+   0.55,
+   0.5,
+   1.7,
+   0.8
+  ],
+  "breath": 2.4,
+  "hook": 1.1,
+  "min": 0.4,
+  "max": 3.0,
+  "text_min": 0.8
+ },
+ "music_preset": "pop",
+ "audio": {
+  "clip": 1.0,
+  "music": 0.28,
+  "vo": 1.0,
+  "duck": true,
+  "lufs": -14
+ },
+ "voice": "活力女声",
+ "vo_caption": {
+  "max": 13,
+  "template": "caption"
+ },
+ "clip_text": {
+  "tag": {
+   "needs": "tag",
+   "anim": {
+    "kind": "rise",
+    "dur": 0.25
+   }
+  },
+  "price": {
+   "needs": "price",
+   "anim": {
+    "kind": "pop",
+    "dur": 0.3
+   }
+  }
+ },
+ "templates": {
+  "hook": {
+   "layers": [
+    {
+     "text": "{text}",
+     "font": "noto:Black",
+     "size": 0.062,
+     "y": 0.3,
+     "shadow": 0.8,
+     "maxw": 0.82,
+     "lh": 1.25
+    },
+    {
+     "text": "{sub}",
+     "font": "noto:Medium",
+     "size": 0.032,
+     "y": 0.4,
+     "shadow": 0.7,
+     "when": "sub"
+    }
+   ],
+   "fade": 0.2
+  },
+  "caption": [
+   {
+    "text": "{text}",
+    "font": "noto:Bold",
+    "size": 0.04,
+    "y": 0.75,
+    "stroke": 0.09,
+    "stroke_color": "#2b1a10",
+    "maxw": 0.86
+   }
+  ],
+  "tag": [
+   {
+    "text": "{tag}",
+    "font": "noto:Medium",
+    "size": 0.03,
+    "y": 0.84,
+    "maxw": 0.8,
+    "box": {
+     "color": "#000000",
+     "alpha": 0.82,
+     "pad": [
+      0.35,
+      0.25
+     ],
+     "per_line": true
+    }
+   }
+  ],
+  "price": [
+   {
+    "text": "{price}",
+    "font": "din",
+    "font_fallback": "noto:Black",
+    "size": 0.07,
+    "x": 0.9,
+    "y": 0.13,
+    "anchor": "topright",
+    "color": "#1a1208",
+    "box": {
+     "color": "#ffcf3f",
+     "alpha": 1,
+     "pad": [
+      0.3,
+      0.12
+     ],
+     "radius": 0.2
+    }
+   }
+  ]
+ },
+ "jianying": {
+  "filter": [
+   "美食增色",
+   60
+  ],
+  "text": {
+   "font": "SourceHanSansCN_Bold",
+   "templates": {
+    "caption": {
+     "text": "{text}",
+     "size": 6.67,
+     "y": 0.75,
+     "border": 30,
+     "bold": true
+    },
+    "tag": {
+     "text": "{tag}",
+     "size": 5.0,
+     "y": 0.84,
+     "bg": "#000000",
+     "bg_alpha": 0.82
+    }
+   }
+  }
+ }
+}
